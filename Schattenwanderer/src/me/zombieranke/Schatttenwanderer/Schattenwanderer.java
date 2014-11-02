@@ -5,6 +5,9 @@ import org.newdawn.slick.geom.Circle;
 
 
 public class Schattenwanderer extends BasicGame {
+	
+	private Watch w;
+	
 
 	public Schattenwanderer(){
 		super("Schattenwanderer");
@@ -18,19 +21,25 @@ public class Schattenwanderer extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
+		w = new Watch(100,100, new Image("res/watch_placeholder.png"),0);
 		
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		g.fill(new Circle(100,100,10));
+		g.setColor(Color.pink);
+		g.fillRect(0, 0, container.getWidth(), container.getHeight());
+		w.render(g);
 		
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		// TODO Auto-generated method stub
+		Input input = container.getInput();
+		
+		if(input.isKeyPressed(Input.KEY_ESCAPE)){
+			container.exit();
+		}
 		
 	}
 

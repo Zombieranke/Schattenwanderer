@@ -18,7 +18,7 @@
 	<classpathentry kind="lib" path="lib/natives-mac.jar"/>
 	<classpathentry kind="lib" path="lib/natives-windows.jar"/>
 	<classpathentry kind="lib" path="lib/slick-examples.jar"/>
-	<classpathentry kind="lib" path="lib/slick.jar"/>
+	<classpathentry kind="lib" path="lib/slick.jar" sourcepath="libsrc/slick"/>
 	<classpathentry kind="lib" path="lib/tinylinepp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
