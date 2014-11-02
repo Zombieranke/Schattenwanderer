@@ -1,4 +1,0 @@
-Schattenwanderer
-================
-
-FH Projekt
