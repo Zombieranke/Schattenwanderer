@@ -1,8 +1,6 @@
 package me.zombieranke.Schatttenwanderer;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Circle;
-
 
 public class Schattenwanderer extends BasicGame {
 	
@@ -36,6 +34,7 @@ public class Schattenwanderer extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		Input input = container.getInput();
+		w.update(delta);
 		
 		if(input.isKeyPressed(Input.KEY_ESCAPE)){
 			container.exit();

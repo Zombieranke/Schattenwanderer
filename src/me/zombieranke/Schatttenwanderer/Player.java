@@ -13,5 +13,4 @@ public class Player extends GameObject {
 	public void render(Graphics g){
 		img.drawCentered(x,y);
 	}
-
 }

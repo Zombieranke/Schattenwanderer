@@ -3,13 +3,11 @@ package me.zombieranke.Schatttenwanderer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Shape;
 
 public class Watch extends GameObject{
 	
 	protected int direction;
+	protected int radius = 100;
 
 	public Watch(int x, int y, Image img, int direction) {
 		super(x, y, img);
@@ -18,9 +16,14 @@ public class Watch extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		Shape seek = new Circle(x,y,20);
-		g.fill(seek);
+		g.setColor(Color.yellow);
+		g.fillArc(x-radius, y-radius, radius*2, radius*2, direction, direction+40);
 		img.drawCentered(x, y);
+	}
+	
+	@Override
+	public void update(int delta){
+		
 	}
 
 	public int getDirection() {
@@ -29,6 +32,14 @@ public class Watch extends GameObject{
 
 	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 	
 	
