@@ -11,6 +11,7 @@ public abstract class GameObject {
 	protected int x;
 	protected int y;
 	protected Image img;
+	protected boolean solid = false;
 	
 	public GameObject(int x, int y, Image img){
 		this.x = x;
