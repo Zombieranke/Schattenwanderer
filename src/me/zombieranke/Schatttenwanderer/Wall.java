@@ -6,19 +6,23 @@ import org.newdawn.slick.geom.Shape;
 public class Wall extends SolidObject
 {	
 		
-	public Wall(int x, int y, Image img, Shape collisionArea){
+	public Wall(int x, int y, Image img, Shape collisionArea)
+	{
 		super(x,y,img,collisionArea);
 	}
 	
-	public Wall(int x, int y, Shape collisionArea){
+	public Wall(int x, int y, Shape collisionArea)
+	{
 		super(x,y,collisionArea);
 	}
 	
-	public Wall(int x, int y, Image img, int colX, int colY){
+	public Wall(int x, int y, Image img, int colX, int colY)
+	{
 		super(x,y,img,colX,colY);
 	}
 	
-	public Wall(int x, int y, int colX, int colY){
+	public Wall(int x, int y, int colX, int colY)
+	{
 		super(x,y,colX,colY);
 	}
 	

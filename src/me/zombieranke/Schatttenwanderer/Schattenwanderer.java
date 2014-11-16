@@ -3,27 +3,33 @@ package me.zombieranke.Schatttenwanderer;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Schattenwanderer extends StateBasedGame {
+public class Schattenwanderer extends StateBasedGame
+{
 		
 
-	public Schattenwanderer(){
+	public Schattenwanderer()
+	{
 		super("Schattenwanderer");
 	}
 
-	public static void main(String[] args){
-		try{
+	public static void main(String[] args)
+	{
+		try
+		{
 		AppGameContainer container = new AppGameContainer(new Schattenwanderer());
 		container.setDisplayMode(1280, 1024, false);
 		container.start();
 		}
-		catch(SlickException e){
+		catch(SlickException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
 
 	@Override
-	public void initStatesList(GameContainer container) throws SlickException {
+	public void initStatesList(GameContainer container) throws SlickException
+	{
 		addState(new GameMenu());
 		addState(new Level());
 		addState(new ShapeTests());

@@ -1,7 +1,5 @@
 package me.zombieranke.Schatttenwanderer;
 
-
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,7 +9,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Level extends BasicGameState {
+public class Level extends BasicGameState
+{
 	
 	private int ID = 2;
 	private Wall wall;
@@ -90,8 +89,8 @@ public class Level extends BasicGameState {
 	}
 
 	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
+	public int getID()
+	{
 		return ID;
 	}
 

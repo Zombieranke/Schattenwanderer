@@ -5,7 +5,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject {
+public abstract class GameObject
+{
 	
 	public abstract void render(Graphics g);
 	public void update(int delta){}
@@ -16,39 +17,45 @@ public abstract class GameObject {
 	protected boolean solid = false;	//für später, damit die Collisiondetections funktionieren
 	protected Shape collisionArea = new Rectangle(0,0,1,1);
 	
-	public GameObject(int x, int y, Image img, Shape collisionArea){
+	public GameObject(int x, int y, Image img, Shape collisionArea)
+	{
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		this.collisionArea = collisionArea;
 	}
 	
-	public GameObject(int x, int y, Shape collisionArea){
+	public GameObject(int x, int y, Shape collisionArea)
+	{
 		this.x = x;
 		this.y = y;
 		this.collisionArea = collisionArea;
 	}
 	
-	public GameObject(int x, int y, Image img, int colX, int colY){
+	public GameObject(int x, int y, Image img, int colX, int colY)
+	{
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		collisionArea = new Rectangle(x,y,colX,colY);
 	}
 	
-	public GameObject(int x, int y, int colX, int colY){
+	public GameObject(int x, int y, int colX, int colY)
+	{
 		this.x = x;
 		this.y = y;
 		collisionArea = new Rectangle(x,y,colX,colY);
 	}
 	
-	public GameObject(int x, int y, Image img){
+	public GameObject(int x, int y, Image img)
+	{
 		this.x = x;
 		this.y = y;
 		this.img = img;
 	}
 	
-	public GameObject(int x, int y){
+	public GameObject(int x, int y)
+	{
 		this.x = x;
 		this.y = y;
 	}
@@ -59,31 +66,39 @@ public abstract class GameObject {
 		return collisionArea.intersects(other.getCollisionArea());
 	}
 	
-	public int getX() {
+	public int getX()
+	{
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(int x)
+	{
 		this.x = x;
 	}
 
-	public int getY() {
+	public int getY()
+	{
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(int y)
+	{
 		this.y = y;
 	}
-	public boolean isSolid() {
+	public boolean isSolid()
+	{
 		return solid;
 	}
-	public void setSolid(boolean solid) {
+	public void setSolid(boolean solid)
+	{
 		this.solid = solid;
 	}
-	public Shape getCollisionArea() {
+	public Shape getCollisionArea()
+	{
 		return collisionArea;
 	}
-	public void setCollisionArea(Shape collisionArea) {
+	public void setCollisionArea(Shape collisionArea)
+	{
 		this.collisionArea = collisionArea;
 	}
 }

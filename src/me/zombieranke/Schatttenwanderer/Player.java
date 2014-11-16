@@ -5,20 +5,24 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Player extends GameObject {
+public class Player extends GameObject
+{
 	/*Basic Implementation. Needs a lot of work. */
 	
-	public Player(int x, int y, Image img){
+	public Player(int x, int y, Image img)
+	{
 		super(x, y, img);
 		collisionArea = new Rectangle(x,y,10,10);
 	}
 	
-	public Player(int x, int y){
+	public Player(int x, int y)
+	{
 		super(x, y);
 		collisionArea = new Rectangle(x,y,10,10);
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics g)
+	{
 		//img.drawCentered(x,y);
 		g.setColor(Color.red);
 		g.fillRect(x,y,10,10);
