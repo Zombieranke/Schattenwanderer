@@ -3,49 +3,87 @@ package me.zombieranke.Schatttenwanderer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Shape;
 
 public class Watch extends GameObject
 {
 	
-	protected int direction;
-	protected int radius = 100;
+	protected float direction = 0;
+	protected float radius = 100;
+	private float angle = 60;
+	private Shape sight;
+	private Wall wall;
 
-	public Watch(int x, int y, Image img, int direction)
+	public Watch(int x, int y, Image img, Shape collisionArea, Wall wall)
 	{
-		super(x, y, img);
-		this.direction = direction;
+		super(x,y,img,collisionArea);
+		this.wall = wall;
+	}
+	
+	public Watch(int x, int y, Shape collisionArea, Wall wall)
+	{
+		super(x,y,collisionArea);
+		this.wall = wall;
+	}
+	
+	public Watch(int x, int y, Image img, int colX, int colY, Wall wall)
+	{
+		super(x,y,img,colX,colY);
+		this.wall = wall;
+	}
+	
+	public Watch(int x, int y, int colX, int colY, Wall wall)
+	{
+		super(x,y,colX,colY);
+		this.wall = wall;
+	}
+	
+	public Watch(int x,int y, Wall wall)
+	{
+		super(x,y);
+		this.wall = wall;
+	}
+	
+	public Watch(int x,int y,Image img, Wall wall)
+	{
+		super(x,y,img);
+		this.wall = wall;
 	}
 
 	@Override
 	public void render(Graphics g)
 	{
-		g.setColor(Color.yellow);
-		g.fillArc(x-radius, y-radius, radius*2, radius*2, direction, direction+40);
+		Color boxCol = new Color(Color.red);
+		boxCol.a = 0.5f;
+		g.setColor(boxCol);
+		g.fill(sight);
 		img.drawCentered(x, y);
 	}
 	
 	@Override
 	public void update(int delta)
 	{
-		
+		sight = new WatchSightArea(x,y,radius, direction, angle, wall);
+		collisionArea.setX(x);
+		collisionArea.setY(y);
 	}
 
-	public int getDirection()
+	public float getDirection()
 	{
 		return direction;
 	}
 
-	public void setDirection(int direction)
+	public void setDirection(float direction)
 	{
 		this.direction = direction;
 	}
 
-	public int getRadius()
+	public float getRadius()
 	{
 		return radius;
 	}
 
-	public void setRadius(int radius)
+	public void setRadius(float radius)
 	{
 		this.radius = radius;
 	}

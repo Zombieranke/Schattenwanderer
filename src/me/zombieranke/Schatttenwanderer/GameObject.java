@@ -19,38 +19,29 @@ public abstract class GameObject
 	
 	public GameObject(int x, int y, Image img, Shape collisionArea)
 	{
-		this.x = x;
-		this.y = y;
-		this.img = img;
+		this(x, y, img);
 		this.collisionArea = collisionArea;
 	}
 	
 	public GameObject(int x, int y, Shape collisionArea)
 	{
-		this.x = x;
-		this.y = y;
+		this(x, y);
 		this.collisionArea = collisionArea;
 	}
 	
 	public GameObject(int x, int y, Image img, int colX, int colY)
 	{
-		this.x = x;
-		this.y = y;
-		this.img = img;
-		collisionArea = new Rectangle(x,y,colX,colY);
+		this(x, y, img, new Rectangle(x,y,colX,colY));
 	}
 	
 	public GameObject(int x, int y, int colX, int colY)
 	{
-		this.x = x;
-		this.y = y;
-		collisionArea = new Rectangle(x,y,colX,colY);
+		this(x, y, new Rectangle(x,y,colX,colY));
 	}
 	
 	public GameObject(int x, int y, Image img)
 	{
-		this.x = x;
-		this.y = y;
+		this(x, y);
 		this.img = img;
 	}
 	

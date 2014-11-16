@@ -15,12 +15,14 @@ public class Level extends BasicGameState
 	private int ID = 2;
 	private Wall wall;
 	private Player p;
+	private Watch w;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		wall = new Wall(120,200, new Image("res/Wall_Type_1.jpg"),32,32);
 		p = new Player (100,200);
+		w = new Watch(300,300,new Image("res/Watch_Placeholder.png"),5,5, wall);
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class Level extends BasicGameState
 		g.drawString("Press 1 to enter Menu", 100, 115);
 		wall.render(g);
 		p.render(g);
+		w.render(g);
 		
 		
 	}
@@ -40,15 +43,18 @@ public class Level extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
+		w.update(delta);
 		Input input = container.getInput();
 		if(input.isKeyPressed(Input.KEY_1))
 		{
 			game.enterState(1);
 		}
+		
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
 			container.exit();
 		}
+		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 		    p.setX(p.getX()-2);
@@ -58,6 +64,7 @@ public class Level extends BasicGameState
 		    	p.setX(p.getX()+2);
 		    }
 		}
+		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
 	        p.setX(p.getX()+2);
@@ -67,6 +74,7 @@ public class Level extends BasicGameState
 		    	p.setX(p.getX()-2);
 		    }
 		}
+		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
 			p.setY(p.getY()-2);
@@ -76,6 +84,7 @@ public class Level extends BasicGameState
 		    	p.setY(p.getY()+2);
 		    }
 		}
+		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
 		    p.setY(p.getY()+2);
@@ -85,6 +94,58 @@ public class Level extends BasicGameState
 		    	p.setY(p.getY()-2);
 		    	//System.out.println("Collisions detected");
 		    }
+		}
+		
+		
+	    //Debug Watch Movement
+		if(input.isKeyDown(Input.KEY_A))
+		{
+		    w.setX(w.getX()-2);
+			w.update(delta);
+		    if(w.checkCollision(wall))
+		    {
+		    	w.setX(w.getX()+2);
+		    }
+		}
+		
+		if(input.isKeyDown(Input.KEY_D))
+		{
+	        w.setX(w.getX()+2);
+			w.update(delta);
+	        if(w.checkCollision(wall))
+		    {
+		    	w.setX(w.getX()-2);
+		    }
+		}
+		
+		if(input.isKeyDown(Input.KEY_W))
+		{
+			w.setY(w.getY()-2);
+			w.update(delta);
+			if(w.checkCollision(wall))
+		    {
+		    	w.setY(w.getY()+2);
+		    }
+		}
+		
+		if(input.isKeyDown(Input.KEY_S))
+		{
+		    w.setY(w.getY()+2);
+			w.update(delta);
+		    if(w.checkCollision(wall))
+		    {
+		    	w.setY(w.getY()-2);
+		    } 
+		}
+		
+		if(input.isKeyDown(Input.KEY_Q))
+		{
+			w.setDirection(w.getDirection()+1);
+		}
+		
+		if(input.isKeyDown(Input.KEY_E))
+		{
+			w.setDirection(w.getDirection()-1);
 		}
 	}
 
