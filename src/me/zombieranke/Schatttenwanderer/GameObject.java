@@ -61,7 +61,8 @@ public abstract class GameObject
 	{
 		boolean a = collisionArea.intersects(other);
 		boolean b = collisionArea.contains(other);
-		return a||b;
+		boolean c = other.contains(collisionArea);
+		return a||b||c;
 	}
 	
 	

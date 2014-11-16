@@ -38,4 +38,5 @@ public class Player extends GameObject
 		collisionArea.setY(y);
 	}
 	
+	
 }
