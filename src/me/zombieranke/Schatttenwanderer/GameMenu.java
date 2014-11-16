@@ -46,10 +46,6 @@ public class GameMenu extends BasicGameState
 		{
 			game.enterState(2);
 		}
-		if(input.isKeyPressed(Input.KEY_3))
-		{
-			game.enterState(3);
-		}
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
 			container.exit();
