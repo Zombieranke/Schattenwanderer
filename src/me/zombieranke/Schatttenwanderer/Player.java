@@ -4,12 +4,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 public class Player extends GameObject {
 	/*Basic Implementation. Needs a lot of work. */
-	
-	private Shape collisionArea;
 	
 	public Player(int x, int y, Image img){
 		super(x, y, img);
@@ -21,20 +18,20 @@ public class Player extends GameObject {
 		collisionArea = new Rectangle(x,y,10,10);
 	}
 	
-	public boolean checkCollision(GameObject other)
-	{
-		return collisionArea.contains(other.getX(),other.getY());
-	}
-	
 	public void render(Graphics g){
 		//img.drawCentered(x,y);
 		g.setColor(Color.red);
 		g.fillRect(x,y,10,10);
+		/*Color boxCol = new Color(Color.black);
+		boxCol.a = 0.5f;
+		g.setColor(boxCol);
+		g.fill(collisionArea);*/
 	}
 	
 	public void update(int delta)
 	{
-		collisionArea = new Rectangle(x,y,10,10);
+		collisionArea.setX(x);
+		collisionArea.setY(y);
 	}
 	
 }

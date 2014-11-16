@@ -41,6 +41,9 @@ public class GameMenu extends BasicGameState {
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && NewGame.IsMouseOver()){
 			game.enterState(2);
 		}
+		if(input.isKeyPressed(Input.KEY_3)){
+			game.enterState(3);
+		}
 		if(input.isKeyPressed(Input.KEY_ESCAPE)){
 			container.exit();
 		}

@@ -20,7 +20,7 @@ public class Level extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		wall = new Wall(120,200);
+		wall = new Wall(120,200, new Image("res/Wall_Type_1.jpg"),32,32);
 		p = new Player (100,200);
 	}
 
@@ -42,7 +42,6 @@ public class Level extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
 		Input input = container.getInput();
-		p.update(delta);
 		if(input.isKeyPressed(Input.KEY_1))
 		{
 			game.enterState(1);
@@ -51,36 +50,41 @@ public class Level extends BasicGameState {
 		{
 			container.exit();
 		}
-		if(input.isKeyPressed(Input.KEY_LEFT))
+		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 		    p.setX(p.getX()-2);
+			p.update(delta);
 		    if(p.checkCollision(wall))
 		    {
 		    	p.setX(p.getX()+2);
 		    }
 		}
-		if(input.isKeyPressed(Input.KEY_RIGHT))
+		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
 	        p.setX(p.getX()+2);
+			p.update(delta);
 	        if(p.checkCollision(wall))
 		    {
 		    	p.setX(p.getX()-2);
 		    }
 		}
-		if(input.isKeyPressed(Input.KEY_UP))
+		if(input.isKeyDown(Input.KEY_UP))
 		{
 			p.setY(p.getY()-2);
+			p.update(delta);
 			if(p.checkCollision(wall))
 		    {
 		    	p.setY(p.getY()+2);
 		    }
 		}
-		if(input.isKeyPressed(Input.KEY_DOWN))
+		if(input.isKeyDown(Input.KEY_DOWN))
 		{
 		    p.setY(p.getY()+2);
+			p.update(delta);
 		    if(p.checkCollision(wall))
 		    {
 		    	p.setY(p.getY()-2);
+		    	//System.out.println("Collisions detected");
 		    }
 		}
 	}
