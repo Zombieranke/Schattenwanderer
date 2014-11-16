@@ -34,8 +34,7 @@ public class Level extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Hier wird ein Spiel entstehen", 100, 100);
-		g.drawString("Press 1 to enter Menu", 100, 115);
+		g.drawString("Bewegung: Pfeiltasten\nWachenbewegung: WASD\nWachendrehung: Q,E", 100, 100);
 		wall.render(g);
 		p.render(g);
 		w.render(g);
@@ -71,14 +70,10 @@ public class Level extends BasicGameState
     	
     	//Ganzes Alarmskrimskrams Ende
 		
-		if(input.isKeyPressed(Input.KEY_1))
-		{
-			game.enterState(1);
-		}
 		
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
-			container.exit();
+			game.enterState(1);
 		}
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
