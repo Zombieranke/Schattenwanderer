@@ -25,7 +25,7 @@ public class MenuFunc
 		area.setMouseOverImage(image);
 	}
 	
-	public boolean IsMouseOver()
+	public boolean isMouseOver()
 	{
 		return area.isMouseOver();
 	}
