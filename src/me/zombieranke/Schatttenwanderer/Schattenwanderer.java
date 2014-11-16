@@ -18,6 +18,7 @@ public class Schattenwanderer extends StateBasedGame
 		{
 		AppGameContainer container = new AppGameContainer(new Schattenwanderer());
 		container.setDisplayMode(1280, 1024, false);
+		container.setVSync(true);
 		container.start();
 		}
 		catch(SlickException e)
@@ -32,7 +33,6 @@ public class Schattenwanderer extends StateBasedGame
 	{
 		addState(new GameMenu());
 		addState(new Level());
-		addState(new ShapeTests());
 		
 	}
 
