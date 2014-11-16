@@ -44,6 +44,7 @@ public class Level extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
 		w.update(delta);
+		w.updateSight(delta);
 		Input input = container.getInput();
 		if(input.isKeyPressed(Input.KEY_1))
 		{
@@ -105,6 +106,7 @@ public class Level extends BasicGameState
 		    if(w.checkCollision(wall))
 		    {
 		    	w.setX(w.getX()+2);
+		    	w.updateSight(delta);
 		    }
 		}
 		
@@ -115,6 +117,7 @@ public class Level extends BasicGameState
 	        if(w.checkCollision(wall))
 		    {
 		    	w.setX(w.getX()-2);
+		    	w.updateSight(delta);
 		    }
 		}
 		
@@ -125,6 +128,7 @@ public class Level extends BasicGameState
 			if(w.checkCollision(wall))
 		    {
 		    	w.setY(w.getY()+2);
+		    	w.updateSight(delta);
 		    }
 		}
 		
@@ -135,6 +139,7 @@ public class Level extends BasicGameState
 		    if(w.checkCollision(wall))
 		    {
 		    	w.setY(w.getY()-2);
+		    	w.updateSight(delta);
 		    } 
 		}
 		

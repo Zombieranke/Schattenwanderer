@@ -11,8 +11,8 @@ public class Watch extends GameObject
 	protected float direction = 0;
 	protected float radius = 100;
 	private float angle = 60;
-	private Shape sight;
 	private Wall wall;
+	private Shape sight;
 
 	public Watch(int x, int y, Image img, Shape collisionArea, Wall wall)
 	{
@@ -60,12 +60,17 @@ public class Watch extends GameObject
 		img.drawCentered(x, y);
 	}
 	
+	
 	@Override
 	public void update(int delta)
-	{
-		sight = new WatchSightArea(x,y,radius, direction, angle, wall);
+	{	
 		collisionArea.setX(x);
 		collisionArea.setY(y);
+	}
+	
+	public void updateSight(int delta)
+	{
+		sight = new WatchSightArea(x,y,radius, direction, angle, wall);
 	}
 
 	public float getDirection()
