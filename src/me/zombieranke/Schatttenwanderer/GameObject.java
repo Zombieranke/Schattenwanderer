@@ -57,6 +57,15 @@ public abstract class GameObject
 		return collisionArea.intersects(other.getCollisionArea());
 	}
 	
+	public boolean checkCollision(Shape other)
+	{
+		boolean a = collisionArea.intersects(other);
+		boolean b = collisionArea.contains(other);
+		return a||b;
+	}
+	
+	
+	
 	public int getX()
 	{
 		return x;

@@ -59,7 +59,10 @@ public class Watch extends GameObject
 		g.fill(sight);
 		img.drawCentered(x, y);
 	}
-	
+	public Shape getSight()
+	{
+		return sight;
+	}
 	
 	@Override
 	public void update(int delta)

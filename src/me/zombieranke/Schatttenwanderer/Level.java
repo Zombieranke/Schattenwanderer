@@ -16,6 +16,9 @@ public class Level extends BasicGameState
 	private Wall wall;
 	private Player p;
 	private Watch w;
+	private boolean alarm = false;
+	private int alarmTime;
+	private static int alarmTimeDefault = 200;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
@@ -36,7 +39,18 @@ public class Level extends BasicGameState
 		wall.render(g);
 		p.render(g);
 		w.render(g);
-		
+		if(alarm)
+		{
+			g.setColor(Color.red);
+			g.drawString("ALARM", container.getWidth()/2, 50);
+
+	    	alarmTime--;
+	    	if(alarmTime<0)
+	    	{
+	    		alarm = false;
+	    	}
+			
+		}
 		
 	}
 
@@ -46,6 +60,13 @@ public class Level extends BasicGameState
 		w.update(delta);
 		w.updateSight(delta);
 		Input input = container.getInput();
+		
+		if(p.checkCollision(w.getSight()))
+	    {
+	    	alarm = true;
+	    	alarmTime = alarmTimeDefault;
+	    }
+		
 		if(input.isKeyPressed(Input.KEY_1))
 		{
 			game.enterState(1);
@@ -64,6 +85,7 @@ public class Level extends BasicGameState
 		    {
 		    	p.setX(p.getX()+2);
 		    }
+		    
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
@@ -74,6 +96,7 @@ public class Level extends BasicGameState
 		    {
 		    	p.setX(p.getX()-2);
 		    }
+
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP))
@@ -84,6 +107,7 @@ public class Level extends BasicGameState
 		    {
 		    	p.setY(p.getY()+2);
 		    }
+
 		}
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
@@ -95,6 +119,7 @@ public class Level extends BasicGameState
 		    	p.setY(p.getY()-2);
 		    	//System.out.println("Collisions detected");
 		    }
+
 		}
 		
 		
@@ -145,12 +170,12 @@ public class Level extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_Q))
 		{
-			w.setDirection(w.getDirection()+1);
+			w.setDirection(w.getDirection()-1);
 		}
 		
 		if(input.isKeyDown(Input.KEY_E))
 		{
-			w.setDirection(w.getDirection()-1);
+			w.setDirection(w.getDirection()+1);
 		}
 	}
 

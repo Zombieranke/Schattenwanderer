@@ -17,8 +17,8 @@ public class WatchSightArea extends Shape
 	
 	protected static final int DEFAULT_SEGMENT_COUNT = 50;
 	
-	 private int segmentCount;
-
+	 	private int segmentCount;
+	 	
 	    private float radius;
 	    private float direction;
 	    private float angle;
@@ -66,7 +66,7 @@ public class WatchSightArea extends Shape
         tempPoints.add(new Float(x));
         tempPoints.add(new Float(y));
         
-        int step = (int) (angle / segmentCount);
+        float step = (angle / segmentCount);
         
         for (float a=start;a<=end+step;a+=step) 
         {
