@@ -43,13 +43,6 @@ public class Level extends BasicGameState
 		{
 			g.setColor(Color.red);
 			g.drawString("ALARM", container.getWidth()/2, 50);
-
-	    	alarmTime--;
-	    	if(alarmTime<0)
-	    	{
-	    		alarm = false;
-	    	}
-			
 		}
 		
 	}
@@ -66,6 +59,15 @@ public class Level extends BasicGameState
 	    	alarm = true;
 	    	alarmTime = alarmTimeDefault;
 	    }
+		
+		alarmTime--;
+		
+    	if(alarmTime<0)
+    	{
+    		alarm = false;
+    	}
+    	
+    	
 		
 		if(input.isKeyPressed(Input.KEY_1))
 		{
