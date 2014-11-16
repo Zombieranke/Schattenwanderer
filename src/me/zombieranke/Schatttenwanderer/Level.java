@@ -54,6 +54,8 @@ public class Level extends BasicGameState
 		w.updateSight(delta);
 		Input input = container.getInput();
 		
+		//Ganzes Alarmskrimskrams Anfang
+		
 		if(p.checkCollision(w.getSight()))
 	    {
 	    	alarm = true;
@@ -67,7 +69,7 @@ public class Level extends BasicGameState
     		alarm = false;
     	}
     	
-    	
+    	//Ganzes Alarmskrimskrams Ende
 		
 		if(input.isKeyPressed(Input.KEY_1))
 		{
