@@ -67,7 +67,7 @@ public class GameMenu extends BasicGameState
 		Input input = container.getInput();
 		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && NewGame.isMouseOver()) // If Mouse is pressed and mouse is over the mouseoverarea
 		{
-			game.enterState(2);
+			game.enterState(6);
 		}
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && Exit.isMouseOver())
 		{

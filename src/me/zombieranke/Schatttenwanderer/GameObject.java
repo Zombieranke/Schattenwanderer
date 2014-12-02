@@ -1,11 +1,14 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.io.Serializable;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject
+public abstract class GameObject implements Serializable
 {
 	
 	public abstract void render(Graphics g);
@@ -51,10 +54,18 @@ public abstract class GameObject
 		this.y = y;
 	}
 	
+	public void renderCollisionArea(Graphics g)
+	{
+		g.setColor(Color.green);
+		g.draw(collisionArea);
+	}
+	
 	public boolean checkCollision(GameObject other)
 	{
-		//System.out.println(collisionArea.getMinX()+","+collisionArea.getMinY()+","+collisionArea.getMaxX()+","+collisionArea.getMaxY()+","+other.getCollisionArea().getMinX()+","+other.getCollisionArea().getMinY()+","+other.getCollisionArea().getMaxX()+","+other.getCollisionArea().getMaxY());
-		return collisionArea.intersects(other.getCollisionArea());
+		boolean a = collisionArea.intersects(other.getCollisionArea());
+		boolean b = collisionArea.contains(other.getCollisionArea());
+		boolean c = other.getCollisionArea().contains(collisionArea);
+		return a||b||c;
 	}
 	
 	public boolean checkCollision(Shape other)

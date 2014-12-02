@@ -1,5 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -59,6 +61,7 @@ public class Watch extends GameObject
 		g.fill(sight);
 		img.drawCentered(x, y);
 	}
+	
 	public Shape getSight()
 	{
 		return sight;
@@ -71,7 +74,7 @@ public class Watch extends GameObject
 		collisionArea.setY(y);
 	}
 	
-	public void updateSight(int delta)
+	public void updateSight(int delta, ArrayList<SolidObject> wall)
 	{
 		sight = new WatchSightArea(x,y,radius, direction, angle, wall);
 	}

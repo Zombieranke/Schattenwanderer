@@ -1,32 +1,29 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Level extends BasicGameState
+public abstract class Level extends BasicGameState
 {
 	
-	private int ID = 2;
-	private Wall wall;
-	private Player p;
-	private Watch w;
-	private boolean alarm = false;
-	private int alarmTime;
-	private static int alarmTimeDefault = 200;
+	protected static final int levelOffset = 5;
+	protected Player player;
+	protected Watch watch;
+	protected boolean alarm = false;
+	protected int alarmTime;
+	protected static int alarmTimeDefault = 200;
+	protected int levelCount;
+	protected ArrayList<SolidObject> Walls = new ArrayList<SolidObject>();
+	private boolean debug = false;
 
-	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException
-	{
-		wall = new Wall(120,200, new Image("res/Wall_Type_1.jpg"),32,32);
-		p = new Player (100,200);
-		w = new Watch(300,300,new Image("res/Watch_Placeholder.png"),5,5, wall);
-	}
+
+
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
@@ -35,9 +32,20 @@ public class Level extends BasicGameState
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nWachenbewegung: WASD\nWachendrehung: Q,E", 100, 100);
-		wall.render(g);
-		p.render(g);
-		w.render(g);
+		for(SolidObject w : Walls)
+		{
+			w.render(g);
+		}
+		player.render(g);
+		watch.render(g);
+		if(debug){
+			for(SolidObject w : Walls)
+			{
+				w.renderCollisionArea(g);
+			}
+			player.renderCollisionArea(g);
+			watch.renderCollisionArea(g);
+		}
 		if(alarm)
 		{
 			g.setColor(Color.red);
@@ -49,13 +57,11 @@ public class Level extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
-		w.update(delta);
-		w.updateSight(delta);
 		Input input = container.getInput();
 		
 		//Ganzes Alarmskrimskrams Anfang
 		
-		if(p.checkCollision(w.getSight()))
+		if(player.checkCollision(watch.getSight()))
 	    {
 	    	alarm = true;
 	    	alarmTime = alarmTimeDefault;
@@ -70,7 +76,11 @@ public class Level extends BasicGameState
     	
     	//Ganzes Alarmskrimskrams Ende
 		
-		
+		//Debug Toggle
+    	if(input.isKeyPressed(Input.KEY_F3)){
+    		debug = !debug;
+    	}   	
+    	
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
 			game.enterState(1);
@@ -78,46 +88,57 @@ public class Level extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
-		    p.setX(p.getX()-2);
-			p.update(delta);
-		    if(p.checkCollision(wall))
-		    {
-		    	p.setX(p.getX()+2);
-		    }
+		    player.setX(player.getX()-2);
+			player.update(delta);
+			for(SolidObject w: Walls)
+			{
+			    if(player.checkCollision(w))
+			    {
+			    	player.setX(player.getX()+2);
+			    }
+			}
 		    
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
-	        p.setX(p.getX()+2);
-			p.update(delta);
-	        if(p.checkCollision(wall))
-		    {
-		    	p.setX(p.getX()-2);
-		    }
+	        player.setX(player.getX()+2);
+			player.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(player.checkCollision(w))
+			    {
+			    	player.setX(player.getX()-2);
+			    }
+			}
 
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
-			p.setY(p.getY()-2);
-			p.update(delta);
-			if(p.checkCollision(wall))
-		    {
-		    	p.setY(p.getY()+2);
-		    }
-
+			player.setY(player.getY()-2);
+			player.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(player.checkCollision(w))
+			    {
+			    	player.setY(player.getY()+2);
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
-		    p.setY(p.getY()+2);
-			p.update(delta);
-		    if(p.checkCollision(wall))
-		    {
-		    	p.setY(p.getY()-2);
-		    	//System.out.println("Collisions detected");
-		    }
+		    player.setY(player.getY()+2);
+			player.update(delta);
+			for(SolidObject w : Walls)
+			{
+		        if(player.checkCollision(w))
+			    {
+		        	//System.out.println("Detected Collision with Wall at X: "+w.getX()+"Y: "+w.getY());
+			    	player.setY(player.getY()-2);
+			    }
+			}
 
 		}
 		
@@ -125,63 +146,75 @@ public class Level extends BasicGameState
 	    //Debug Watch Movement
 		if(input.isKeyDown(Input.KEY_A))
 		{
-		    w.setX(w.getX()-2);
-			w.update(delta);
-		    if(w.checkCollision(wall))
-		    {
-		    	w.setX(w.getX()+2);
-		    	w.updateSight(delta);
-		    }
+		    watch.setX(watch.getX()-2);
+			watch.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(watch.checkCollision(w))
+			    {
+			    	watch.setX(watch.getX()+2);
+			    	watch.updateSight(delta,Walls);
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_D))
 		{
-	        w.setX(w.getX()+2);
-			w.update(delta);
-	        if(w.checkCollision(wall))
-		    {
-		    	w.setX(w.getX()-2);
-		    	w.updateSight(delta);
-		    }
+	        watch.setX(watch.getX()+2);
+			watch.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(watch.checkCollision(w))
+			    {
+			    	watch.setX(watch.getX()-2);
+			    	watch.updateSight(delta,Walls);
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_W))
 		{
-			w.setY(w.getY()-2);
-			w.update(delta);
-			if(w.checkCollision(wall))
-		    {
-		    	w.setY(w.getY()+2);
-		    	w.updateSight(delta);
-		    }
+			watch.setY(watch.getY()-2);
+			watch.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(watch.checkCollision(w))
+			    {
+			    	watch.setY(watch.getY()+2);
+			    	watch.updateSight(delta,Walls);
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_S))
 		{
-		    w.setY(w.getY()+2);
-			w.update(delta);
-		    if(w.checkCollision(wall))
-		    {
-		    	w.setY(w.getY()-2);
-		    	w.updateSight(delta);
-		    } 
+		    watch.setY(watch.getY()+2);
+			watch.update(delta);
+			for(SolidObject w: Walls)
+			{
+		        if(watch.checkCollision(w))
+			    {
+			    	watch.setY(watch.getY()-2);
+			    	watch.updateSight(delta,Walls);
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_Q))
 		{
-			w.setDirection(w.getDirection()-1);
+			watch.setDirection(watch.getDirection()-1);
 		}
 		
 		if(input.isKeyDown(Input.KEY_E))
 		{
-			w.setDirection(w.getDirection()+1);
+			watch.setDirection(watch.getDirection()+1);
 		}
 	}
 
 	@Override
 	public int getID()
 	{
-		return ID;
+		return levelOffset + levelCount;
 	}
 
 }

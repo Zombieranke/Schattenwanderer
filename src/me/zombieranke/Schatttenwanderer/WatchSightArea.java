@@ -22,15 +22,16 @@ public class WatchSightArea extends Shape
 	    private float radius;
 	    private float direction;
 	    private float angle;
-	    private Wall sightCollision;
+	    private ArrayList<SolidObject> sightCollisions;
 	    private GeomUtil util = new GeomUtil();
+	    private Shape colBox;
 
-	    public WatchSightArea(float centerPointX, float centerPointY, float radius, float direction, float angle, Wall sightCollision)
+	    public WatchSightArea(float centerPointX, float centerPointY, float radius, float direction, float angle, ArrayList<SolidObject> sightCollisions)
 	    {
-	        this(centerPointX, centerPointY, radius, direction, angle,sightCollision, DEFAULT_SEGMENT_COUNT);
+	        this(centerPointX, centerPointY, radius, direction, angle,sightCollisions, DEFAULT_SEGMENT_COUNT);
 	    }
 
-	    public WatchSightArea(float centerPointX, float centerPointY, float radius, float direction, float angle, Wall sightCollision, int segmentCount) 
+	    public WatchSightArea(float centerPointX, float centerPointY, float radius, float direction, float angle, ArrayList<SolidObject> sightCollisions, int segmentCount) 
 	    {
 	        this.x = centerPointX;
 	        this.y = centerPointY;
@@ -38,7 +39,7 @@ public class WatchSightArea extends Shape
 	        this.segmentCount = segmentCount;
 	        this.direction = direction;
 	        this.angle = angle;
-	        this.sightCollision = sightCollision;
+	        this.sightCollisions = sightCollisions;
 	        checkPoints();
 	    }
 
@@ -52,13 +53,7 @@ public class WatchSightArea extends Shape
 	protected void createPoints()
 	{
         ArrayList<Float> tempPoints = new ArrayList<Float>();
-
-        maxX = -Float.MIN_VALUE;
-        maxY = -Float.MIN_VALUE;
-        minX = Float.MAX_VALUE;
-        minY = Float.MAX_VALUE;
         
-        Shape colBox = sightCollision.getCollisionArea(); 
 
         float start = direction-angle/2;
         float end = direction+angle/2;
@@ -77,35 +72,21 @@ public class WatchSightArea extends Shape
             }
             float newX = (float) (x + (FastTrig.cos(Math.toRadians(ang)) * radius));
             float newY = (float) (y + (FastTrig.sin(Math.toRadians(ang)) * radius));
-
-            if(newX > maxX) 
-            {
-                maxX = newX;
-            }
-            if(newY > maxY) 
-            {
-                maxY = newY;
-            }
-            if(newX < minX)
-            {
-            	minX = newX;
-            }
-            if(newY < minY)
-            {
-            	minY = newY;
-            }
             
-            Line colLine = new Line(x, y, newX, newY);
-            
-            if(colLine.intersects(colBox))
-            {
-            	HitResult hr = util.intersect(colBox, colLine);
-            	newX = hr.pt.getX();
-            	newY = hr.pt.getY();
+            for(SolidObject s : sightCollisions){
+            	
+                Line colLine = new Line(x, y, newX, newY);
+            	colBox = s.getCollisionArea();
+            	
+	            if(colLine.intersects(colBox))
+	            {
+	            	HitResult hr = util.intersect(colBox, colLine);
+	            	newX = hr.pt.getX();
+	            	newY = hr.pt.getY();
+	            }
             }
-
-            	tempPoints.add(new Float(newX));
-            	tempPoints.add(new Float(newY));
+        	tempPoints.add(new Float(newX));
+        	tempPoints.add(new Float(newY));
         }
         points = new float[tempPoints.size()];
         for(int i=0;i<points.length;i++) 
