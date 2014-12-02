@@ -1,14 +1,12 @@
 package me.zombieranke.Schatttenwanderer;
 
-import java.io.Serializable;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject implements Serializable
+public abstract class GameObject
 {
 	
 	public abstract void render(Graphics g);
@@ -18,7 +16,9 @@ public abstract class GameObject implements Serializable
 	protected int y;
 	protected Image img;
 	protected boolean solid = false;	//für später, damit die Collisiondetections funktionieren
-	protected Shape collisionArea = new Rectangle(0,0,1,1);
+	protected Shape collisionArea = new Rectangle(x,y,1,1);
+	protected int colX = 0;
+	protected int colY = 0;
 	
 	public GameObject(int x, int y, Image img, Shape collisionArea)
 	{
@@ -35,11 +35,15 @@ public abstract class GameObject implements Serializable
 	public GameObject(int x, int y, Image img, int colX, int colY)
 	{
 		this(x, y, img, new Rectangle(x,y,colX,colY));
+		this.colX=colX;
+		this.colY=colY;
 	}
 	
 	public GameObject(int x, int y, int colX, int colY)
 	{
 		this(x, y, new Rectangle(x,y,colX,colY));
+		this.colX=colX;
+		this.colY=colY;
 	}
 	
 	public GameObject(int x, int y, Image img)

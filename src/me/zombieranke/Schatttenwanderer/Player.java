@@ -3,22 +3,22 @@ package me.zombieranke.Schatttenwanderer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 
-public class Player extends GameObject
+public class Player extends MovableObject
 {
 	/*Basic Implementation. Needs a lot of work. */
 	
+	private static final int DEFAULT_COL_X = 10;
+	private static final int DEFAULT_COL_Y = 10;
+	
 	public Player(int x, int y, Image img)
 	{
-		super(x, y, img);
-		collisionArea = new Rectangle(x,y,10,10);
+		super(x, y, img,DEFAULT_COL_X,DEFAULT_COL_Y);
 	}
 	
 	public Player(int x, int y)
 	{
-		super(x, y);
-		collisionArea = new Rectangle(x,y,10,10);
+		super(x, y,DEFAULT_COL_X,DEFAULT_COL_Y);
 	}
 	
 	public void render(Graphics g)
@@ -31,12 +31,5 @@ public class Player extends GameObject
 		g.setColor(boxCol);
 		g.fill(collisionArea);*/
 	}
-	
-	public void update(int delta)
-	{
-		collisionArea.setX(x);
-		collisionArea.setY(y);
-	}
-	
 	
 }

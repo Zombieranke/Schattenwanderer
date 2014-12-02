@@ -7,49 +7,42 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
 
-public class Watch extends GameObject
+public class Watch extends MovableObject
 {
 	
 	protected float direction = 0;
 	protected float radius = 100;
 	private float angle = 60;
-	private Wall wall;
 	private Shape sight;
 
-	public Watch(int x, int y, Image img, Shape collisionArea, Wall wall)
+	public Watch(int x, int y, Image img, Shape collisionArea)
 	{
-		super(x,y,img,collisionArea);
-		this.wall = wall;
+		super(x,y,img,collisionArea);;
 	}
 	
-	public Watch(int x, int y, Shape collisionArea, Wall wall)
+	public Watch(int x, int y, Shape collisionArea)
 	{
 		super(x,y,collisionArea);
-		this.wall = wall;
 	}
 	
-	public Watch(int x, int y, Image img, int colX, int colY, Wall wall)
+	public Watch(int x, int y, Image img, int colX, int colY)
 	{
-		super(x,y,img,colX,colY);
-		this.wall = wall;
+		super(x,y,img,colX,colY);;
 	}
 	
-	public Watch(int x, int y, int colX, int colY, Wall wall)
+	public Watch(int x, int y, int colX, int colY)
 	{
 		super(x,y,colX,colY);
-		this.wall = wall;
 	}
 	
-	public Watch(int x,int y, Wall wall)
+	public Watch(int x,int y)
 	{
 		super(x,y);
-		this.wall = wall;
 	}
 	
-	public Watch(int x,int y,Image img, Wall wall)
+	public Watch(int x,int y,Image img)
 	{
 		super(x,y,img);
-		this.wall = wall;
 	}
 
 	@Override
@@ -59,7 +52,7 @@ public class Watch extends GameObject
 		boxCol.a = 0.5f;
 		g.setColor(boxCol);
 		g.fill(sight);
-		img.drawCentered(x, y);
+		img.draw(x, y);
 	}
 	
 	public Shape getSight()
@@ -67,16 +60,10 @@ public class Watch extends GameObject
 		return sight;
 	}
 	
-	@Override
-	public void update(int delta)
-	{	
-		collisionArea.setX(x);
-		collisionArea.setY(y);
-	}
 	
-	public void updateSight(int delta, ArrayList<SolidObject> wall)
+	public void updateSight(ArrayList<SolidObject> wall)
 	{
-		sight = new WatchSightArea(x,y,radius, direction, angle, wall);
+		sight = new WatchSightArea(x+colX/2,y+colY/2,radius, direction, angle, wall);
 	}
 
 	public float getDirection()

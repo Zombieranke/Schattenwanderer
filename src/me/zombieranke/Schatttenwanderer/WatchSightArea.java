@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.geom.GeomUtil;
 import org.newdawn.slick.geom.GeomUtil.HitResult;
-import org.newdawn.slick.geom.GeomUtilListener;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
