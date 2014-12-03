@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class MovableObject extends GameObject {
+
 	
 	public MovableObject(int x, int y, Image img, Shape collisionArea)
 	{
@@ -63,4 +64,6 @@ public abstract class MovableObject extends GameObject {
 		collisionArea.setX(x);
 		collisionArea.setY(y);
 	}
+	
+	
 }

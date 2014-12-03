@@ -22,6 +22,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected int levelCount;
 	protected ArrayList<SolidObject> walls = new ArrayList<SolidObject>();
 	private boolean debug = false;
+	private int state = 1;
 
 
 	@Override
@@ -59,7 +60,7 @@ public abstract class LevelHandler extends BasicGameState
 	{
 		Input input = container.getInput();
 		//Ganzes Alarmskrimskrams Anfang
-		
+		state = 0;
 		if(player.checkCollision(watch.getSight()))
 	    {
 	    	alarm = true;
@@ -93,6 +94,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, walls))
 				{
 					player.move(i, 0);
+					state += 8;
 					break;
 				}
 		    }
@@ -105,6 +107,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, walls))
 				{
 					player.move(i, 0);
+					state += 2;
 					break;
 				}
 		    }
@@ -117,6 +120,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, walls))
 				{
 					player.move(0, i);
+					state += 1;
 					break;
 				}
 		    }
@@ -129,6 +133,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, walls))
 				{
 					player.move(0, i);
+					state += 4;
 					break;
 				}
 		    }
@@ -191,6 +196,18 @@ public abstract class LevelHandler extends BasicGameState
 		if(input.isKeyDown(Input.KEY_E))
 		{
 			watch.setDirection(watch.getDirection()+1);
+		}
+		
+		switch(state)
+		{
+		case 1: player.setRotation(90); break;
+		case 2: player.setRotation(180); break;
+		case 3: player.setRotation(135); break;
+		case 4: player.setRotation(270); break;
+		case 6: player.setRotation(225); break;
+		case 12: player.setRotation(315); break;
+		case 8: player.setRotation(360); break;
+		case 9: player.setRotation(45); break;
 		}
 		
 		player.update(delta);
