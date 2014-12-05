@@ -1,5 +1,6 @@
 package me.zombieranke.Schatttenwanderer;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,7 +16,8 @@ public abstract class GameObject
 	protected int x;
 	protected int y;
 	protected Image img;
-	protected boolean solid = false;	//für später, damit die Collisiondetections funktionieren
+	protected Animation animation;
+	protected boolean solid = false;	//fï¿½r spï¿½ter, damit die Collisiondetections funktionieren
 	protected Shape collisionArea = new Rectangle(x,y,1,1);
 	protected int colX = 0;
 	protected int colY = 0;
@@ -56,6 +58,16 @@ public abstract class GameObject
 	{
 		this.x = x;
 		this.y = y;
+	}
+	
+	public GameObject(int x, int y, Animation animation, int colX, int colY)
+	{
+		this(x, y, new Rectangle(x, y, colX, colY));
+		this.x = x;
+		this.y = y;
+		this.animation = animation;
+		this.colX = colX;
+		this.colY = colY;
 	}
 	
 	public void renderCollisionArea(Graphics g)

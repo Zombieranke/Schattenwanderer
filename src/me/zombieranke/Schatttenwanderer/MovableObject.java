@@ -2,6 +2,7 @@ package me.zombieranke.Schatttenwanderer;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
@@ -38,6 +39,11 @@ public abstract class MovableObject extends GameObject {
 	public MovableObject(int x,int y,Image img)
 	{
 		super(x,y,img);
+	}
+	
+	public MovableObject(int x, int y, Animation animation, int colX, int colY)
+	{
+		super(x, y, animation, colX, colY);
 	}
 	
 	public abstract void render(Graphics g);

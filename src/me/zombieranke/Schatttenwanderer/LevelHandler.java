@@ -23,6 +23,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected ArrayList<SolidObject> walls = new ArrayList<SolidObject>();
 	private boolean debug = false;
 	private int state = 1;
+	private int isMoving = 0;
 
 
 	@Override
@@ -61,6 +62,20 @@ public abstract class LevelHandler extends BasicGameState
 		Input input = container.getInput();
 		//Ganzes Alarmskrimskrams Anfang
 		state = 0;
+		
+		player.animation.update(delta);
+		
+		if (isMoving == 0)
+		{
+			player.animation.setCurrentFrame(2);
+			player.animation.stop();
+		}
+		else 
+		{
+			player.animation.start();
+		}
+		
+		
 		if(player.checkCollision(watch.getSight()))
 	    {
 	    	alarm = true;
@@ -89,6 +104,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
+			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(player.canMove(i, 0, walls))
@@ -102,6 +118,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
+			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(player.canMove(i, 0, walls))
@@ -115,6 +132,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
+			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(player.canMove(0, i, walls))
@@ -128,6 +146,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
+			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(player.canMove(0, i, walls))
@@ -137,6 +156,12 @@ public abstract class LevelHandler extends BasicGameState
 					break;
 				}
 		    }
+		}
+		
+		if (input.isKeyDown(Input.KEY_DOWN) == false && input.isKeyDown(Input.KEY_LEFT) == false && 
+				input.isKeyDown(Input.KEY_RIGHT) == false && input.isKeyDown(Input.KEY_UP)  == false && isMoving == 1)
+		{
+			isMoving = 0;
 		}
 		
 	    //Debug Watch Movement
