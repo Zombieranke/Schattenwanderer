@@ -48,6 +48,11 @@ public abstract class MovableObject extends GameObject {
 	
 	public abstract void render(Graphics g);
 	
+	public void setRotation(float degrees)
+	{
+		animation.getCurrentFrame().setRotation(degrees);
+	}
+	
 	public boolean canMove(int deltaX,int deltaY, ArrayList<SolidObject> walls)
 	{
 		collisionArea.setX(x+deltaX);

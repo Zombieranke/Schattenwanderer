@@ -46,11 +46,5 @@ public class Player extends MovableObject
 		g.setColor(boxCol);
 		g.fill(collisionArea);*/
 	}
-
-	
-	public void setRotation(float degrees)
-	{
-		animation.getCurrentFrame().setRotation(degrees);
-	}
 	
 }

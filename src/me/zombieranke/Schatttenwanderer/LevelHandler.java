@@ -65,15 +65,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		player.animation.update(delta);
 		
-		if (isMoving == 0)
-		{
-			player.animation.setCurrentFrame(2);
-			player.animation.stop();
-		}
-		else 
-		{
-			player.animation.start();
-		}
+		
 		
 		
 		if(player.checkCollision(watch.getSight()))
@@ -233,6 +225,16 @@ public abstract class LevelHandler extends BasicGameState
 		case 12: player.setRotation(315); break;
 		case 8: player.setRotation(360); break;
 		case 9: player.setRotation(45); break;
+		}
+		
+		if (isMoving == 0)
+		{
+			player.animation.setCurrentFrame(2);
+			player.animation.stop();
+		}
+		else 
+		{
+			player.animation.start();
 		}
 		
 		player.update(delta);
