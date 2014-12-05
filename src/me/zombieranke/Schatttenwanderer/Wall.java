@@ -74,6 +74,9 @@ public class Wall extends SolidObject
 				
 			case SOUTH:
 				startY+=32;
+			
+			default:
+				break;
 			}
 		}
 		

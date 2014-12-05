@@ -2,7 +2,11 @@ package me.zombieranke.utils;
 
 public enum Direction {
 	EAST,
+	NORTHEAST,
 	NORTH,
+	NORTHWEST,
 	WEST,
-	SOUTH
+	SOUTHWEST,
+	SOUTH,
+	SOUTHEAST
 }

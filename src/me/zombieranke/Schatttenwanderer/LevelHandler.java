@@ -20,10 +20,23 @@ public abstract class LevelHandler extends BasicGameState
 	protected int alarmTime;
 	protected static int alarmTimeDefault = 200;
 	protected int levelCount;
-	protected ArrayList<SolidObject> walls = new ArrayList<SolidObject>();
+	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
+	protected ArrayList<Laser> laser = new ArrayList<Laser>();
+	protected ArrayList<Lever> lever = new ArrayList<Lever>();
 	private boolean debug = false;
 	private int state = 1;
 	private int isMoving = 0;
+	
+	public void initializeObjects(GameContainer container)
+	{
+		for(Laser l : laser){
+			l.init(container.getWidth(),container.getHeight(),solids);
+		}
+		for(Lever l : lever){
+			l.init();
+		}
+		watch.updateSight(solids);
+	}
 
 
 	@Override
@@ -33,20 +46,36 @@ public abstract class LevelHandler extends BasicGameState
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nWachenbewegung: WASD\nWachendrehung: Q,E", 40, 40);
-		for(SolidObject w : walls)
+		for(SolidObject w : solids)
 		{
 			w.render(g);
+		}
+		for(Laser l: laser)
+		{
+			l.render(g);
+		}
+		for(Lever l: lever)
+		{
+			l.render(g);
 		}
 		player.render(g);
 		watch.render(g);
 		if(debug)
 		{
-			for(SolidObject w : walls)
+			for(SolidObject w : solids)
 			{
 				w.renderCollisionArea(g);
 			}
 			player.renderCollisionArea(g);
 			watch.renderCollisionArea(g);
+			for(Laser l: laser)
+			{
+				l.renderCollisionArea(g);
+			}
+			for(Lever l: lever)
+			{
+				l.renderCollisionArea(g);
+			}
 		}
 		if(alarm)
 		{
@@ -65,8 +94,17 @@ public abstract class LevelHandler extends BasicGameState
 		
 		player.animation.update(delta);
 		
-		
-		
+		for(Laser l: laser)
+		{
+			if(l.isOn())
+			{
+				if(player.checkCollision(l.getBeam()))
+			    {
+			    	alarm = true;
+			    	alarmTime = alarmTimeDefault;
+			    }
+			}
+		}
 		
 		if(player.checkCollision(watch.getSight()))
 	    {
@@ -94,12 +132,20 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(1);
 		}
 		
+		if(input.isKeyPressed(Input.KEY_F)){
+			for(Lever l : lever){
+				if(player.checkCollision(l)){
+					l.flipLever();
+				}
+			}
+		}
+		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
-				if(player.canMove(i, 0, walls))
+				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
 					state += 8;
@@ -113,7 +159,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
-				if(player.canMove(i, 0, walls))
+				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
 					state += 2;
@@ -127,7 +173,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
-				if(player.canMove(0, i, walls))
+				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
 					state += 1;
@@ -141,7 +187,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
-				if(player.canMove(0, i, walls))
+				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
 					state += 4;
@@ -161,7 +207,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			for(int i = -2;i<0;i++)
 			{
-				if(watch.canMove(i, 0, walls))
+				if(watch.canMove(i, 0, solids))
 				{
 					watch.move(i, 0);
 					break;
@@ -173,7 +219,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			for(int i = 2;i>0;i--)
 			{
-				if(watch.canMove(i, 0, walls))
+				if(watch.canMove(i, 0, solids))
 				{
 					watch.move(i, 0);
 					break;
@@ -185,7 +231,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			for(int i = -2;i<0;i++)
 			{
-				if(watch.canMove(0, i, walls))
+				if(watch.canMove(0, i, solids))
 				{
 					watch.move(0, i);
 					break;
@@ -197,7 +243,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			for(int i = 2;i>0;i--)
 			{
-				if(watch.canMove(0, i, walls))
+				if(watch.canMove(0, i, solids))
 				{
 					watch.move(0, i);
 					break;
@@ -239,7 +285,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		player.update(delta);
 		watch.update(delta);
-		watch.updateSight(walls);
+		watch.updateSight(solids);
 	}
 
 	@Override
