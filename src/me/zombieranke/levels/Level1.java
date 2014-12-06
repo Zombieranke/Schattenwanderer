@@ -41,14 +41,6 @@ public class Level1 extends LevelHandler
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 31, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 31, Direction.EAST));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y + DEFAULT_TILE_SIZE, 5, Direction.SOUTH));
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5,new Image("res/Laser.png"),16,16,Direction.EAST);
-		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE,new Image("res/Laser.png"),16,16,Direction.SOUTH);
-		laser.add(laser1);
-		laser.add(laser2);
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE, new Image("res/lever_up.png"), new Image("res/lever_down.png"),16,16, Direction.SOUTH,laser1);
-		lever.add(lever1);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 15, new Image("res/lever_up.png"), new Image("res/lever_down.png"),16,16, Direction.EAST,laser2);
-		lever.add(lever2);
 		playerSheet = new SpriteSheet("res/Player_Spritesheet.png", 20, 20);
 		enemySheet = new SpriteSheet("res/Enemy_Spritesheet.png", 20, 20);
 		playerAnimation = new Animation(playerSheet, 200);
@@ -58,6 +50,19 @@ public class Level1 extends LevelHandler
 		playerAnimation.setAutoUpdate(false);
 		enemyAnimation.setAutoUpdate(false);
 		
+		
+	}
+	
+	@Override
+	public void resetLevel(GameContainer container) throws SlickException {
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5,new Image("res/Laser.png"),16,16,Direction.EAST);
+		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE,new Image("res/Laser.png"),16,16,Direction.SOUTH);
+		laser.add(laser1);
+		laser.add(laser2);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE, new Image("res/lever_up.png"), new Image("res/lever_down.png"),16,16, Direction.SOUTH,laser1);
+		lever.add(lever1);
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 15, new Image("res/lever_up.png"), new Image("res/lever_down.png"),16,16, Direction.EAST,laser2);
+		lever.add(lever2);
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watch = new Watch(300,300,enemyAnimation,20,20);
 		super.initializeObjects(container);

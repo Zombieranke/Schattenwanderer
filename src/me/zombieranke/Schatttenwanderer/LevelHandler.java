@@ -18,9 +18,9 @@ public abstract class LevelHandler extends BasicGameState
 	protected Watch watch;
 	protected boolean alarm = false;
 	protected int alarmTime;
-	protected static int alarmTimeDefault = 500;
+	protected static final int alarmTimeDefault = 500;
 	protected int playerHealth;
-	protected static int playerHealthDefault = 200;
+	protected static final int playerHealthDefault = 200;
 	protected int durationChecker;
 	protected int levelCount;
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
@@ -29,7 +29,20 @@ public abstract class LevelHandler extends BasicGameState
 	private boolean debug = false;
 	private int state = 1;
 	private int isMoving = 0;
-	private int EnemyisMoving = 0;
+	private int enemyIsMoving = 0;
+	
+	public void reset()
+	{
+		alarm = false;
+		laser = new ArrayList<Laser>();
+		lever = new ArrayList<Lever>();
+		debug = false;
+		state = 1;
+		isMoving = 0;
+		enemyIsMoving = 0;
+	}
+	
+	public abstract void resetLevel(GameContainer container) throws SlickException;
 	
 	public void initializeObjects(GameContainer container)
 	{
@@ -42,7 +55,13 @@ public abstract class LevelHandler extends BasicGameState
 		watch.updateSight(solids);
 		playerHealth = playerHealthDefault;
 	}
-
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException
+	{
+		reset();
+		resetLevel(container);
+	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
@@ -226,7 +245,7 @@ public abstract class LevelHandler extends BasicGameState
 	    //Debug Watch Movement
 		if(input.isKeyDown(Input.KEY_A))
 		{
-			EnemyisMoving = 1;
+			enemyIsMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(i, 0, solids))
@@ -240,7 +259,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_D))
 		{
-			EnemyisMoving = 1;
+			enemyIsMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(i, 0, solids))
@@ -254,7 +273,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_W))
 		{
-			EnemyisMoving = 1;
+			enemyIsMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(0, i, solids))
@@ -268,7 +287,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_S))
 		{
-			EnemyisMoving = 1;
+			enemyIsMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(0, i, solids))
@@ -281,9 +300,9 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		
 		if (input.isKeyDown(Input.KEY_S) == false && input.isKeyDown(Input.KEY_A) == false && 
-				input.isKeyDown(Input.KEY_D) == false && input.isKeyDown(Input.KEY_W)  == false && EnemyisMoving == 1)
+				input.isKeyDown(Input.KEY_D) == false && input.isKeyDown(Input.KEY_W)  == false && enemyIsMoving == 1)
 		{
-			EnemyisMoving = 0;
+			enemyIsMoving = 0;
 		}
 		
 		if(input.isKeyDown(Input.KEY_Q))
@@ -318,7 +337,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.animation.start();
 		}
 		
-		if (EnemyisMoving == 0)
+		if (enemyIsMoving == 0)
 		{
 			watch.animation.setCurrentFrame(2);
 			watch.animation.stop();
@@ -340,5 +359,4 @@ public abstract class LevelHandler extends BasicGameState
 	{
 		return levelOffset + levelCount;
 	}
-
 }
