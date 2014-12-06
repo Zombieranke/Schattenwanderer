@@ -91,8 +91,8 @@ public abstract class LevelHandler extends BasicGameState
 		
 		//Lebensbar anzeigen
 		g.setColor(Color.green);
-		g.drawString("Health", container.getWidth()/2, container.getHeight()-100);
-		g.fillRect(container.getWidth()/2-50, container.getHeight()-80, playerHealth, 10);
+		g.drawString("Health", (container.getWidth()/4)*3-50, container.getHeight()-200);
+		g.fillRect((container.getWidth()/4)*3-150, container.getHeight()-180, playerHealth, 15);
 		
 	}
 
@@ -149,6 +149,8 @@ public abstract class LevelHandler extends BasicGameState
 		if(input.isKeyPressed(Input.KEY_ESCAPE)||playerHealth<=0)
 		{
 			game.enterState(1);
+			playerHealth = playerHealthDefault;
+			alarm = false;
 		}
 		
 		if(input.isKeyPressed(Input.KEY_F)){
