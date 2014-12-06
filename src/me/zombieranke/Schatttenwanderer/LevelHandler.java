@@ -150,6 +150,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
+					state += 8;
 					break;
 				}
 		    }
@@ -163,6 +164,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
+					state += 2;
 					break;
 				}
 		    }
@@ -176,6 +178,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
+					state += 1;
 					break;
 				}
 		    }
@@ -189,6 +192,7 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
+					state += 4;
 					break;
 				}
 		    }
@@ -257,6 +261,11 @@ public abstract class LevelHandler extends BasicGameState
 		    }
 		}
 		
+		if (input.isKeyDown(Input.KEY_S) == false && input.isKeyDown(Input.KEY_A) == false && 
+				input.isKeyDown(Input.KEY_D) == false && input.isKeyDown(Input.KEY_W)  == false && EnemyisMoving == 1)
+		{
+			EnemyisMoving = 0;
+		}
 		
 		if(input.isKeyDown(Input.KEY_Q))
 		{
