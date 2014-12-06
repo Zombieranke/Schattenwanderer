@@ -26,6 +26,7 @@ public abstract class LevelHandler extends BasicGameState
 	private boolean debug = false;
 	private int state = 1;
 	private int isMoving = 0;
+	private int EnemyisMoving = 0;
 	
 	public void initializeObjects(GameContainer container)
 	{
@@ -93,6 +94,7 @@ public abstract class LevelHandler extends BasicGameState
 		state = 0;
 		
 		player.animation.update(delta);
+		watch.animation.update(delta);
 		
 		for(Laser l: laser)
 		{
@@ -148,7 +150,6 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
-					state += 8;
 					break;
 				}
 		    }
@@ -162,7 +163,6 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(i, 0, solids))
 				{
 					player.move(i, 0);
-					state += 2;
 					break;
 				}
 		    }
@@ -176,7 +176,6 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
-					state += 1;
 					break;
 				}
 		    }
@@ -190,7 +189,6 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.canMove(0, i, solids))
 				{
 					player.move(0, i);
-					state += 4;
 					break;
 				}
 		    }
@@ -205,10 +203,12 @@ public abstract class LevelHandler extends BasicGameState
 	    //Debug Watch Movement
 		if(input.isKeyDown(Input.KEY_A))
 		{
+			EnemyisMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(i, 0, solids))
 				{
+					
 					watch.move(i, 0);
 					break;
 				}
@@ -217,10 +217,12 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_D))
 		{
+			EnemyisMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(i, 0, solids))
 				{
+					
 					watch.move(i, 0);
 					break;
 				}
@@ -229,10 +231,12 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_W))
 		{
+			EnemyisMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(0, i, solids))
 				{
+					
 					watch.move(0, i);
 					break;
 				}
@@ -241,15 +245,18 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_S))
 		{
+			EnemyisMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(0, i, solids))
 				{
+					
 					watch.move(0, i);
 					break;
 				}
 		    }
 		}
+		
 		
 		if(input.isKeyDown(Input.KEY_Q))
 		{
@@ -281,6 +288,17 @@ public abstract class LevelHandler extends BasicGameState
 		else 
 		{
 			player.animation.start();
+		}
+		
+		if (EnemyisMoving == 0)
+		{
+			watch.animation.setCurrentFrame(2);
+			watch.animation.stop();
+		}
+		
+		else
+		{
+			watch.animation.start();
 		}
 		
 		player.update(delta);

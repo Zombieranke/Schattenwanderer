@@ -2,6 +2,7 @@ package me.zombieranke.Schatttenwanderer;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -44,6 +45,11 @@ public class Watch extends MovableObject
 	{
 		super(x,y,img);
 	}
+	
+	public Watch(int x, int y, Animation animation, int colX, int colY)
+	{
+		super(x, y, animation, colX, colY);
+	}
 
 	@Override
 	public void render(Graphics g)
@@ -51,8 +57,8 @@ public class Watch extends MovableObject
 		Color boxCol = new Color(Color.red);
 		boxCol.a = 0.5f;
 		g.setColor(boxCol);
-		g.fill(sight);
-		img.draw(x, y);
+		g.fill(sight);	
+		animation.draw(x, y);
 	}
 	
 	public Shape getSight()
@@ -74,6 +80,7 @@ public class Watch extends MovableObject
 	public void setDirection(float direction)
 	{
 		this.direction = direction;
+		this.setRotation(direction);
 	}
 
 	public float getRadius()

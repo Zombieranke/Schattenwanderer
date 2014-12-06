@@ -19,7 +19,9 @@ public class Level1 extends LevelHandler
 {
 	private int levelID = 1;
 	private SpriteSheet playerSheet;
+	private SpriteSheet enemySheet;
 	private Animation playerAnimation;
+	private Animation enemyAnimation;
 	private final int ORIGIN_X = 100;
 	private final int ORIGIN_Y = 100;
 	private final int DEFAULT_TILE_SIZE = 32;
@@ -48,11 +50,16 @@ public class Level1 extends LevelHandler
 		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 15, new Image("res/lever_up.png"), new Image("res/lever_down.png"),16,16, Direction.EAST,laser2);
 		lever.add(lever2);
 		playerSheet = new SpriteSheet("res/Player_Spritesheet.png", 20, 20);
+		enemySheet = new SpriteSheet("res/Enemy_Spritesheet.png", 20, 20);
 		playerAnimation = new Animation(playerSheet, 200);
+		enemyAnimation = new Animation(enemySheet, 200);
 		playerAnimation.setPingPong(true);
+		enemyAnimation.setPingPong(true);
 		playerAnimation.setAutoUpdate(false);
+		enemyAnimation.setAutoUpdate(false);
+		
 		player = new Player (200,200, playerAnimation, 20, 20);
-		watch = new Watch(300,300,new Image("res/Watch_Placeholder.png"),5,5);
+		watch = new Watch(300,300,enemyAnimation,20,20);
 		super.initializeObjects(container);
 	}
 }
