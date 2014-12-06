@@ -307,6 +307,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		else
 		{
+			watch.setRotation(watch.getDirection()+180);
 			watch.animation.start();
 		}
 		

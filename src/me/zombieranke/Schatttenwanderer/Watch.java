@@ -80,7 +80,7 @@ public class Watch extends MovableObject
 	public void setDirection(float direction)
 	{
 		this.direction = direction;
-		this.setRotation(direction);
+		super.setRotation(direction+180);
 	}
 
 	public float getRadius()
