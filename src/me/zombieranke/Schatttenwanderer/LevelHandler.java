@@ -18,7 +18,10 @@ public abstract class LevelHandler extends BasicGameState
 	protected Watch watch;
 	protected boolean alarm = false;
 	protected int alarmTime;
-	protected static int alarmTimeDefault = 200;
+	protected static int alarmTimeDefault = 500;
+	protected int playerHealth;
+	protected static int playerHealthDefault = 200;
+	protected int durationChecker;
 	protected int levelCount;
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
 	protected ArrayList<Laser> laser = new ArrayList<Laser>();
@@ -37,6 +40,7 @@ public abstract class LevelHandler extends BasicGameState
 			l.init();
 		}
 		watch.updateSight(solids);
+		playerHealth = playerHealthDefault;
 	}
 
 
@@ -78,11 +82,17 @@ public abstract class LevelHandler extends BasicGameState
 				l.renderCollisionArea(g);
 			}
 		}
-		if(alarm)
+		if(alarm) //Alarmbalken und Info oben
 		{
 			g.setColor(Color.red);
 			g.drawString("ALARM", container.getWidth()/2, 50);
+			g.fillRect(container.getWidth()/2-125, 70, alarmTime/2, 10);
 		}
+		
+		//Lebensbar anzeigen
+		g.setColor(Color.green);
+		g.drawString("Health", container.getWidth()/2, container.getHeight()-100);
+		g.fillRect(container.getWidth()/2-50, container.getHeight()-80, playerHealth, 10);
 		
 	}
 
@@ -105,6 +115,7 @@ public abstract class LevelHandler extends BasicGameState
 			    	alarm = true;
 			    	alarmTime = alarmTimeDefault;
 			    }
+
 			}
 		}
 		
@@ -112,7 +123,13 @@ public abstract class LevelHandler extends BasicGameState
 	    {
 	    	alarm = true;
 	    	alarmTime = alarmTimeDefault;
+	    	playerHealth -= Math.ceil(durationChecker/20);
+	    	durationChecker++;
 	    }
+		else
+		{
+			durationChecker = 0;
+		}
 		
 		alarmTime--;
 		
@@ -129,7 +146,7 @@ public abstract class LevelHandler extends BasicGameState
     		debug = !debug;
     	}   	
     	
-		if(input.isKeyPressed(Input.KEY_ESCAPE))
+		if(input.isKeyPressed(Input.KEY_ESCAPE)||playerHealth<=0)
 		{
 			game.enterState(1);
 		}
