@@ -16,7 +16,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected static final int levelOffset = 5;
 	protected Player player;
 	protected Watch watch;
-	protected boolean alarm = false;
+	protected boolean alarm;
 	protected int alarmTime;
 	protected static final int alarmTimeDefault = 500;
 	protected int playerHealth;
@@ -24,12 +24,12 @@ public abstract class LevelHandler extends BasicGameState
 	protected int durationChecker;
 	protected int levelCount;
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
-	protected ArrayList<Laser> laser = new ArrayList<Laser>();
-	protected ArrayList<Lever> lever = new ArrayList<Lever>();
-	private boolean debug = false;
-	private int state = 1;
-	private int isMoving = 0;
-	private int enemyIsMoving = 0;
+	protected ArrayList<Laser> laser;
+	protected ArrayList<Lever> lever;
+	private boolean debug;
+	private int state;
+	private int isMoving;
+	private int enemyIsMoving;
 	
 	public void reset()
 	{
