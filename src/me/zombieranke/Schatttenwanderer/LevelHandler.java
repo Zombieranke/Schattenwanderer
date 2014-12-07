@@ -42,7 +42,7 @@ public abstract class LevelHandler extends BasicGameState
 		enemyIsMoving = 0;
 	}
 	
-	public abstract void resetLevel(GameContainer container) throws SlickException;
+	public abstract void onLoad(GameContainer container) throws SlickException;
 	
 	public void initializeObjects(GameContainer container)
 	{
@@ -60,7 +60,7 @@ public abstract class LevelHandler extends BasicGameState
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		reset();
-		resetLevel(container);
+		onLoad(container);
 	}
 
 	@Override

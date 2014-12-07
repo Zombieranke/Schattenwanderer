@@ -54,7 +54,7 @@ public class Level1 extends LevelHandler
 	}
 	
 	@Override
-	public void resetLevel(GameContainer container) throws SlickException {
+	public void onLoad(GameContainer container) throws SlickException {
 		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5,new Image("res/Laser.png"),16,16,Direction.EAST);
 		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE,new Image("res/Laser.png"),16,16,Direction.SOUTH);
 		laser.add(laser1);

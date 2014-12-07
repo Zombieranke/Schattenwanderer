@@ -12,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameMenu extends BasicGameState
 {
 	
-	//Image Deklarations
+	//Image Declarations
 	private Image background;
 	
 	// Class Objects
