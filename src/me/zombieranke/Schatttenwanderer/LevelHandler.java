@@ -74,7 +74,9 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nWachenbewegung: WASD\nWachendrehung: Q,E", 40, 40);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C", 40, 40);
+		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
+		
 		for(SolidObject w : solids)
 		{
 			w.render(g);
