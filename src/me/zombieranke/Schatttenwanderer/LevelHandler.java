@@ -31,9 +31,9 @@ public abstract class LevelHandler extends BasicGameState
 	protected ArrayList<Lever> lever;
 	private boolean debug;
 	private int state;
-	private int isMoving;
-	private int enemyIsMoving;
-	private boolean mission = false;
+	private boolean isMoving;
+	private boolean enemyIsMoving;
+	private boolean mission;
 	
 	public void reset()
 	{
@@ -42,8 +42,9 @@ public abstract class LevelHandler extends BasicGameState
 		lever = new ArrayList<Lever>();
 		debug = false;
 		state = 1;
-		isMoving = 0;
-		enemyIsMoving = 0;
+		isMoving = false;
+		enemyIsMoving = false;
+		mission = false;
 	}
 	
 	public abstract void onLoad(GameContainer container) throws SlickException;
@@ -59,6 +60,8 @@ public abstract class LevelHandler extends BasicGameState
 		watch.updateSight(solids);
 		playerHealth = playerHealthDefault;
 		playerEnergy = playerEnergyDefault;
+		watch.setRotation(watch.getDirection()+180);
+		player.setRotation(0);
 	}
 	
 	@Override
@@ -200,10 +203,12 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
+		isMoving = false;
+		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 			player.setStealth(false);
-			isMoving = 1;
+			isMoving = true;
 			for(int i = -2;i<0;i++)
 			{
 				if(player.canMove(i, 0, solids))
@@ -218,7 +223,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
 			player.setStealth(false);
-			isMoving = 1;
+			isMoving = true;
 			for(int i = 2;i>0;i--)
 			{
 				if(player.canMove(i, 0, solids))
@@ -233,7 +238,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(input.isKeyDown(Input.KEY_UP))
 		{
 			player.setStealth(false);
-			isMoving = 1;
+			isMoving = true;
 			for(int i = -2;i<0;i++)
 			{
 				if(player.canMove(0, i, solids))
@@ -248,7 +253,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
 			player.setStealth(false);
-			isMoving = 1;
+			isMoving = true;
 			for(int i = 2;i>0;i--)
 			{
 				if(player.canMove(0, i, solids))
@@ -260,11 +265,6 @@ public abstract class LevelHandler extends BasicGameState
 		    }
 		}
 		
-		if (input.isKeyDown(Input.KEY_DOWN) == false && input.isKeyDown(Input.KEY_LEFT) == false && 
-				input.isKeyDown(Input.KEY_RIGHT) == false && input.isKeyDown(Input.KEY_UP)  == false && isMoving == 1)
-		{
-			isMoving = 0;
-		}
 		
 		//Stealth skill
 		if(input.isKeyPressed(Input.KEY_C))
@@ -286,9 +286,12 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		
 	    //Debug Watch Movement
+		
+		enemyIsMoving = false;
+		
 		if(input.isKeyDown(Input.KEY_A))
 		{
-			enemyIsMoving = 1;
+			enemyIsMoving = true;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(i, 0, solids))
@@ -302,7 +305,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_D))
 		{
-			enemyIsMoving = 1;
+			enemyIsMoving = true;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(i, 0, solids))
@@ -316,7 +319,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_W))
 		{
-			enemyIsMoving = 1;
+			enemyIsMoving = true;
 			for(int i = -2;i<0;i++)
 			{
 				if(watch.canMove(0, i, solids))
@@ -330,7 +333,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_S))
 		{
-			enemyIsMoving = 1;
+			enemyIsMoving = true;
 			for(int i = 2;i>0;i--)
 			{
 				if(watch.canMove(0, i, solids))
@@ -342,12 +345,7 @@ public abstract class LevelHandler extends BasicGameState
 		    }
 		}
 		
-		if (input.isKeyDown(Input.KEY_S) == false && input.isKeyDown(Input.KEY_A) == false && 
-				input.isKeyDown(Input.KEY_D) == false && input.isKeyDown(Input.KEY_W)  == false && enemyIsMoving == 1)
-		{
-			enemyIsMoving = 0;
-		}
-		
+
 		if(input.isKeyDown(Input.KEY_Q))
 		{
 			watch.setDirection(watch.getDirection()-1);
@@ -370,7 +368,7 @@ public abstract class LevelHandler extends BasicGameState
 		case 9: player.setRotation(45); break;
 		}
 		
-		if (isMoving == 0)
+		if (!isMoving)
 		{
 			player.animation.setCurrentFrame(2);
 			player.animation.stop();
@@ -380,7 +378,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.animation.start();
 		}
 		
-		if (enemyIsMoving == 0)
+		if (!enemyIsMoving)
 		{
 			watch.animation.setCurrentFrame(2);
 			watch.animation.stop();
