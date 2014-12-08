@@ -46,7 +46,7 @@ public abstract class MovableObject extends GameObject
 	{
 		super(x, y, animation, colX, colY);
 	}
-	
+
 	public abstract void render(Graphics g);
 	
 	public void setRotation(float degrees)

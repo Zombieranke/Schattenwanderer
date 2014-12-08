@@ -44,8 +44,7 @@ public class Target extends MovableObject
 		
 		//img.drawCentered(x,y);
 		//animation.draw(x, y);
-		Color boxCol = new Color(Color.black);
-		boxCol.a = 0.5f;
+		Color boxCol = new Color(Color.blue);
 		g.setColor(boxCol);
 		g.fill(collisionArea);
 	}

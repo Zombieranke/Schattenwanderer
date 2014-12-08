@@ -22,6 +22,8 @@ public abstract class LevelHandler extends BasicGameState
 	protected static final int alarmTimeDefault = 500;
 	protected int playerHealth;
 	protected static final int playerHealthDefault = 200;
+	protected int playerEnergy;
+	protected static final int playerEnergyDefault = 300;
 	protected int durationChecker;
 	protected int levelCount;
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
@@ -56,6 +58,7 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		watch.updateSight(solids);
 		playerHealth = playerHealthDefault;
+		playerEnergy = playerEnergyDefault;
 	}
 	
 	@Override
@@ -114,12 +117,17 @@ public abstract class LevelHandler extends BasicGameState
 		
 		//Lebensbar anzeigen
 		g.setColor(Color.green);
-		g.drawString("Health", (container.getWidth()/4)*3-50, container.getHeight()-200);
-		g.fillRect((container.getWidth()/4)*3-150, container.getHeight()-180, playerHealth, 15);
+		g.drawString("Health", (container.getWidth()/4)*3-30, container.getHeight()-250);
+		g.fillRect((container.getWidth()/4)*3-150, container.getHeight()-230, playerHealth*3/2, 20);
 		
 		if (mission){
-			g.drawString("Target successfully killed",40, 800);
+			g.drawString("Target successfully killed",40, 850);
 		}
+		
+		//Energiebalken
+		g.setColor(Color.yellow);
+		g.drawString("Energy", (container.getWidth()/4)+20,container.getHeight()-250);
+		g.fillRect((container.getWidth()/4)-100, container.getHeight()-230, playerEnergy, 20);
 		
 	}
 
@@ -137,7 +145,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			if(l.isOn())
 			{
-				if(player.checkCollision(l.getBeam()))
+				if(player.checkCollision(l.getBeam())&& player.getStealth()==false)
 			    {
 			    	alarm = true;
 			    	alarmTime = alarmTimeDefault;
@@ -146,7 +154,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
-		if(player.checkCollision(watch.getSight()))
+		if(player.checkCollision(watch.getSight())&& player.getStealth()==false)
 	    {
 	    	alarm = true;
 	    	alarmTime = alarmTimeDefault;
@@ -180,7 +188,9 @@ public abstract class LevelHandler extends BasicGameState
 			alarm = false;
 		}
 		
-		if(input.isKeyPressed(Input.KEY_F)){
+		if(input.isKeyPressed(Input.KEY_F))
+		{
+			player.setStealth(false);
 			for(Lever l : lever){
 				if(player.checkCollision(l)){
 					l.flipLever();
@@ -190,6 +200,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
+			player.setStealth(false);
 			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
@@ -204,6 +215,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
+			player.setStealth(false);
 			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
@@ -218,6 +230,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
+			player.setStealth(false);
 			isMoving = 1;
 			for(int i = -2;i<0;i++)
 			{
@@ -232,6 +245,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
+			player.setStealth(false);
 			isMoving = 1;
 			for(int i = 2;i>0;i--)
 			{
@@ -248,6 +262,25 @@ public abstract class LevelHandler extends BasicGameState
 				input.isKeyDown(Input.KEY_RIGHT) == false && input.isKeyDown(Input.KEY_UP)  == false && isMoving == 1)
 		{
 			isMoving = 0;
+		}
+		
+		//Stealth skill
+		if(input.isKeyPressed(Input.KEY_C))
+		{
+			player.switchStealth();
+		}
+		
+		if(player.getStealth()==true)
+		{
+			playerEnergy-=2;
+		}
+		else if(playerEnergy<playerEnergyDefault)
+		{
+			playerEnergy++;
+		}
+		if(playerEnergy<=0)
+		{
+			player.setStealth(false);
 		}
 		
 	    //Debug Watch Movement

@@ -23,6 +23,7 @@ public class Level1 extends LevelHandler
 	private SpriteSheet enemySheet;
 	private Animation playerAnimation;
 	private Animation enemyAnimation;
+	private Image playerStealthImage;
 	private final int ORIGIN_X = 100;
 	private final int ORIGIN_Y = 100;
 	private final int DEFAULT_TILE_SIZE = 32;
@@ -50,7 +51,7 @@ public class Level1 extends LevelHandler
 		enemyAnimation.setPingPong(true);
 		playerAnimation.setAutoUpdate(false);
 		enemyAnimation.setAutoUpdate(false);
-		
+
 		
 	}
 	
