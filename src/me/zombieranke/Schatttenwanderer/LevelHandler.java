@@ -15,6 +15,7 @@ public abstract class LevelHandler extends BasicGameState
 	
 	protected static final int levelOffset = 5;
 	protected Player player;
+	protected Target target;
 	protected Watch watch;
 	protected boolean alarm;
 	protected int alarmTime;
@@ -30,6 +31,7 @@ public abstract class LevelHandler extends BasicGameState
 	private int state;
 	private int isMoving;
 	private int enemyIsMoving;
+	private boolean mission = false;
 	
 	public void reset()
 	{
@@ -83,6 +85,7 @@ public abstract class LevelHandler extends BasicGameState
 			l.render(g);
 		}
 		player.render(g);
+		target.render(g);
 		watch.render(g);
 		if(debug)
 		{
@@ -92,6 +95,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 			player.renderCollisionArea(g);
 			watch.renderCollisionArea(g);
+			target.renderCollisionArea(g);
 			for(Laser l: laser)
 			{
 				l.renderCollisionArea(g);
@@ -112,6 +116,10 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.green);
 		g.drawString("Health", (container.getWidth()/4)*3-50, container.getHeight()-200);
 		g.fillRect((container.getWidth()/4)*3-150, container.getHeight()-180, playerHealth, 15);
+		
+		if (mission){
+			g.drawString("Target successfully killed",40, 800);
+		}
 		
 	}
 
@@ -352,6 +360,10 @@ public abstract class LevelHandler extends BasicGameState
 		player.update(delta);
 		watch.update(delta);
 		watch.updateSight(solids);
+		
+		if(target.checkCollision(player)){
+			mission = true;
+		}
 	}
 
 	@Override

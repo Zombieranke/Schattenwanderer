@@ -11,6 +11,7 @@ import me.zombieranke.Schatttenwanderer.Laser;
 import me.zombieranke.Schatttenwanderer.LevelHandler;
 import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
+import me.zombieranke.Schatttenwanderer.Target;
 import me.zombieranke.Schatttenwanderer.Wall;
 import me.zombieranke.Schatttenwanderer.Watch;
 import me.zombieranke.utils.Direction;
@@ -65,6 +66,7 @@ public class Level1 extends LevelHandler
 		lever.add(lever2);
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watch = new Watch(300,300,enemyAnimation,20,20);
+		target = new Target(600,600, 20, 20);
 		super.initializeObjects(container);
 	}
 }
