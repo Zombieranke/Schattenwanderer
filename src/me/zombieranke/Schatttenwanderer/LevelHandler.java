@@ -98,9 +98,9 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			l.render(g);
 		}
-		player.render(g);
 		target.render(g);
 		watch.render(g);
+		player.render(g);
 		exit.render(g);
 		if(debug)
 		{
