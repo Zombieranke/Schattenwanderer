@@ -9,7 +9,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 public abstract class LevelHandler extends BasicGameState
 {
 	
@@ -434,7 +435,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(player.checkCollision(exit) && exit.getOpen()==true)
 		{
-			game.enterState(2);
+			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		player.update(delta);
