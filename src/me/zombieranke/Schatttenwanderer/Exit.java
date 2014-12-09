@@ -5,28 +5,18 @@ import org.newdawn.slick.Graphics;
 
 public class Exit extends SolidObject
 {
-	boolean horizontal;
 	boolean open;
 	
 	
 	public Exit(int x,int y)
 	{
 		super(x,y);
-		horizontal = true;
 		open = false;
 	}
 	
-	public Exit(int x,int y,Animation animation,int colX, int colY)
+	public Exit(int x, int y, Animation animation,int colX, int colY)
 	{
 		super(x,y,animation,colX,colY);
-		horizontal = true;
-		open = false;
-	}
-	
-	public Exit(int x, int y, Animation animation,int colX, int colY, boolean horizontal)
-	{
-		super(x,y,animation,colX,colY);
-		this.horizontal = horizontal;
 		open = false;
 	}
 	
@@ -35,7 +25,7 @@ public class Exit extends SolidObject
 		animation.draw(x, y);
 	}
 	
-	public boolean getOpen()
+	public boolean isOpen()
 	{
 		return open;
 	}

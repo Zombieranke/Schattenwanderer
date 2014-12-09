@@ -87,7 +87,7 @@ public class Level1 extends LevelHandler
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watch = new Watch(300,300,enemyAnimation,20,20);
 		target = new Target(600,600,targetAnimation, targetDeathImage, 20, 20);
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32, true);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		super.initializeObjects(container);
 	}

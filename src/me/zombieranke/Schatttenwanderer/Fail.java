@@ -23,7 +23,7 @@ public class Fail extends BasicGameState
 	@Override
 	public void render(GameContainer container,StateBasedGame game, Graphics g) throws SlickException
 	{
-		background.draw(); //Hier wäre es cool, wenn das Bild reinfadet statt sofort ganz da zu sein
+		background.draw();
 		
 	}
 	

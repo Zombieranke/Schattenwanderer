@@ -83,7 +83,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter betï¿½tigen: F\nStealth: C", 40, 40);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C", 40, 40);
 		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
 		
 		for(SolidObject w : solids)
@@ -161,7 +161,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			if(l.isOn())
 			{
-				if(player.checkCollision(l.getBeam())&& player.getStealth()==false)
+				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
 			    	alarm = true;
 			    	alarmTime = alarmTimeDefault;
@@ -170,12 +170,15 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
-		if(player.checkCollision(watch.getSight())&& player.getStealth()==false)
+		if(player.checkCollision(watch.getSight())&& !player.isStealth())
 	    {
 	    	alarm = true;
 	    	alarmTime = alarmTimeDefault;
-	    	playerHealth -= Math.ceil(durationChecker/20);
 	    	durationChecker++;
+	    	if(durationChecker>=10)
+	    	{
+	    		playerHealth -= 3;
+	    	}
 	    }
 		else
 		{
@@ -283,7 +286,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.switchStealth();
 		}
 		
-		if(player.getStealth()==true)
+		if(player.isStealth()==true)
 		{
 			playerEnergy-=2;
 		}
@@ -428,12 +431,12 @@ public abstract class LevelHandler extends BasicGameState
 		//Spielende
 		if(playerHealth<=0)
 		{
-			game.enterState(3);
+			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 			playerHealth = playerHealthDefault;
 			alarm = false;
 		}
 		
-		if(player.checkCollision(exit) && exit.getOpen()==true)
+		if(player.checkCollision(exit) && exit.isOpen()==true)
 		{
 			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}

@@ -59,21 +59,14 @@ public class Player extends MovableObject
 		g.fill(collisionArea);*/
 	}
 	
-	public boolean getStealth()
+	public boolean isStealth()
 	{
 		return stealth;
 	}
 	
 	public void switchStealth()
 	{
-		if(stealth==true)
-		{
-			stealth = false;
-		}
-		else
-		{
-			stealth = true;
-		}
+		stealth = !stealth;
 	}
 	
 	public void setStealth(boolean stealth)
