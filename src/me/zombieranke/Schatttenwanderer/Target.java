@@ -13,6 +13,7 @@ public class Target extends MovableObject
 	
 	private static final int DEFAULT_COL_X = 10;
 	private static final int DEFAULT_COL_Y = 10;
+	private boolean mission = false;
 	
 	public Target(int x, int y, Image img)
 	{
@@ -38,15 +39,27 @@ public class Target extends MovableObject
 		super(x, y, animation, colX, colY);
 	}
 	
+	public Target(int x, int y, Animation animation, Image image, int colX, int colY)
+	{
+		super(x, y, animation, image, colX, colY);
+	}
+	
+	public void missionAccomplished(boolean mission)
+	{
+		this.mission = mission;
+	}
+	
 	public void render(Graphics g)
 	{
-		
-		
-		//img.drawCentered(x,y);
-		//animation.draw(x, y);
-		Color boxCol = new Color(Color.blue);
-		g.setColor(boxCol);
-		g.fill(collisionArea);
+		if (mission==true)
+		{
+			img.draw(x, y);
+		}
+
+		else
+		{
+			animation.draw(x, y);
+		}
 	}
 	
 }

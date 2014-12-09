@@ -46,6 +46,11 @@ public abstract class MovableObject extends GameObject
 	{
 		super(x, y, animation, colX, colY);
 	}
+	
+	public MovableObject(int x, int y, Animation animation, Image image, int colX, int colY)
+	{
+		super(x, y, animation, image, colX, colY);
+	}
 
 	public abstract void render(Graphics g);
 	

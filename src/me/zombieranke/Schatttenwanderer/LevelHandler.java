@@ -62,6 +62,8 @@ public abstract class LevelHandler extends BasicGameState
 		playerEnergy = playerEnergyDefault;
 		watch.setRotation(watch.getDirection()+180);
 		player.setRotation(0);
+		target.animation.setCurrentFrame(2);
+		target.animation.stop();
 	}
 	
 	@Override
@@ -77,7 +79,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C", 40, 40);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betï¿½tigen: F\nStealth: C", 40, 40);
 		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
 		
 		for(SolidObject w : solids)
@@ -127,7 +129,9 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
+			
 		}
+		target.missionAccomplished(mission);
 		
 		//Energiebalken
 		g.setColor(Color.yellow);
@@ -145,6 +149,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		player.animation.update(delta);
 		watch.animation.update(delta);
+		
 		
 		for(Laser l: laser)
 		{

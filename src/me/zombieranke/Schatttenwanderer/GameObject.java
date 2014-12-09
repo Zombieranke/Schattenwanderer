@@ -70,6 +70,17 @@ public abstract class GameObject
 		this.colY = colY;
 	}
 	
+	public GameObject(int x, int y, Animation animation, Image image, int colX, int colY)
+	{
+		this(x, y, new Rectangle(x, y, colX, colY));
+		this.x = x;
+		this.y = y;
+		this.animation = animation;
+		this.img = image;
+		this.colX = colX;
+		this.colY = colY;
+	}
+	
 	public void renderCollisionArea(Graphics g)
 	{
 		g.setColor(Color.green);
