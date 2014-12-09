@@ -59,7 +59,7 @@ public abstract class MovableObject extends GameObject
 		animation.getCurrentFrame().setRotation(degrees);
 	}
 	
-	public boolean canMove(int deltaX,int deltaY, ArrayList<SolidObject> walls)
+	public boolean canMove(int deltaX,int deltaY, ArrayList<SolidObject> walls,Exit exit)
 	{
 		collisionArea.setX(x+deltaX);
 		collisionArea.setY(y+deltaY);
@@ -68,6 +68,10 @@ public abstract class MovableObject extends GameObject
 				update();
 				return false;
 			}
+		}
+		if(exit.checkCollision(collisionArea)&&exit.getOpen()==false)
+		{
+			return false;
 		}
 		return true;
 	}

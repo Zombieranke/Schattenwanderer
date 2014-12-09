@@ -26,7 +26,7 @@ public class GameMenu extends BasicGameState
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		background = new Image("res/Background.jpg");
+		background = new Image("res/Background_Menu.jpg");
 		
 		// Initialisiere die Menüpunkte als MouseOverArea und gib ihnen ein Standard und ein mouseover image
 		NewGame = new MenuFunc(new MouseOverArea(container, new Image("res/New_Game_Unlighted.png"), 

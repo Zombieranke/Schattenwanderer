@@ -16,6 +16,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected static final int levelOffset = 5;
 	protected Player player;
 	protected Target target;
+	protected Exit exit;
 	protected Watch watch;
 	protected boolean alarm;
 	protected int alarmTime;
@@ -64,6 +65,8 @@ public abstract class LevelHandler extends BasicGameState
 		player.setRotation(0);
 		target.animation.setCurrentFrame(2);
 		target.animation.stop();
+		exit.animation.setCurrentFrame(0);
+		exit.animation.stop();
 	}
 	
 	@Override
@@ -97,6 +100,7 @@ public abstract class LevelHandler extends BasicGameState
 		player.render(g);
 		target.render(g);
 		watch.render(g);
+		exit.render(g);
 		if(debug)
 		{
 			for(SolidObject w : solids)
@@ -149,6 +153,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		player.animation.update(delta);
 		watch.animation.update(delta);
+		exit.animation.update(delta);
 		
 		
 		for(Laser l: laser)
@@ -191,7 +196,7 @@ public abstract class LevelHandler extends BasicGameState
     		debug = !debug;
     	}   	
     	
-		if(input.isKeyPressed(Input.KEY_ESCAPE)||playerHealth<=0)
+		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
 			game.enterState(1);
 			playerHealth = playerHealthDefault;
@@ -216,7 +221,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = true;
 			for(int i = -2;i<0;i++)
 			{
-				if(player.canMove(i, 0, solids))
+				if(player.canMove(i, 0, solids, exit))
 				{
 					player.move(i, 0);
 					state += 8;
@@ -231,7 +236,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = true;
 			for(int i = 2;i>0;i--)
 			{
-				if(player.canMove(i, 0, solids))
+				if(player.canMove(i, 0, solids, exit))
 				{
 					player.move(i, 0);
 					state += 2;
@@ -246,7 +251,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = true;
 			for(int i = -2;i<0;i++)
 			{
-				if(player.canMove(0, i, solids))
+				if(player.canMove(0, i, solids, exit))
 				{
 					player.move(0, i);
 					state += 1;
@@ -261,7 +266,7 @@ public abstract class LevelHandler extends BasicGameState
 			isMoving = true;
 			for(int i = 2;i>0;i--)
 			{
-				if(player.canMove(0, i, solids))
+				if(player.canMove(0, i, solids, exit))
 				{
 					player.move(0, i);
 					state += 4;
@@ -299,7 +304,7 @@ public abstract class LevelHandler extends BasicGameState
 			enemyIsMoving = true;
 			for(int i = -2;i<0;i++)
 			{
-				if(watch.canMove(i, 0, solids))
+				if(watch.canMove(i, 0, solids, exit))
 				{
 					
 					watch.move(i, 0);
@@ -313,7 +318,7 @@ public abstract class LevelHandler extends BasicGameState
 			enemyIsMoving = true;
 			for(int i = 2;i>0;i--)
 			{
-				if(watch.canMove(i, 0, solids))
+				if(watch.canMove(i, 0, solids, exit))
 				{
 					
 					watch.move(i, 0);
@@ -327,7 +332,7 @@ public abstract class LevelHandler extends BasicGameState
 			enemyIsMoving = true;
 			for(int i = -2;i<0;i++)
 			{
-				if(watch.canMove(0, i, solids))
+				if(watch.canMove(0, i, solids, exit))
 				{
 					
 					watch.move(0, i);
@@ -341,7 +346,7 @@ public abstract class LevelHandler extends BasicGameState
 			enemyIsMoving = true;
 			for(int i = 2;i>0;i--)
 			{
-				if(watch.canMove(0, i, solids))
+				if(watch.canMove(0, i, solids, exit))
 				{
 					
 					watch.move(0, i);
@@ -393,6 +398,43 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			watch.setRotation(watch.getDirection()+180);
 			watch.animation.start();
+		}
+		
+		//Funktion des Ausgangs Anfang
+		if(mission && !alarm)
+		{
+			exit.animation.start();
+			exit.animation.stopAt(7); //Falls die Bedingung erfüllt ist, öffnet sich die Tür und bleibt offen
+		}
+		
+		if(exit.animation.getFrame()==7 && !alarm)
+		{
+			exit.setOpen(true);
+		}
+		else
+		{
+			exit.setOpen(false);
+		}
+		
+		if(exit.animation.getFrame()>0 && alarm && mission)
+		{
+			exit.animation.stop();
+			exit.animation.start();	//Stoppt, falls der Spieler den Alarm auslöst und rennt dann bis die Tür wieder ganz zu ist
+			exit.animation.stopAt(0);	//Leider muss sie einmal ganz aufgehen (=pingpong) bevor sie dann ganz zugeht
+		}
+		//Funktion des Ausgangs Ende
+		
+		//Spielende
+		if(playerHealth<=0)
+		{
+			game.enterState(3);
+			playerHealth = playerHealthDefault;
+			alarm = false;
+		}
+		
+		if(player.checkCollision(exit) && exit.getOpen()==true)
+		{
+			game.enterState(2);
 		}
 		
 		player.update(delta);

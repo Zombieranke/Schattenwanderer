@@ -41,6 +41,11 @@ public abstract class SolidObject extends GameObject
 		solid = true;
 	}
 	
+	public SolidObject(int x, int y, Animation animation, int colX, int colY)
+	{
+		super(x,y,animation,colX,colY);
+	}
+	
 	public abstract void render(Graphics g);
 	
 	

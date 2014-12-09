@@ -35,6 +35,8 @@ public class Schattenwanderer extends StateBasedGame
 	public void initStatesList(GameContainer container) throws SlickException
 	{
 		addState(new GameMenu());
+		addState(new Success());
+		addState(new Fail());
 		addState(new Level1());
 	}
 
