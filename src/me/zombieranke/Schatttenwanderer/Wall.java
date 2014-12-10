@@ -11,32 +11,32 @@ public class Wall extends SolidObject
 {
 	
 
-	public Wall(int x, int y, Image img, Shape collisionArea)
+	public Wall(float x, float y, Image img, Shape collisionArea)
 	{
 		super(x,y,img,collisionArea);
 	}
 	
-	public Wall(int x, int y, Shape collisionArea)
+	public Wall(float x, float y, Shape collisionArea)
 	{
 		super(x,y,collisionArea);
 	}
 	
-	public Wall(int x, int y, Image img, int colX, int colY)
+	public Wall(float x, float y, Image img, float colX, float colY)
 	{
 		super(x,y,img,colX,colY);
 	}
 	
-	public Wall(int x, int y, int colX, int colY)
+	public Wall(float x, float y, float colX, float colY)
 	{
 		super(x,y,colX,colY);
 	}
 	
-	public Wall(int x,int y)
+	public Wall(float x,float y)
 	{
 		super(x,y);
 	}
 	
-	public Wall(int x,int y,Image img)
+	public Wall(float x,float y,Image img)
 	{
 		super(x,y,img);
 	}
@@ -52,7 +52,7 @@ public class Wall extends SolidObject
 		//g.fillRect(x,y,16,16);
 	}
 	
-	public static ArrayList<Wall> createWall(int startX,int startY,int segmentCount,Direction dir) throws SlickException{
+	public static ArrayList<Wall> createWall(float startX,float startY,int segmentCount,Direction dir) throws SlickException{
 		ArrayList<Wall> wall = new ArrayList<Wall>();
 		
 		for(int i = 0; i<segmentCount;i++){

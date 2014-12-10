@@ -12,43 +12,43 @@ public abstract class MovableObject extends GameObject
 
 	
 	
-	public MovableObject(int x, int y, Image img, Shape collisionArea)
+	public MovableObject(float x, float y, Image img, Shape collisionArea)
 	{
 		super(x,y,img,collisionArea);
 		solid = true;
 	}
 	
-	public MovableObject(int x, int y, Shape collisionArea)
+	public MovableObject(float x, float y, Shape collisionArea)
 	{
 		super(x,y,collisionArea);
 	}
 	
-	public MovableObject(int x, int y, Image img, int colX, int colY)
+	public MovableObject(float x, float y, Image img, float colX, float colY)
 	{
 		super(x,y,img,colX,colY);
 	}
 	
-	public MovableObject(int x, int y, int colX, int colY)
+	public MovableObject(float x, float y, float colX, float colY)
 	{
 		super(x,y,colX,colY);
 	}
 	
-	public MovableObject(int x,int y)
+	public MovableObject(float x,float y)
 	{
 		super(x,y);
 	}
 	
-	public MovableObject(int x,int y,Image img)
+	public MovableObject(float x,float y,Image img)
 	{
 		super(x,y,img);
 	}
 	
-	public MovableObject(int x, int y, Animation animation, int colX, int colY)
+	public MovableObject(float x, float y, Animation animation, float colX, float colY)
 	{
 		super(x, y, animation, colX, colY);
 	}
 	
-	public MovableObject(int x, int y, Animation animation, Image image, int colX, int colY)
+	public MovableObject(float x, float y, Animation animation, Image image, float colX, float colY)
 	{
 		super(x, y, animation, image, colX, colY);
 	}
@@ -60,7 +60,7 @@ public abstract class MovableObject extends GameObject
 		animation.getCurrentFrame().setRotation(degrees);
 	}
 	
-	public boolean canMove(int deltaX,int deltaY, ArrayList<SolidObject> walls,Exit exit)
+	public boolean canMove(float deltaX,float deltaY, ArrayList<SolidObject> walls,Exit exit)
 	{
 		collisionArea.setX(x+deltaX);
 		collisionArea.setY(y+deltaY);
@@ -77,7 +77,7 @@ public abstract class MovableObject extends GameObject
 		return true;
 	}
 	
-	public void move(int x, int y){
+	public void move(float x, float y){
 		this.x+=x;
 		this.y+=y;
 	}

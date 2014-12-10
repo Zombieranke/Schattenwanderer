@@ -19,31 +19,31 @@ public class Laser extends SolidObject
 	private Direction facing;
 	private boolean on = true;
 
-	public Laser(int x, int y) {
+	public Laser(float x, float y) {
 		super(x, y);
 	}
 
-	public Laser(int x, int y, Image img, int colX, int colY, Direction facing) {
+	public Laser(float x, float y, Image img, float colX, float colY, Direction facing) {
 		super(x, y, img, colX, colY);
 		this.facing = facing;
 	}
 
-	public Laser(int x, int y, Image img, Shape collisionArea, Direction facing) {
+	public Laser(float x, float y, Image img, Shape collisionArea, Direction facing) {
 		super(x, y, img, collisionArea);
 		this.facing = facing;
 	}
 
-	public Laser(int x, int y, Image img, Direction facing) {
+	public Laser(float x, float y, Image img, Direction facing) {
 		super(x, y, img);
 		this.facing = facing;
 	}
 
-	public Laser(int x, int y, int colX, int colY, Direction facing) {
+	public Laser(float x, float y, float colX, float colY, Direction facing) {
 		super(x, y, colX, colY);
 		this.facing = facing;
 	}
 
-	public Laser(int x, int y, Shape collisionArea, Direction facing) {
+	public Laser(float x, float y, Shape collisionArea, Direction facing) {
 		super(x, y, collisionArea);
 		this.facing = facing;
 	}

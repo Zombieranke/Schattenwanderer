@@ -14,46 +14,46 @@ public class Lever extends GameObject {
 	private boolean flipped = false;
 	private Direction facing;
 
-	public Lever(int x, int y, Animation animation, int colX, int colY, Direction facing, Laser laser) {
+	public Lever(float x, float y, Animation animation, float colX, float colY, Direction facing, Laser laser) {
 		super(x, y, animation, colX, colY);
 		this.laser  = laser;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, Image img, Image altImg, int colX, int colY, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, float colX, float colY, Direction facing, Laser laser) {
 		super(x, y, img, colX, colY);
 		this.laser  = laser;
 		this.altImg = altImg;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, Image img, Image altImg, Shape collisionArea, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, Shape collisionArea, Direction facing, Laser laser) {
 		super(x, y, img, collisionArea);
 		this.laser  = laser;
 		this.altImg = altImg;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, Image img, Image altImg, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, Direction facing, Laser laser) {
 		super(x, y, img);
 		this.laser  = laser;
 		this.altImg = altImg;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, int colX, int colY, Direction facing, Laser laser) {
+	public Lever(float x, float y, float colX, float colY, Direction facing, Laser laser) {
 		super(x, y, colX, colY);
 		this.laser  = laser;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, Shape collisionArea,Direction facing,  Laser laser) {
+	public Lever(float x, float y, Shape collisionArea,Direction facing,  Laser laser) {
 		super(x, y, collisionArea);
 		this.laser  = laser;
 		this.facing = facing;
 	}
 
-	public Lever(int x, int y, Direction facing, Laser laser) {
+	public Lever(float x, float y, Direction facing, Laser laser) {
 		super(x, y);
 		this.laser  = laser;
 		this.facing = facing;

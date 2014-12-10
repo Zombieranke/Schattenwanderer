@@ -16,37 +16,37 @@ public class Watch extends MovableObject
 	private float angle = 60;
 	private Shape sight;
 
-	public Watch(int x, int y, Image img, Shape collisionArea)
+	public Watch(float x, float y, Image img, Shape collisionArea)
 	{
 		super(x,y,img,collisionArea);;
 	}
 	
-	public Watch(int x, int y, Shape collisionArea)
+	public Watch(float x, float y, Shape collisionArea)
 	{
 		super(x,y,collisionArea);
 	}
 	
-	public Watch(int x, int y, Image img, int colX, int colY)
+	public Watch(float x, float y, Image img, float colX, float colY)
 	{
 		super(x,y,img,colX,colY);;
 	}
 	
-	public Watch(int x, int y, int colX, int colY)
+	public Watch(float x, float y, float colX, float colY)
 	{
 		super(x,y,colX,colY);
 	}
 	
-	public Watch(int x,int y)
+	public Watch(float x,float y)
 	{
 		super(x,y);
 	}
 	
-	public Watch(int x,int y,Image img)
+	public Watch(float x,float y,Image img)
 	{
 		super(x,y,img);
 	}
 	
-	public Watch(int x, int y, Animation animation, int colX, int colY)
+	public Watch(float x, float y, Animation animation, float colX, float colY)
 	{
 		super(x, y, animation, colX, colY);
 	}

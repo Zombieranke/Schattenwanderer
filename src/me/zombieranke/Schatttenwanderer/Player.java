@@ -11,33 +11,32 @@ import org.newdawn.slick.Image;
 
 public class Player extends MovableObject
 {
-	/*Basic Implementation. Needs a lot of work. */
 	
-	private static final int DEFAULT_COL_X = 20;
-	private static final int DEFAULT_COL_Y = 20;
+	private static final float DEFAULT_COL_X = 20;
+	private static final float DEFAULT_COL_Y = 20;
 	private boolean stealth = false;
 	private boolean sprint = false;
 	
-	public Player(int x, int y, Image img)
+	public Player(float x, float y, Image img)
 	{
 		super(x, y, img,DEFAULT_COL_X,DEFAULT_COL_Y);
 	}
 	
-	public Player(int x, int y)
+	public Player(float x, float y)
 	{
 		super(x, y,DEFAULT_COL_X,DEFAULT_COL_Y);
 	}
 	
-	public Player(int x, int y, Image img,int colX,int colY)
+	public Player(float x, float y, Image img,float colX,float colY)
 	{
 		super(x, y, img,colX,colY);
 	}
-	public Player(int x, int y, int colX, int colY)
+	public Player(float x, float y, float colX, float colY)
 	{
 		super(x, y,colX,colY);
 	}
 	
-	public Player(int x, int y, Animation animation, int colX, int colY)
+	public Player(float x, float y, Animation animation, float colX, float colY)
 	{
 		super(x, y, animation, colX, colY);
 	}

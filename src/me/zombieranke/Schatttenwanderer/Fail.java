@@ -1,6 +1,5 @@
 package me.zombieranke.Schatttenwanderer;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,6 +12,11 @@ public class Fail extends BasicGameState
 {
 	private Image background;
 	private int ID = 3;
+	private static int lastID = 1;
+	
+	public static void setLast(int last){
+		lastID = last;
+	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
@@ -32,7 +36,7 @@ public class Fail extends BasicGameState
 		Input input = container.getInput();
 		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) || input.isKeyPressed(Input.KEY_ESCAPE))
 		{
-			game.enterState(1);
+			game.enterState(lastID);
 		}
 	}
 	

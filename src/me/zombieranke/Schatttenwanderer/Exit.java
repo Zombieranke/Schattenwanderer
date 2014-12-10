@@ -8,13 +8,13 @@ public class Exit extends SolidObject
 	boolean open;
 	
 	
-	public Exit(int x,int y)
+	public Exit(float x,float y)
 	{
 		super(x,y);
 		open = false;
 	}
 	
-	public Exit(int x, int y, Animation animation,int colX, int colY)
+	public Exit(float x, float y, Animation animation,float colX, float colY)
 	{
 		super(x,y,animation,colX,colY);
 		open = false;

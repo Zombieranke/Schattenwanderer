@@ -13,54 +13,54 @@ public abstract class GameObject
 	public abstract void render(Graphics g);
 	public void update(int delta){}
 
-	protected int x;
-	protected int y;
+	protected float x;
+	protected float y;
 	protected Image img;
 	protected Animation animation;
 	protected boolean solid = false;	//f�r sp�ter, damit die Collisiondetections funktionieren
 	protected Shape collisionArea = new Rectangle(x,y,1,1);
-	protected int colX = 0;
-	protected int colY = 0;
+	protected float colX = 0;
+	protected float colY = 0;
 	
-	public GameObject(int x, int y, Image img, Shape collisionArea)
+	public GameObject(float x, float y, Image img, Shape collisionArea)
 	{
 		this(x, y, img);
 		this.collisionArea = collisionArea;
 	}
 	
-	public GameObject(int x, int y, Shape collisionArea)
+	public GameObject(float x, float y, Shape collisionArea)
 	{
 		this(x, y);
 		this.collisionArea = collisionArea;
 	}
 	
-	public GameObject(int x, int y, Image img, int colX, int colY)
+	public GameObject(float x, float y, Image img, float colX, float colY)
 	{
 		this(x, y, img, new Rectangle(x,y,colX,colY));
 		this.colX=colX;
 		this.colY=colY;
 	}
 	
-	public GameObject(int x, int y, int colX, int colY)
+	public GameObject(float x, float y, float colX, float colY)
 	{
 		this(x, y, new Rectangle(x,y,colX,colY));
 		this.colX=colX;
 		this.colY=colY;
 	}
 	
-	public GameObject(int x, int y, Image img)
+	public GameObject(float x, float y, Image img)
 	{
 		this(x, y);
 		this.img = img;
 	}
 	
-	public GameObject(int x, int y)
+	public GameObject(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 	
-	public GameObject(int x, int y, Animation animation, int colX, int colY)
+	public GameObject(float x, float y, Animation animation, float colX, float colY)
 	{
 		this(x, y, new Rectangle(x, y, colX, colY));
 		this.x = x;
@@ -70,7 +70,7 @@ public abstract class GameObject
 		this.colY = colY;
 	}
 	
-	public GameObject(int x, int y, Animation animation, Image image, int colX, int colY)
+	public GameObject(float x, float y, Animation animation, Image image, float colX, float colY)
 	{
 		this(x, y, new Rectangle(x, y, colX, colY));
 		this.x = x;
@@ -105,22 +105,22 @@ public abstract class GameObject
 	
 	
 	
-	public int getX()
+	public float getX()
 	{
 		return x;
 	}
 
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = x;
 	}
 
-	public int getY()
+	public float getY()
 	{
 		return y;
 	}
 
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = y;
 	}

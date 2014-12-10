@@ -30,9 +30,9 @@ public class Level1 extends LevelHandler
 	private Animation targetAnimation;
 	private Animation exitAnimation;
 	private Image targetDeathImage;
-	private final int ORIGIN_X = 100;
-	private final int ORIGIN_Y = 100;
-	private final int DEFAULT_TILE_SIZE = 32;
+	private final float ORIGIN_X = 100;
+	private final float ORIGIN_Y = 100;
+	private final float DEFAULT_TILE_SIZE = 32;
 
 	
 	public Level1(){

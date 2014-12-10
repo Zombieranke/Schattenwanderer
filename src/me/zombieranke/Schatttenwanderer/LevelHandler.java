@@ -152,7 +152,7 @@ public abstract class LevelHandler extends BasicGameState
 			g.drawString("Target successfully killed",40, 850);
 			
 		}
-		target.missionAccomplished(mission);
+		target.setDead(mission);
 		
 		//Energiebalken
 		g.setColor(new Color(0.2f,0.2f,0.2f));
@@ -166,59 +166,20 @@ public abstract class LevelHandler extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
 		Input input = container.getInput();
-		//Ganzes Alarmskrimskrams Anfang
+		
 		state = 0;
 		
 		player.animation.update(delta);
 		watch.animation.update(delta);
 		exit.animation.update(delta);
 		
+		checkAlarm();
 		
-		for(Laser l: laser)
-		{
-			if(l.isOn())
-			{
-				if(player.checkCollision(l.getBeam())&& !player.isStealth())
-			    {
-			    	alarm = true;
-			    	alarmTime = alarmTimeDefault;
-			    }
-
-			}
-		}
-		
-		if(player.checkCollision(watch.getSight())&& !player.isStealth())
-	    {
-	    	alarm = true;
-	    	alarmTime = alarmTimeDefault;
-	    	durationChecker++;
-	    	if(durationChecker>=10)
-	    	{
-	    		playerHealth -= 9;
-	    	}
-	    }
-		else
-		{
-			durationChecker = 0;
-		}
-		
-		alarmTime--;
-		
-    	if(alarmTime<0)
-    	{
-    		alarm = false;
-    	}
-    	
     	if(!alarm && (playerHealth<(playerHealthDefault/2)))
     	{
     		playerHealth++;
     	}
     	
-    	
-    	
-    	
-    	//Ganzes Alarmskrimskrams Ende
-		
 		//Debug Toggle
     	if(input.isKeyPressed(Input.KEY_F3))
     	{
@@ -234,8 +195,6 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
-			playerHealth = playerHealthDefault;
-			alarm = false;
 			game.enterState(1);
 		}
 		
@@ -257,6 +216,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			player.setStealth(false);
 			isMoving = true;
+			state += 8;
 			if(player.isSprint())
 			{
 				for(int i = -4;i<0;i+=2)
@@ -264,7 +224,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(i, 0, solids, exit))
 					{
 						player.move(i, 0);
-						state += 8;
 						break;
 					}
 			    }
@@ -276,7 +235,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(i, 0, solids, exit))
 					{
 						player.move(i, 0);
-						state += 8;
 						break;
 					}
 			    }
@@ -287,6 +245,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			player.setStealth(false);
 			isMoving = true;
+			state += 2;
 			if(player.isSprint())
 			{
 				for(int i = 4;i>0;i-=2)
@@ -294,7 +253,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(i, 0, solids, exit))
 					{
 						player.move(i, 0);
-						state += 2;
 						break;
 					}
 			    }
@@ -306,7 +264,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(i, 0, solids, exit))
 					{
 						player.move(i, 0);
-						state += 2;
 						break;
 					}
 			    }
@@ -317,6 +274,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			player.setStealth(false);
 			isMoving = true;
+			state += 1;
 			if(player.isSprint())
 			{
 				for(int i = -4;i<0;i+=2)
@@ -324,7 +282,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(0, i, solids, exit))
 					{
 						player.move(0, i);
-						state += 1;
 						break;
 					}
 			    }
@@ -336,7 +293,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(0, i, solids, exit))
 					{
 						player.move(0, i);
-						state += 1;
 						break;
 					}
 			    }
@@ -347,6 +303,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			player.setStealth(false);
 			isMoving = true;
+			state += 4;
 			if(player.isSprint())
 			{
 				for(int i = 4;i>0;i-=2)
@@ -354,7 +311,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(0, i, solids, exit))
 					{
 						player.move(0, i);
-						state += 4;
 						break;
 					}
 			    }
@@ -366,7 +322,6 @@ public abstract class LevelHandler extends BasicGameState
 					if(player.canMove(0, i, solids, exit))
 					{
 						player.move(0, i);
-						state += 4;
 						break;
 					}
 			    }
@@ -475,14 +430,14 @@ public abstract class LevelHandler extends BasicGameState
 		
 		switch(state)
 		{
-		case 1: player.setRotation(90); break;
-		case 2: player.setRotation(180); break;
-		case 3: player.setRotation(135); break;
-		case 4: player.setRotation(270); break;
-		case 6: player.setRotation(225); break;
-		case 12: player.setRotation(315); break;
-		case 8: player.setRotation(360); break;
-		case 9: player.setRotation(45); break;
+			case 1: player.setRotation(90); break;
+			case 2: player.setRotation(180); break;
+			case 3: player.setRotation(135); break;
+			case 4: player.setRotation(270); break;
+			case 6: player.setRotation(225); break;
+			case 12: player.setRotation(315); break;
+			case 8: player.setRotation(360); break;
+			case 9: player.setRotation(45); break;
 		}
 		
 		if (!isMoving)
@@ -558,14 +513,13 @@ public abstract class LevelHandler extends BasicGameState
 		//Spielende
 		if(playerHealth<=0)
 		{
+			Fail.setLast(this.getID());
 			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
-			playerHealth = playerHealthDefault;
-			alarm = false;
 			gameMusic.stop();
 			alarmMusic.stop();
 		}
 		
-		if(player.checkCollision(exit) && exit.isOpen()==true)
+		if(player.checkCollision(exit) && exit.isOpen())
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
@@ -580,7 +534,50 @@ public abstract class LevelHandler extends BasicGameState
 			mission = true;
 		}
 	}
+	
+	private void checkAlarm(){
 
+		for(Laser l: laser)
+		{
+			if(l.isOn())
+			{
+				if(player.checkCollision(l.getBeam())&& !player.isStealth())
+			    {
+			    	setAlarm(alarmTimeDefault);			    }
+			}
+		}
+		
+		if(player.checkCollision(watch.getSight())&& !player.isStealth())
+	    {
+	    	setAlarm(alarmTimeDefault);
+	    	
+	    	durationChecker++;
+	    	if(durationChecker>=10)
+	    	{
+	    		playerHealth -= 3;
+	    	}
+	    }
+		else
+		{
+			durationChecker = 0;
+		}
+		
+		if(alarm)
+			{	
+			alarmTime--;
+			
+	    	if(alarmTime<0)
+	    	{
+	    		alarm = false;
+	    	}
+		}
+	}
+	
+	private void setAlarm(int alarmTime){
+		alarm = true;
+    	this.alarmTime = alarmTime;
+	}
+	
 	@Override
 	public int getID()
 	{
