@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -42,6 +43,9 @@ public abstract class LevelHandler extends BasicGameState
 	//Musik - bleibt ja gleich - vorerst zumindest
 	protected Music alarmMusic;
 	protected Music gameMusic;
+	protected Sound exitSound;
+	protected boolean exitSoundWasPlayed;
+	protected Sound leverSound;
 	
 	
 	public void reset()
@@ -77,6 +81,8 @@ public abstract class LevelHandler extends BasicGameState
 		exit.animation.stop();
 		alarmMusic = new Music("res/Alarm_Music.ogg",false);
 		gameMusic = new Music("res/Game_Music.ogg",false);
+		exitSound = new Sound("res/Exit_Sound.ogg");
+		leverSound = new Sound("res/Lever_Sound.ogg");
 	}
 	
 	@Override
@@ -92,7 +98,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C", 40, 40);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
 		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
 		
 		for(SolidObject w : solids)
@@ -209,6 +215,8 @@ public abstract class LevelHandler extends BasicGameState
     	}
     	
     	
+    	
+    	
     	//Ganzes Alarmskrimskrams Ende
 		
 		//Debug Toggle
@@ -224,9 +232,11 @@ public abstract class LevelHandler extends BasicGameState
     	
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
-			game.enterState(1);
+			gameMusic.stop();
+			alarmMusic.stop();
 			playerHealth = playerHealthDefault;
 			alarm = false;
+			game.enterState(1);
 		}
 		
 		if(input.isKeyPressed(Input.KEY_F))
@@ -235,6 +245,7 @@ public abstract class LevelHandler extends BasicGameState
 			for(Lever l : lever){
 				if(player.checkCollision(l)){
 					l.flipLever();
+					leverSound.play(1,0.3f);
 				}
 			}
 		}
@@ -506,6 +517,11 @@ public abstract class LevelHandler extends BasicGameState
 		if(exit.animation.getFrame()==7 && !alarm)
 		{
 			exit.setOpen(true);
+			if(!exitSoundWasPlayed)
+			{
+				exitSound.play(1,0.5f);
+				exitSoundWasPlayed = true;
+			}
 		}
 		else
 		{
@@ -518,18 +534,23 @@ public abstract class LevelHandler extends BasicGameState
 			exit.animation.start();	//Stoppt, falls der Spieler den Alarm auslöst und rennt dann bis die Tür wieder ganz zu ist
 			exit.animation.stopAt(0);	//Leider muss sie einmal ganz aufgehen (=pingpong) bevor sie dann ganz zugeht
 		}
+		
+		if(alarm)
+    	{
+    		exitSoundWasPlayed = false;
+    	}
 		//Funktion des Ausgangs Ende
 		
 		//Miracle of Sound Anfang
     	if(alarm && !alarmMusic.playing())
     	{
     		gameMusic.stop();
-    		alarmMusic.play(1,1);
+    		alarmMusic.loop(1,1);
     	}
     	if(!alarm && !gameMusic.playing())
     	{
     		alarmMusic.stop();
-    		gameMusic.play(1,0.5f);
+    		gameMusic.loop(1,0.4f);
     	}
 		//Miracle of Sound Ende
     	
@@ -540,10 +561,14 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 			playerHealth = playerHealthDefault;
 			alarm = false;
+			gameMusic.stop();
+			alarmMusic.stop();
 		}
 		
 		if(player.checkCollision(exit) && exit.isOpen()==true)
 		{
+			gameMusic.stop();
+			alarmMusic.stop();
 			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
