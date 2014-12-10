@@ -24,7 +24,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected int alarmTime;
 	protected static final int alarmTimeDefault = 600;
 	protected int playerHealth;
-	protected static final int playerHealthDefault = 200;
+	protected static final int playerHealthDefault = 600;
 	protected int playerEnergy;
 	protected static final int playerEnergyDefault = 300;
 	protected int durationChecker;
@@ -137,9 +137,10 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		
 		//Lebensbar anzeigen
+		g.setColor(new Color(0.2f,0.2f,0.2f));
+		g.fillRect(755, 789, 310, 30);
 		g.setColor(Color.green);
-		g.drawString("Health", (container.getWidth()/4)*3-30, container.getHeight()-250);
-		g.fillRect((container.getWidth()/4)*3-150, container.getHeight()-230, playerHealth*3/2, 20);
+		g.fillRect(760, 794, playerHealth/2, 20); //300px Healthbar
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
@@ -148,9 +149,10 @@ public abstract class LevelHandler extends BasicGameState
 		target.missionAccomplished(mission);
 		
 		//Energiebalken
+		g.setColor(new Color(0.2f,0.2f,0.2f));
+		g.fillRect(215, 789, 310, 30);
 		g.setColor(Color.yellow);
-		g.drawString("Energy", (container.getWidth()/4)+20,container.getHeight()-250);
-		g.fillRect((container.getWidth()/4)-100, container.getHeight()-230, playerEnergy, 20);
+		g.fillRect(220, 794, playerEnergy, 20); //300px Energybar
 		
 	}
 
@@ -186,7 +188,7 @@ public abstract class LevelHandler extends BasicGameState
 	    	durationChecker++;
 	    	if(durationChecker>=10)
 	    	{
-	    		playerHealth -= 3;
+	    		playerHealth -= 9;
 	    	}
 	    }
 		else
@@ -201,6 +203,11 @@ public abstract class LevelHandler extends BasicGameState
     		alarm = false;
     	}
     	
+    	if(!alarm && (playerHealth<(playerHealthDefault/2)))
+    	{
+    		playerHealth++;
+    	}
+    	
     	
     	//Ganzes Alarmskrimskrams Ende
 		
@@ -209,6 +216,11 @@ public abstract class LevelHandler extends BasicGameState
     	{
     		debug = !debug;
     	}   	
+    	
+    	if(input.isKeyPressed(Input.KEY_H))
+    	{
+    		alarm=false;
+    	}  
     	
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
