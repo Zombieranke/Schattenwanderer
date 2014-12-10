@@ -24,7 +24,6 @@ public class Fail extends BasicGameState
 	public void render(GameContainer container,StateBasedGame game, Graphics g) throws SlickException
 	{
 		background.draw();
-		
 	}
 	
 	@Override
