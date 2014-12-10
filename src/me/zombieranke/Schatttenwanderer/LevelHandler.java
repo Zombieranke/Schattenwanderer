@@ -239,76 +239,142 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
+		//Player Movement Start
 		isMoving = false;
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 			player.setStealth(false);
 			isMoving = true;
-			for(int i = -2;i<0;i++)
+			if(player.isSprint())
 			{
-				if(player.canMove(i, 0, solids, exit))
+				for(int i = -4;i<0;i+=2)
 				{
-					player.move(i, 0);
-					state += 8;
-					break;
-				}
-		    }
+					if(player.canMove(i, 0, solids, exit))
+					{
+						player.move(i, 0);
+						state += 8;
+						break;
+					}
+			    }
+			}
+			else
+			{
+				for(int i = -2;i<0;i++)
+				{
+					if(player.canMove(i, 0, solids, exit))
+					{
+						player.move(i, 0);
+						state += 8;
+						break;
+					}
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
 			player.setStealth(false);
 			isMoving = true;
-			for(int i = 2;i>0;i--)
+			if(player.isSprint())
 			{
-				if(player.canMove(i, 0, solids, exit))
+				for(int i = 4;i>0;i-=2)
 				{
-					player.move(i, 0);
-					state += 2;
-					break;
-				}
-		    }
+					if(player.canMove(i, 0, solids, exit))
+					{
+						player.move(i, 0);
+						state += 2;
+						break;
+					}
+			    }
+			}
+			else
+			{
+				for(int i = 2;i>0;i--)
+				{
+					if(player.canMove(i, 0, solids, exit))
+					{
+						player.move(i, 0);
+						state += 2;
+						break;
+					}
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
 			player.setStealth(false);
 			isMoving = true;
-			for(int i = -2;i<0;i++)
+			if(player.isSprint())
 			{
-				if(player.canMove(0, i, solids, exit))
+				for(int i = -4;i<0;i+=2)
 				{
-					player.move(0, i);
-					state += 1;
-					break;
-				}
-		    }
+					if(player.canMove(0, i, solids, exit))
+					{
+						player.move(0, i);
+						state += 1;
+						break;
+					}
+			    }
+			}
+			else
+			{
+				for(int i = -2;i<0;i++)
+				{
+					if(player.canMove(0, i, solids, exit))
+					{
+						player.move(0, i);
+						state += 1;
+						break;
+					}
+			    }
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
 			player.setStealth(false);
 			isMoving = true;
-			for(int i = 2;i>0;i--)
+			if(player.isSprint())
 			{
-				if(player.canMove(0, i, solids, exit))
+				for(int i = 4;i>0;i-=2)
 				{
-					player.move(0, i);
-					state += 4;
-					break;
-				}
-		    }
+					if(player.canMove(0, i, solids, exit))
+					{
+						player.move(0, i);
+						state += 4;
+						break;
+					}
+			    }
+			}
+			else
+			{
+				for(int i = 2;i>0;i--)
+				{
+					if(player.canMove(0, i, solids, exit))
+					{
+						player.move(0, i);
+						state += 4;
+						break;
+					}
+			    }
+			}
+		}
+		//Player Movement Ende
+		
+		//Stealth und Sprint skill
+		if(input.isKeyPressed(Input.KEY_V))
+		{
+			player.switchSprint();
 		}
 		
-		
-		//Stealth skill
 		if(input.isKeyPressed(Input.KEY_C))
 		{
 			player.switchStealth();
 		}
 		
-		if(player.isStealth()==true)
+		if(player.isStealth() || player.isSprint())
 		{
 			playerEnergy-=2;
 		}
@@ -319,7 +385,11 @@ public abstract class LevelHandler extends BasicGameState
 		if(playerEnergy<=0)
 		{
 			player.setStealth(false);
+			player.setSprint(false);
 		}
+		//Skills Ende
+		
+		
 		
 	    //Debug Watch Movement
 		

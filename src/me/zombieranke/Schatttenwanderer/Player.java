@@ -16,6 +16,7 @@ public class Player extends MovableObject
 	private static final int DEFAULT_COL_X = 20;
 	private static final int DEFAULT_COL_Y = 20;
 	private boolean stealth = false;
+	private boolean sprint = false;
 	
 	public Player(int x, int y, Image img)
 	{
@@ -44,19 +45,31 @@ public class Player extends MovableObject
 	
 	public void render(Graphics g)
 	{
-		//img.drawCentered(x,y);
-		if(stealth==true)
+		
+		if(stealth)
 		{
 			animation.draw(x, y, new Color(1f,1f,1f,0.3f));
 		}
+		else if(sprint)
+		{
+			for(int i=0;i<5;i++)
+			{
+				animation.setDuration(i,50);
+			}
+			animation.draw(x, y, new Color(1f,0.6f,0.2f));
+		}
 		else
 		{
-			animation.draw(x, y);
+			if(animation.getDuration(0)==50)
+			{
+				for(int i=0;i<5;i++)
+				{
+					animation.setDuration(i,100);
+				}
+			}
+			animation.draw(x,y);
 		}
-		/*Color boxCol = new Color(Color.black);
-		boxCol.a = 0.5f;
-		g.setColor(boxCol);
-		g.fill(collisionArea);*/
+		
 	}
 	
 	public boolean isStealth()
@@ -73,7 +86,22 @@ public class Player extends MovableObject
 	{
 		this.stealth = stealth;
 	}
-		
+	
+	public boolean isSprint()
+	{
+		return sprint;
+	}
+	
+	public void switchSprint()
+	{
+		sprint = !sprint;
+	}
+	
+	public void setSprint(boolean sprint)
+	{
+		this.sprint = sprint;
+	}
+	
 }
 	
 

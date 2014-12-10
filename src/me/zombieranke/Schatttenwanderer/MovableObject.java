@@ -11,6 +11,7 @@ public abstract class MovableObject extends GameObject
 {
 
 	
+	
 	public MovableObject(int x, int y, Image img, Shape collisionArea)
 	{
 		super(x,y,img,collisionArea);
