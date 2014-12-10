@@ -70,20 +70,16 @@ public abstract class LevelHandler extends BasicGameState
 		for(Lever l : lever){
 			l.init();
 		}
-		watch.updateSight(solids);
-		playerHealth = playerHealthDefault;
-		playerEnergy = playerEnergyDefault;
-		watch.setRotation(watch.getDirection()+180);
-		player.setRotation(0);
-		target.animation.setCurrentFrame(2);
-		target.animation.stop();
-		exit.animation.setCurrentFrame(0);
-		exit.animation.stop();
-		alarmMusic = new Music("res/Alarm_Music.ogg",false);
-		gameMusic = new Music("res/Game_Music.ogg",false);
-		exitSound = new Sound("res/Exit_Sound.ogg");
-		leverSound = new Sound("res/Lever_Sound.ogg");
-	}
+			watch.updateSight(solids);
+			playerHealth = playerHealthDefault;
+			playerEnergy = playerEnergyDefault;
+			watch.setRotation(watch.getDirection()+180);
+			player.setRotation(0);
+			target.animation.setCurrentFrame(2);
+			target.animation.stop();
+			exit.animation.setCurrentFrame(0);
+			exit.animation.stop();
+		}
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
@@ -152,7 +148,6 @@ public abstract class LevelHandler extends BasicGameState
 			g.drawString("Target successfully killed",40, 850);
 			
 		}
-		target.setDead(mission);
 		
 		//Energiebalken
 		g.setColor(new Color(0.2f,0.2f,0.2f));
@@ -532,6 +527,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(target.checkCollision(player)){
 			mission = true;
+			target.setDead(true);
 		}
 	}
 	
@@ -543,7 +539,8 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
-			    	setAlarm(alarmTimeDefault);			    }
+			    	setAlarm(alarmTimeDefault);			    
+			    }
 			}
 		}
 		
@@ -577,6 +574,8 @@ public abstract class LevelHandler extends BasicGameState
 		alarm = true;
     	this.alarmTime = alarmTime;
 	}
+	
+	
 	
 	@Override
 	public int getID()

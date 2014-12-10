@@ -1,5 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
+import me.zombieranke.utils.Ressources;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -26,21 +28,21 @@ public class GameMenu extends BasicGameState
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		background = new Image("res/Background_Menu.jpg");
+		background = Ressources.BACKGROUND_MENU;
 		
 		// Initialisiere die Menüpunkte als MouseOverArea und gib ihnen ein Standard und ein mouseover image
-		NewGame = new MenuFunc(new MouseOverArea(container, new Image("res/New_Game_Unlighted.png"), 
+		NewGame = new MenuFunc(new MouseOverArea(container, Ressources.NEW_GAME_UNLIGTHED, 
 															130, 110), 
-															new Image("res/New_Game_Lighted.png"));
-		Levels = new MenuFunc(new MouseOverArea(container, new Image("res/Levels_Unlighted.png"), 
+															Ressources.NEW_GAME_LIGHTED);
+		Levels = new MenuFunc(new MouseOverArea(container, Ressources.LEVELS_UNLIGHTED, 
 														   300, 300), 
-														   new Image("res/Levels_Lighted.png"));
-		Options = new MenuFunc(new MouseOverArea(container, new Image("res/Options_Unlighted.png"), 
+														   Ressources.LEVELS_LIGHTED);
+		Options = new MenuFunc(new MouseOverArea(container, Ressources.OPTIONS_UNLIGHTED, 
 															230, 480), 
-															new Image("res/Options_Lighted.png"));
-		Exit = new MenuFunc(new MouseOverArea(container, new Image("res/Exit_Unlighted.png"),
+															Ressources.OPTIONS_LIGHTED);
+		Exit = new MenuFunc(new MouseOverArea(container, Ressources.EXIT_UNLIGHTED,
 														 450, 660),
-														 new Image("res/Exit_Lighted.png"));													
+														 Ressources.EXIT_LIGHTED);													
 	}
 
 	@Override

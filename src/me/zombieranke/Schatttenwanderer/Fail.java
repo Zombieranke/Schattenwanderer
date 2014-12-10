@@ -1,5 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
+import me.zombieranke.utils.Ressources;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -21,7 +23,7 @@ public class Fail extends BasicGameState
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		background = new Image("/res/Background_Fail.jpg");
+		background = Ressources.BACKGROUND_FAIL;
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
 import me.zombieranke.levels.Level1;
+import me.zombieranke.utils.Ressources;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -34,6 +35,7 @@ public class Schattenwanderer extends StateBasedGame
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException
 	{
+		Ressources.init();
 		addState(new GameMenu());
 		addState(new Success());
 		addState(new Fail());

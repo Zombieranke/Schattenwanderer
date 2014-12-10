@@ -52,11 +52,11 @@ public class Wall extends SolidObject
 		//g.fillRect(x,y,16,16);
 	}
 	
-	public static ArrayList<Wall> createWall(float startX,float startY,int segmentCount,Direction dir) throws SlickException{
+	public static ArrayList<Wall> createWall(float startX,float startY,int segmentCount,Direction dir ,Image wallImg ) throws SlickException{
 		ArrayList<Wall> wall = new ArrayList<Wall>();
 		
 		for(int i = 0; i<segmentCount;i++){
-			Wall w = new Wall(startX,startY,new Image("res/Wall_Type_1.jpg"),32,32);
+			Wall w = new Wall(startX,startY,wallImg,32,32);
 			wall.add(w);
 			switch(dir){
 			
