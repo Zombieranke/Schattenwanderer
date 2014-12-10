@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -21,7 +22,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected Watch watch;
 	protected boolean alarm;
 	protected int alarmTime;
-	protected static final int alarmTimeDefault = 500;
+	protected static final int alarmTimeDefault = 600;
 	protected int playerHealth;
 	protected static final int playerHealthDefault = 200;
 	protected int playerEnergy;
@@ -37,6 +38,12 @@ public abstract class LevelHandler extends BasicGameState
 	private boolean enemyIsMoving;
 	private boolean mission;
 	
+	
+	//Musik - bleibt ja gleich - vorerst zumindest
+	protected Music alarmMusic;
+	protected Music gameMusic;
+	
+	
 	public void reset()
 	{
 		alarm = false;
@@ -51,7 +58,7 @@ public abstract class LevelHandler extends BasicGameState
 	
 	public abstract void onLoad(GameContainer container) throws SlickException;
 	
-	public void initializeObjects(GameContainer container)
+	public void initializeObjects(GameContainer container) throws SlickException
 	{
 		for(Laser l : laser){
 			l.init(container.getWidth(),container.getHeight(),solids);
@@ -68,6 +75,8 @@ public abstract class LevelHandler extends BasicGameState
 		target.animation.stop();
 		exit.animation.setCurrentFrame(0);
 		exit.animation.stop();
+		alarmMusic = new Music("res/Alarm_Music.ogg",false);
+		gameMusic = new Music("res/Game_Music.ogg",false);
 	}
 	
 	@Override
@@ -191,6 +200,7 @@ public abstract class LevelHandler extends BasicGameState
     	{
     		alarm = false;
     	}
+    	
     	
     	//Ganzes Alarmskrimskrams Ende
 		
@@ -428,6 +438,20 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		//Funktion des Ausgangs Ende
 		
+		//Miracle of Sound Anfang
+    	if(alarm && !alarmMusic.playing())
+    	{
+    		gameMusic.stop();
+    		alarmMusic.play(1,1);
+    	}
+    	if(!alarm && !gameMusic.playing())
+    	{
+    		alarmMusic.stop();
+    		gameMusic.play(1,0.5f);
+    	}
+		//Miracle of Sound Ende
+    	
+    	
 		//Spielende
 		if(playerHealth<=0)
 		{

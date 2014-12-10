@@ -3,6 +3,7 @@ package me.zombieranke.levels;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
@@ -71,6 +72,7 @@ public class Level1 extends LevelHandler
 		targetAnimation = new Animation(targetSheet, 100);
 		targetAnimation.setPingPong(true);
 		targetAnimation.setAutoUpdate(false);
+		
 	}
 	
 	@Override
