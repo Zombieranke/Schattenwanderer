@@ -24,10 +24,10 @@ public abstract class LevelHandler extends BasicGameState
 	protected boolean alarm;
 	protected int alarmTime;
 	protected static final int alarmTimeDefault = 600;
-	protected int playerHealth;
-	protected static final int playerHealthDefault = 600;
-	protected int playerEnergy;
-	protected static final int playerEnergyDefault = 300;
+	protected float playerHealth;
+	protected static final float playerHealthDefault = 300;
+	protected float playerEnergy;
+	protected static final float playerEnergyDefault = 300;
 	protected int durationChecker;
 	protected int levelCount;
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
@@ -142,7 +142,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(new Color(0.2f,0.2f,0.2f));
 		g.fillRect(755, 789, 310, 30);
 		g.setColor(Color.green);
-		g.fillRect(760, 794, playerHealth/2, 20); //300px Healthbar
+		g.fillRect(760, 794, playerHealth, 20); //300px Healthbar
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
@@ -172,7 +172,7 @@ public abstract class LevelHandler extends BasicGameState
 		
     	if(!alarm && (playerHealth<(playerHealthDefault/2)))
     	{
-    		playerHealth++;
+    		playerHealth += 0.5;
     	}
     	
 		//Debug Toggle
