@@ -23,6 +23,7 @@ public class Level1 extends LevelHandler
 	private Animation playerAnimation;
 	private Animation enemyAnimation;
 	private Animation targetAnimation;
+	private Animation deathAnimation;
 	private Animation exitAnimation;
 	private final float ORIGIN_X = 100;
 	private final float ORIGIN_Y = 100;
@@ -62,6 +63,11 @@ public class Level1 extends LevelHandler
 		targetAnimation.setPingPong(true);
 		targetAnimation.setAutoUpdate(false);
 		
+		deathAnimation = new Animation(Ressources.TARGET_DEATH_SPRITESHEET, 300);
+		deathAnimation.setDuration(0, 500);
+		deathAnimation.setDuration(2, 500);
+		deathAnimation.setAutoUpdate(false);
+		
 		alarmMusic = Ressources.ALARM_MUSIC;
 		gameMusic = Ressources.GAME_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
@@ -85,7 +91,7 @@ public class Level1 extends LevelHandler
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watch = new Watch(300,300,enemyAnimation,20,20);
-		target = new Target(600,600,targetAnimation, Ressources.DEATH_1, 20, 20);
+		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
 		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		super.initializeObjects(container);

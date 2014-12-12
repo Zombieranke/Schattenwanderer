@@ -38,9 +38,9 @@ public class Target extends MovableObject
 		super(x, y, animation, colX, colY);
 	}
 	
-	public Target(float x, float y, Animation animation, Image image, float colX, float colY)
+	public Target(float x, float y, Animation animation, Animation animation2, float colX, float colY)
 	{
-		super(x, y, animation, image, colX, colY);
+		super(x, y, animation, animation2, colX, colY);
 	}
 	
 	public void setDead(boolean dead)
@@ -52,7 +52,7 @@ public class Target extends MovableObject
 	{
 		if (dead)
 		{
-			img.draw(x, y);
+			animation2.draw(x, y);
 		}
 		else
 		{

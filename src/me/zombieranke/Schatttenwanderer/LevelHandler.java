@@ -94,7 +94,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betï¿½tigen: F\nStealth: C\nSprint: V", 40, 20);
 		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
 		
 		for(SolidObject w : solids)
@@ -146,7 +146,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
-			
+			g.drawString(""+target.animation2.getFrame(),100, 100);
 		}
 		
 		//Energiebalken
@@ -461,7 +461,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(mission && !alarm)
 		{
 			exit.animation.start();
-			exit.animation.stopAt(7); //Falls die Bedingung erfüllt ist, öffnet sich die Tür und bleibt offen
+			exit.animation.stopAt(7); //Falls die Bedingung erfï¿½llt ist, ï¿½ffnet sich die Tï¿½r und bleibt offen
 		}
 		
 		if(exit.animation.getFrame()==7 && !alarm)
@@ -481,7 +481,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(exit.animation.getFrame()>0 && alarm && mission)
 		{
 			exit.animation.stop();
-			exit.animation.start();	//Stoppt, falls der Spieler den Alarm auslöst und rennt dann bis die Tür wieder ganz zu ist
+			exit.animation.start();	//Stoppt, falls der Spieler den Alarm auslï¿½st und rennt dann bis die Tï¿½r wieder ganz zu ist
 			exit.animation.stopAt(0);	//Leider muss sie einmal ganz aufgehen (=pingpong) bevor sie dann ganz zugeht
 		}
 		
@@ -528,6 +528,13 @@ public abstract class LevelHandler extends BasicGameState
 		if(target.checkCollision(player)){
 			mission = true;
 			target.setDead(true);
+		}
+		
+		if (mission)
+		{
+			target.animation2.update(delta);
+			target.animation2.start();
+			target.animation2.stopAt(8);
 		}
 	}
 	

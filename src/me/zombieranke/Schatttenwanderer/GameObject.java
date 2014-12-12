@@ -17,6 +17,7 @@ public abstract class GameObject
 	protected float y;
 	protected Image img;
 	protected Animation animation;
+	protected Animation animation2;
 	protected boolean solid = false;	//f�r sp�ter, damit die Collisiondetections funktionieren
 	protected Shape collisionArea = new Rectangle(x,y,1,1);
 	protected float colX = 0;
@@ -70,13 +71,13 @@ public abstract class GameObject
 		this.colY = colY;
 	}
 	
-	public GameObject(float x, float y, Animation animation, Image image, float colX, float colY)
+	public GameObject(float x, float y, Animation animation, Animation animation2, float colX, float colY)
 	{
 		this(x, y, new Rectangle(x, y, colX, colY));
 		this.x = x;
 		this.y = y;
 		this.animation = animation;
-		this.img = image;
+		this.animation2 = animation2;
 		this.colX = colX;
 		this.colY = colY;
 	}

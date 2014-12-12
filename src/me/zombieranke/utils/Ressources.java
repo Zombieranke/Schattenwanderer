@@ -29,6 +29,7 @@ public class Ressources
 	public static SpriteSheet EXIT_SPRITESHEET;
 	public static SpriteSheet PLAYER_SPRITESHEET;
 	public static SpriteSheet TARGET_SPRITESHEET;
+	public static SpriteSheet TARGET_DEATH_SPRITESHEET;
 	
 	public static Music ALARM_MUSIC;
 	public static Music GAME_MUSIC;
@@ -59,6 +60,7 @@ public class Ressources
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
 		PLAYER_SPRITESHEET	= new SpriteSheet("res/Player_SpriteSheet.png", 20, 20);
 		TARGET_SPRITESHEET	= new SpriteSheet("res/Target_SpriteSheet.png", 20, 20);
+		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_SpriteSheet.png", 50, 50);
 		
 		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
 		GAME_MUSIC			= new Music("res/Game_Music.ogg",false);
