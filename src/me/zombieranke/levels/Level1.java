@@ -18,18 +18,34 @@ import me.zombieranke.utils.Ressources;
 
 public class Level1 extends LevelHandler 
 {
+	/** The ID of the level*/
 	private int levelID = 1;
-
+	
+	/**The player animation*/
 	private Animation playerAnimation;
+	
+	/**The enemy animation*/
 	private Animation enemyAnimation;
+	
+	/**The target animation*/
 	private Animation targetAnimation;
+	
+	/**The death animation of the target*/
 	private Animation deathAnimation;
+	
+	/**The animation of the exit*/
 	private Animation exitAnimation;
+	
+	/**X-Coordinate of the level start*/
 	private final float ORIGIN_X = 100;
+	
+	/**Y-Coordinate of the level start*/
 	private final float ORIGIN_Y = 100;
+	
+	/**The default Wall Size*/
 	private final float DEFAULT_TILE_SIZE = 32;
 
-	
+	/**Default Constructor*/
 	public Level1(){
 		levelCount = levelID;
 	}
@@ -94,6 +110,6 @@ public class Level1 extends LevelHandler
 		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
 		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
-		super.initializeObjects(container);
+		super.initObjects(container);
 	}
 }

@@ -47,7 +47,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected boolean exitSoundWasPlayed;
 	protected Sound leverSound;
 	
-	
+	/**Reset everything that is the same between levels*/
 	public void reset()
 	{
 		alarm = false;
@@ -60,9 +60,16 @@ public abstract class LevelHandler extends BasicGameState
 		mission = false;
 	}
 	
+	/**Function to reload stuff on level entry
+	 * @param container The container holding the game*/ 
 	public abstract void onLoad(GameContainer container) throws SlickException;
 	
-	public void initializeObjects(GameContainer container) throws SlickException
+	/**Initialize all game objects to be able to use them later
+	 * 
+	 * @param container The container holding the game
+	 * @throws SlickException
+	 */
+	public void initObjects(GameContainer container) throws SlickException
 	{
 		for(Laser l : laser){
 			l.init(container.getWidth(),container.getHeight(),solids);
