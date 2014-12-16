@@ -70,7 +70,7 @@ public abstract class LevelHandler extends BasicGameState
 		for(Lever l : lever){
 			l.init();
 		}
-			watch.updateSight(solids);
+			watch.init(solids);
 			playerHealth = playerHealthDefault;
 			playerEnergy = playerEnergyDefault;
 			watch.setRotation(watch.getDirection()+180);
@@ -183,7 +183,7 @@ public abstract class LevelHandler extends BasicGameState
     	
     	if(input.isKeyPressed(Input.KEY_H))
     	{
-    		alarm=false;
+    		deactivateAlarm();
     	}  
     	
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
@@ -521,15 +521,35 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
+		
+		//Hear Circle Logic
+		float hearMax = player.isSprint() ? 70 : 50;
+		float incrementPerUpdate = player.isSprint() ? 2 : 1;
+		
+		if(isMoving && watch.getNoise() < hearMax)
+		{
+			if( watch.getNoise() < hearMax - incrementPerUpdate)
+			{
+				watch.addNoise(incrementPerUpdate);
+			}
+		}
+		else if(watch.getNoise()>10)
+		{
+			watch.addNoise(-1);
+		}
+		
+		//Updates
 		player.update(delta);
 		watch.update(delta);
 		watch.updateSight(solids);
 		
+		//Kill target
 		if(target.checkCollision(player)){
 			mission = true;
 			target.setDead(true);
 		}
 		
+		//Death Animation
 		if (mission)
 		{
 			target.animation2.update(delta);
@@ -546,14 +566,14 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
-			    	setAlarm(alarmTimeDefault);			    
+			    	activateAlarm(alarmTimeDefault);			    
 			    }
 			}
 		}
 		
-		if(player.checkCollision(watch.getSight())&& !player.isStealth())
+		if((player.checkCollision(watch.getSightCone()) || player.checkCollision(watch.getHearCircle()))  && !player.isStealth())
 	    {
-	    	setAlarm(alarmTimeDefault);
+	    	activateAlarm(alarmTimeDefault);
 	    	
 	    	durationChecker++;
 	    	if(durationChecker>=10)
@@ -572,17 +592,32 @@ public abstract class LevelHandler extends BasicGameState
 			
 	    	if(alarmTime<0)
 	    	{
-	    		alarm = false;
+	    		deactivateAlarm();
 	    	}
 		}
 	}
 	
-	private void setAlarm(int alarmTime){
+	private void activateAlarm(int alarmTime){
 		alarm = true;
     	this.alarmTime = alarmTime;
+    	onAlarmActivate();
 	}
 	
+	private void deactivateAlarm()
+	{
+		alarm = false;
+		onAlarmDeactivate();
+	}
 	
+	public void onAlarmActivate()
+	{
+		watch.setSightRadius(150);
+	}
+	
+	public void onAlarmDeactivate()
+	{
+		watch.setSightRadius(100);
+	}
 	
 	@Override
 	public int getID()
