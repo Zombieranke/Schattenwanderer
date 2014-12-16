@@ -88,7 +88,7 @@ public class Level1 extends LevelHandler
 		gameMusic = Ressources.GAME_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
-
+		super.resetOnLeave(container, game);
 		
 	}
 	

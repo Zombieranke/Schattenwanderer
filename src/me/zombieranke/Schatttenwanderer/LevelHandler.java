@@ -88,8 +88,7 @@ public abstract class LevelHandler extends BasicGameState
 			exit.animation.stop();
 		}
 	
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException
+	public void resetOnLeave(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		reset();
 		onLoad(container);
@@ -197,6 +196,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
+			resetOnLeave(container, game);
 			game.enterState(1);
 		}
 		
@@ -516,6 +516,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(playerHealth<=0)
 		{
 			Fail.setLast(this.getID());
+			resetOnLeave(container, game);
 			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 			gameMusic.stop();
 			alarmMusic.stop();
@@ -525,6 +526,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
+			resetOnLeave(container, game);
 			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
