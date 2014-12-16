@@ -14,9 +14,9 @@ public class Fail extends BasicGameState
 {
 	private Image background;
 	private int ID = 3;
-	private static int lastID = 1;
+	private int lastID = 1;
 	
-	public static void setLast(int last){
+	public void setLast(int last){
 		lastID = last;
 	}
 	

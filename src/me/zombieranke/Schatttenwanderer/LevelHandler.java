@@ -152,7 +152,6 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
-			g.drawString(""+target.animation2.getFrame(),100, 100);
 		}
 		
 		//Energiebalken
@@ -515,7 +514,8 @@ public abstract class LevelHandler extends BasicGameState
 		//Spielende
 		if(playerHealth<=0)
 		{
-			Fail.setLast(this.getID());
+			Fail fail = (Fail) game.getState(3);
+			fail.setLast(this.getID());
 			resetOnLeave(container, game);
 			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 			gameMusic.stop();
