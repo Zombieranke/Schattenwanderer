@@ -463,8 +463,8 @@ public abstract class LevelHandler extends BasicGameState
 			watch.animation.start();
 		}
 		
-		//Funktion des Ausgangs Anfang
-		if(mission && !alarm)
+		//Funktion des Ausgangs Anfang(old)
+		/*if(mission && !alarm)
 		{
 			exit.animation.start();
 			exit.animation.stopAt(7); //Falls die Bedingung erf�llt ist, �ffnet sich die T�r und bleibt offen
@@ -494,7 +494,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(alarm)
     	{
     		exitSoundWasPlayed = false;
-    	}
+    	}*/
 		//Funktion des Ausgangs Ende
 		
 		//Miracle of Sound Anfang
@@ -556,6 +556,7 @@ public abstract class LevelHandler extends BasicGameState
 		if(target.checkCollision(player)){
 			mission = true;
 			target.setDead(true);
+			openExit();
 		}
 		
 		//Death Animation
@@ -621,11 +622,30 @@ public abstract class LevelHandler extends BasicGameState
 	public void onAlarmActivate()
 	{
 		watch.setSightRadius(150);
+		closeExit();
 	}
 	
 	public void onAlarmDeactivate()
 	{
 		watch.setSightRadius(100);
+		openExit();
+	}
+	
+	public void openExit()
+	{
+		if(mission && !alarm)
+		{
+			exit.animation.start();
+			exit.animation.stopAt(7);
+			exit.setOpen(true);
+		}
+	}
+	
+	public void closeExit()
+	{
+		exit.animation.start();
+		exit.animation.stopAt(0);
+		exit.setOpen(false);
 	}
 	
 	@Override
