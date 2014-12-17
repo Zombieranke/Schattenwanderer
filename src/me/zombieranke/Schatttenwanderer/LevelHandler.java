@@ -44,7 +44,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected Music alarmMusic;
 	protected Music gameMusic;
 	protected Sound exitSound;
-	protected boolean exitSoundWasPlayed;
+	//protected boolean exitSoundWasPlayed;
 	protected Sound leverSound;
 	
 	/**Reset everything that is the same between levels*/
@@ -637,6 +637,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			exit.animation.start();
 			exit.animation.stopAt(7);
+			exitSound.play(1,0.5f);
 			exit.setOpen(true);
 		}
 	}
