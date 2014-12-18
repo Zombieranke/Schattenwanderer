@@ -2,10 +2,12 @@ package me.zombieranke.Schatttenwanderer;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.MouseOverArea;
 
+/**Basic menu button*/
 public class MenuFunc
 {
-
+	/**The area that can be mouseovered*/
 	private MouseOverArea area; // Create a Mouseover area
+	
 	private Image image; // Create an image to switch the MouseOverArea
 	
 	// Constructors
