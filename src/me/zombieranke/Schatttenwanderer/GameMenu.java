@@ -14,15 +14,22 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameMenu extends BasicGameState
 {
 	
-	//Image Declarations
+	/**The background image for the menu*/
 	private Image background;
 	
-	// Class Objects
+	/**The button for New Game*/
 	private MenuFunc NewGame;
+	
+	/**The button for Levels*/
 	private MenuFunc Levels;
+	
+	/**The button for Options*/
 	private MenuFunc Options;
+	
+	/**The button for Exit*/
 	private MenuFunc Exit;
 	
+	/**The ID of this state*/
 	private int ID = 1;
 
 	@Override

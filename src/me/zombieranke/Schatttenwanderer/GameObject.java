@@ -9,8 +9,12 @@ import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObject
 {
-	
+	/**Render the object
+	 * 
+	 * @param g The graphics context to render the object on
+	 */
 	public abstract void render(Graphics g);
+	
 	public void update(int delta){}
 
 	protected float x;

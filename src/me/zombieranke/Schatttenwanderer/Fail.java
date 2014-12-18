@@ -12,10 +12,19 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Fail extends BasicGameState
 {
+	/**The background image for the fail screen*/
 	private Image background;
+	
+	/**The ID of this state*/
 	private int ID = 3;
+	
+	/**The ID this state was entered from*/
 	private int lastID = 1;
 	
+	/**Set from which state this state was entered
+	 * 
+	 * @param last The ID of the state which entered this state
+	 */
 	public void setLast(int last){
 		lastID = last;
 	}

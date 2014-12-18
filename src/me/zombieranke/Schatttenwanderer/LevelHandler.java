@@ -13,38 +13,90 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+
+/**The basic game Logic that every Level must extend*/
 public abstract class LevelHandler extends BasicGameState
 {
-	
+	/**The index where the levels start(allows virtual IDs of level)*/
 	protected static final int levelOffset = 5;
-	protected Player player;
-	protected Target target;
-	protected Exit exit;
-	protected Watch watch;
-	protected boolean alarm;
-	protected int alarmTime;
-	protected static final int alarmTimeDefault = 600;
-	protected float playerHealth;
-	protected static final float playerHealthDefault = 300;
-	protected float playerEnergy;
-	protected static final float playerEnergyDefault = 300;
-	protected int durationChecker;
+	
+	/**Indicates the number of the level (levelOffset + levelCount = levelID)*/
 	protected int levelCount;
+	
+	/**The Player*/
+	protected Player player;
+	
+	/**The target that the player has to kill*/
+	protected Target target;
+	
+	/**The exit that the player has to escape through*/
+	protected Exit exit;
+	
+	/**The watch (later a list of watches) that the player has to sneak by*/
+	protected Watch watch;
+	
+	/**A boolean indicating whether the alarm is currently active*/ 
+	protected boolean alarm;
+	
+	/**The remaining alarm time*/
+	protected int alarmTime;
+	
+	/**The default time that an alarm lasts*/
+	protected static final int alarmTimeDefault = 600;
+	
+	/**The current health of the player(might migrate this into player actually)*/
+	protected float playerHealth;
+	
+	/**The health the player starts with by default*/
+	protected static final float playerHealthDefault = 300;
+	
+	/**The current energy of the player(might migrate this into player actually)*/
+	protected float playerEnergy;
+	
+	/**The energy the player starts with by default*/
+	protected static final float playerEnergyDefault = 300;
+	
+	/**A variable to track how long the player stood in the WatchSightArea*/
+	protected int durationChecker;
+	
+	/**Everything that cannot be trespassed*/
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
+	
+	/**All lasers in the level
+	 * @see Laser
+	 */
 	protected ArrayList<Laser> laser;
+	
+	/**All levers in the level
+	 * @see Lever
+	 */
 	protected ArrayList<Lever> lever;
+	
+	/**Indicates if we are in debug view(shows all hitboxes)*/
 	private boolean debug;
+	
+	/**Indicates which direction the player looks(use with caution)*/
 	private int state;
+	
+	/**Indicates if the player is moving*/
 	private boolean isMoving;
+	
+	/**Indicates if the watch is moving(will have to change once we have multiple watches)*/
 	private boolean enemyIsMoving;
+	
+	/**Indicates whether the player has succeeded in his mission(killed the target)*/
 	private boolean mission;
 	
-	
-	//Musik - bleibt ja gleich - vorerst zumindest
+	/**The music to play when there is an alarm*/
 	protected Music alarmMusic;
+	
+	/**The music to play when there is no alarm*/
 	protected Music gameMusic;
+	
+	/**The sound to play when the exit opens*/
 	protected Sound exitSound;
-	//protected boolean exitSoundWasPlayed;
+	
+	/**The sound to play when the player flicks a lever*/
 	protected Sound leverSound;
 	
 	/**Reset everything that is the same between levels*/
@@ -61,7 +113,9 @@ public abstract class LevelHandler extends BasicGameState
 	}
 	
 	/**Function to reload stuff on level entry
-	 * @param container The container holding the game*/ 
+	 * 
+	 * @param container The container holding the game
+	 */ 
 	public abstract void onLoad(GameContainer container) throws SlickException;
 	
 	/**Initialize all game objects to be able to use them later
@@ -88,6 +142,12 @@ public abstract class LevelHandler extends BasicGameState
 			exit.animation.stop();
 		}
 	
+	/** Used to reset the Level when exiting
+	 * 
+	 * @param container The container holding the game
+	 * @param game The game holding this state
+	 * @throws SlickException
+	 */
 	public void resetOnLeave(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		reset();
@@ -568,6 +628,8 @@ public abstract class LevelHandler extends BasicGameState
 		}
 	}
 	
+	/**Checks if the alarm should be activated, ticks it down if it is, deactivates it if alarmTime has reached 0 and 
+	 * deals damage to the player if he stands in front of a watch*/
 	private void checkAlarm(){
 
 		for(Laser l: laser)
@@ -607,30 +669,39 @@ public abstract class LevelHandler extends BasicGameState
 		}
 	}
 	
+	/**Activates the alarm
+	 * 
+	 * @param alarmTime How long the alarm should last
+	 */
 	private void activateAlarm(int alarmTime){
 		alarm = true;
     	this.alarmTime = alarmTime;
     	onAlarmActivate();
 	}
 	
+	/**Deactivates the alarm*/
 	private void deactivateAlarm()
 	{
 		alarm = false;
 		onAlarmDeactivate();
 	}
 	
+	/**Event that is fired when the alarm gets activated. Extends watch sight radius and closes the door*/
 	public void onAlarmActivate()
 	{
 		watch.setSightRadius(150);
 		closeExit();
 	}
 	
+	/**Event that gets fired when the alarm gets deactivated. Resets watch sights radius and reopens the door(if mission has already been accomplished)*/
 	public void onAlarmDeactivate()
 	{
 		watch.setSightRadius(100);
 		openExit();
 	}
 	
+	
+	/**Function to open the exit*/
 	public void openExit()
 	{
 		if(mission && !alarm)
@@ -641,7 +712,7 @@ public abstract class LevelHandler extends BasicGameState
 			exit.setOpen(true);
 		}
 	}
-	
+	/**Function to close the exit*/
 	public void closeExit()
 	{
 		exit.animation.start();

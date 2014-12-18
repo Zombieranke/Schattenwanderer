@@ -16,8 +16,9 @@ import me.zombieranke.Schatttenwanderer.Watch;
 import me.zombieranke.utils.Direction;
 import me.zombieranke.utils.Ressources;
 
+/**The first Level */
 public class Level1 extends LevelHandler 
-{
+{	
 	/** The ID of the level*/
 	private int levelID = 1;
 	

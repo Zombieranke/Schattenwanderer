@@ -15,10 +15,16 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Laser extends SolidObject
 {
+	/**A line representing the laser beam*/
 	private Line laserBeam;
+	
+	/**The direction the laser is facing*/
 	private Direction facing;
+	
+	/**Indicates whether the laser is turned on*/
 	private boolean on = true;
 
+	
 	public Laser(float x, float y) {
 		super(x, y);
 	}
@@ -103,28 +109,34 @@ public class Laser extends SolidObject
 		
 	}
 
-	/**
+	/**Gets a line representing the laser beam
+	 * 
 	 * @return the laserBeam
+	 * @see Line
 	 */
 	public Line getBeam() {
 		return laserBeam;
 	}
 
-	/**
+	/**Sets the laser beam to this line(unused)
+	 * 
 	 * @param laserBeam the laserBeam to set
+	 * @see Line
 	 */
 	public void setBeam(Line laserBeam) {
 		this.laserBeam = laserBeam;
 	}
 
-	/**
-	 * @return the facing
+	/**Gets the direction the laser is facing
+	 * 
+	 * @return the direction the laser is facing
 	 */
 	public Direction getFacing() {
 		return facing;
 	}
 
-	/**
+	/**Sets the direction the laser should face(not fully implemented)
+	 * 
 	 * @param facing the facing to set
 	 */
 	public void setFacing(Direction facing) {
