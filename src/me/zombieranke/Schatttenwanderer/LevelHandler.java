@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -99,6 +100,9 @@ public abstract class LevelHandler extends BasicGameState
 	/**The sound to play when the player flicks a lever*/
 	protected Sound leverSound;
 	
+	/** Background Image */
+	protected Image game_background;
+	
 	/**Reset everything that is the same between levels*/
 	public void reset()
 	{
@@ -157,10 +161,12 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
+		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
+		game_background.draw(100, 100);
 		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter bet�tigen: F\nStealth: C\nSprint: V", 40, 20);
+		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
 		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
 		
 		for(SolidObject w : solids)

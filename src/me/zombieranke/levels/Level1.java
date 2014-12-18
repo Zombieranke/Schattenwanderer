@@ -2,6 +2,7 @@ package me.zombieranke.levels;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -89,6 +90,7 @@ public class Level1 extends LevelHandler
 		gameMusic = Ressources.GAME_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
+		game_background = Ressources.GAME_BACKGROUND;
 		super.resetOnLeave(container, game);
 		
 	}
