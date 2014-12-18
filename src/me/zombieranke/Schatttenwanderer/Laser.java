@@ -24,31 +24,74 @@ public class Laser extends SolidObject
 	/**Indicates whether the laser is turned on*/
 	private boolean on = true;
 
-	
+	/**Creates a Laser at x,y
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 */
 	public Laser(float x, float y) {
 		super(x, y);
 	}
 
+	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param colX The vertical size of the collision box
+	 * @param colY The horizontal size of the collision box
+	 * @param facing The direction the laser is facing 
+	 */
 	public Laser(float x, float y, Image img, float colX, float colY, Direction facing) {
 		super(x, y, img, colX, colY);
 		this.facing = facing;
 	}
 
+	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param collisionArea The collision area
+	 * @param facing The direction the laser is facing
+	 */
 	public Laser(float x, float y, Image img, Shape collisionArea, Direction facing) {
 		super(x, y, img, collisionArea);
 		this.facing = facing;
 	}
 
+	/**Creates a laser at x,y with an image and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param facing The direction the laser is facing
+	 */
 	public Laser(float x, float y, Image img, Direction facing) {
 		super(x, y, img);
 		this.facing = facing;
 	}
-
+	
+	/**Creates a laser at x,y with a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param colX The vertical size of the collision box
+	 * @param colY The horizontal size of the collision box
+	 * @param facing The direction the laser is facing
+	 */
 	public Laser(float x, float y, float colX, float colY, Direction facing) {
 		super(x, y, colX, colY);
 		this.facing = facing;
 	}
 
+	/**Creates a laser at x,y with a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param collisionArea The collision area
+	 * @param facing The direction the laser is facing
+	 */
 	public Laser(float x, float y, Shape collisionArea, Direction facing) {
 		super(x, y, collisionArea);
 		this.facing = facing;
@@ -66,7 +109,12 @@ public class Laser extends SolidObject
 		img.draw(x,y);
 	}
 
-
+	/**Initialize the laser by turning it in the right direction and creating the laser beam
+	 * 
+	 * @param boundX The maximum x coordinate of the laser end
+	 * @param boundY The maximum y coordinate of the laser end
+	 * @param solids A list of objects that the laser cannot pass through
+	 */
 	public void init(int boundX, int boundY, ArrayList<SolidObject> solids) {
 		Vector2f start = new Vector2f(x+colX/2,y+colY/2);
 		Vector2f end = new Vector2f(x+colX/2,y+colY/2);
@@ -111,7 +159,7 @@ public class Laser extends SolidObject
 
 	/**Gets a line representing the laser beam
 	 * 
-	 * @return the laserBeam
+	 * @return The laser beam
 	 * @see Line
 	 */
 	public Line getBeam() {
@@ -120,7 +168,7 @@ public class Laser extends SolidObject
 
 	/**Sets the laser beam to this line(unused)
 	 * 
-	 * @param laserBeam the laserBeam to set
+	 * @param laserBeam The Line to set the laser beam to
 	 * @see Line
 	 */
 	public void setBeam(Line laserBeam) {
@@ -135,18 +183,44 @@ public class Laser extends SolidObject
 		return facing;
 	}
 
-	/**Sets the direction the laser should face(not fully implemented)
+	/**Sets the direction the laser should face(unused)
 	 * 
 	 * @param facing the facing to set
 	 */
 	public void setFacing(Direction facing) {
 		this.facing = facing;
+		switch(facing)
+		{
+			case EAST:
+				img.setRotation(0);
+				break;
+				
+			case NORTH:
+				img.setRotation(270);
+				break;
+				
+			case WEST:
+				img.setRotation(180);
+				break;
+			
+			case SOUTH:
+				img.setRotation(90);
+				break;
+			
+			default:
+				break;
+		}
 	}
 	
+	/**Indicates if this laser is on
+	 * 
+	 * @return true if the laser is on
+	 */
 	public boolean isOn(){
 		return on;
 	}
 	
+	/**Toggles the laser on/off*/
 	public void toggle(){
 		on = !on;
 	}

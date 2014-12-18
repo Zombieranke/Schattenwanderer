@@ -26,7 +26,7 @@ public class Exit extends SolidObject
 	 * @param y The y coordinate of the exit
 	 * @param animation The animation to play when opening and closing the exit
 	 * @param colX The vertical size of the collision box
-	 * @param colYThe horizontal size of the collision box
+	 * @param colY The horizontal size of the collision box
 	 */
 	public Exit(float x, float y, Animation animation,float colX, float colY)
 	{
