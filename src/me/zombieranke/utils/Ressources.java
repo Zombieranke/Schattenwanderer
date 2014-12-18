@@ -56,7 +56,7 @@ public class Ressources
 		NEW_GAME_UNLIGTHED	= new Image("res/New_Game_Unlighted.png");
 		OPTIONS_LIGHTED		= new Image("res/Options_Lighted.png");
 		OPTIONS_UNLIGHTED	= new Image("res/Options_Unlighted.png");
-		WALL_TYPE_1			= new Image("res/Wall_Type_1.jpg");
+		WALL_TYPE_1			= new Image("res/Wall_Type_1.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
