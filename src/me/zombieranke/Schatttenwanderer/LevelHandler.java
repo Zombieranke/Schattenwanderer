@@ -103,6 +103,9 @@ public abstract class LevelHandler extends BasicGameState
 	/** Background Image */
 	protected Image game_background;
 	
+	/** Background for the "outer layer"/UI Elements outside of boundaries as a tile */
+	protected Image UI_Background;
+	
 	/**Reset everything that is the same between levels*/
 	public void reset()
 	{
@@ -164,6 +167,13 @@ public abstract class LevelHandler extends BasicGameState
 		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
+		for (int y = 0; y < 3; y++)
+		{
+			for (int x = 0; x < 4; x++)
+			{
+				UI_Background.draw(x*400, y*400);
+			}
+		}
 		game_background.draw(100, 100);
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);

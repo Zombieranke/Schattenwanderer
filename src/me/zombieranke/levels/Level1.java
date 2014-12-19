@@ -91,6 +91,7 @@ public class Level1 extends LevelHandler
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
 		game_background = Ressources.GAME_BACKGROUND;
+		UI_Background = Ressources.UI_BACKGROUND;
 		super.resetOnLeave(container, game);
 		
 	}
