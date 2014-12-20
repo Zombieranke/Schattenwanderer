@@ -153,15 +153,7 @@ public abstract class LevelHandler extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
 		
-		g.setColor(Color.white);
-		g.fillRect(0, 0, container.getWidth(), container.getHeight());
-		for (int y = 0; y < 3; y++)
-		{
-			for (int x = 0; x < 4; x++)
-			{
-				UI_Background.draw(x*400, y*400);
-			}
-		}
+		UI_Background.draw(0, 0);
 		game_background.draw(100, 100);
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
@@ -520,7 +512,6 @@ public abstract class LevelHandler extends BasicGameState
 			watch.animation.setCurrentFrame(2);
 			watch.animation.stop();
 		}
-		
 		else
 		{
 			watch.setRotation(watch.getDirection()+180);
@@ -634,7 +625,8 @@ public abstract class LevelHandler extends BasicGameState
 	
 	/**Checks if the alarm should be activated, ticks it down if it is, deactivates it if alarmTime has reached 0 and 
 	 * deals damage to the player if he stands in front of a watch*/
-	private void checkAlarm(){
+	private void checkAlarm()
+	{
 
 		for(Laser l: laser)
 		{
@@ -642,14 +634,14 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
-			    	activateAlarm(alarmTimeDefault);			    
+			    	activateAlarm();			    
 			    }
 			}
 		}
 		
 		if((player.checkCollision(watch.getSightCone()) || player.checkCollision(watch.getHearCircle()))  && !player.isStealth())
 	    {
-	    	activateAlarm(alarmTimeDefault);
+	    	activateAlarm();
 	    	
 	    	durationChecker++;
 	    	if(durationChecker>=10)
@@ -660,6 +652,12 @@ public abstract class LevelHandler extends BasicGameState
 		else
 		{
 			durationChecker = 0;
+		}
+		
+		if(target.checkCollision(watch.getSightCone()) && !target.isDiscovered())
+		{
+			activateAlarm();
+			target.setDiscovered(true);
 		}
 		
 		if(alarm)
@@ -677,7 +675,15 @@ public abstract class LevelHandler extends BasicGameState
 	 * 
 	 * @param alarmTime How long the alarm should last
 	 */
-	private void activateAlarm(int alarmTime){
+	private void activateAlarm()
+	{
+		alarm = true;
+    	this.alarmTime = alarmTimeDefault;
+    	onAlarmActivate();
+	}
+	
+	private void activateAlarm(int alarmTime)
+	{
 		alarm = true;
     	this.alarmTime = alarmTime;
     	onAlarmActivate();

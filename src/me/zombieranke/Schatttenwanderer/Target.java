@@ -50,6 +50,17 @@ public class Target extends MovableObject
 		discovered = false;
 	}
 	
+	public boolean isDiscovered()
+	{
+		return discovered;
+	}
+	
+	public void setDiscovered(boolean discovered)
+	{
+		this.discovered = discovered;
+	}
+	
+	
 	public void render(Graphics g)
 	{
 		if (dead)
