@@ -43,7 +43,7 @@ public class Ressources
 	{
 		GAME_BACKGROUND 	= new Image("res/Game_Background.jpg");
 		UI_BACKGROUND = new Image("res/UI_Background.png");
-		BACKGROUND_FAIL		= new Image("res/Background_Fail.jpg");
+		BACKGROUND_FAIL		= new Image("res/Background_Fail.png");
 		BACKGROUND_MENU		= new Image("res/Background_Menu.jpg");
 		BACKGROUND_SUCCESS	= new Image("res/Background_Success.jpg");
 		DEATH_1				= new Image("res/Death_1.png");

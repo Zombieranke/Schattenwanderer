@@ -543,7 +543,7 @@ public abstract class LevelHandler extends BasicGameState
 		/*if(mission && !alarm)
 		{
 			exit.animation.start();
-			exit.animation.stopAt(7); //Falls die Bedingung erf�llt ist, �ffnet sich die T�r und bleibt offen
+			exit.animation.stopAt(7); //Falls die Bedingung erfüllt ist, öffnet sich die Tür und bleibt offen
 		}
 		
 		if(exit.animation.getFrame()==7 && !alarm)
