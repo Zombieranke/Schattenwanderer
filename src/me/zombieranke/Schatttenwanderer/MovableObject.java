@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class MovableObject extends GameObject
@@ -75,6 +76,22 @@ public abstract class MovableObject extends GameObject
 		{
 			return false;
 		}
+		return true;
+	}
+	
+	public boolean canMoveAbsolute(float absX,float absY, ArrayList<SolidObject> walls,Exit exit)
+	{
+		Rectangle colArea = new Rectangle(absX,absY,colX,colY); 
+		for(SolidObject w : walls){
+			if(w.checkCollision(colArea)){
+				update();
+				return false;
+			}
+		}
+		/*if(exit.checkCollision(colArea)&&exit.isOpen()==false)
+		{
+			return false;
+		}*/
 		return true;
 	}
 	

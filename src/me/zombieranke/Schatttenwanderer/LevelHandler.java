@@ -14,6 +14,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.util.pathfinding.AStarPathFinder;
+import org.newdawn.slick.util.pathfinding.Mover;
+import org.newdawn.slick.util.pathfinding.Path;
+import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 /**The basic game Logic that every Level must extend*/
 public abstract class LevelHandler extends BasicGameState
@@ -98,6 +102,10 @@ public abstract class LevelHandler extends BasicGameState
 	
 	/** Background for the "outer layer"/UI Elements outside of boundaries as a tile */
 	protected Image UI_Background;
+	
+	protected LevelMap levelMap = new LevelMap(solids,exit);
+	
+	protected AStarPathFinder aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 	
 	/**Reset everything that is the same between levels*/
 	public void reset()
@@ -230,6 +238,12 @@ public abstract class LevelHandler extends BasicGameState
 		g.fillRect(215, 789, 310, 30);
 		g.setColor(Color.yellow);
 		g.fillRect(220, 794, player.getEnergy(), 20); //300px Energybar
+		
+		g.setColor(Color.red);
+		for(int i = 0; i<watch.getPath().getLength();i++)
+		{
+			g.fillRect(watch.getPath().getX(i)*8, watch.getPath().getY(i)*8, 1, 1);
+		}
 		
 	}
 
@@ -682,6 +696,7 @@ public abstract class LevelHandler extends BasicGameState
 			target.animation2.start();
 			target.animation2.stopAt(8);
 		}
+		watch.move(2);
 	}
 	
 	/**Checks if the alarm should be activated, ticks it down if it is, deactivates it if alarmTime has reached 0 and 
