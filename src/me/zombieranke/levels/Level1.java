@@ -113,8 +113,10 @@ public class Level1 extends LevelHandler
 		lever.add(lever3);
 		
 		
+		float[] watchpoints = {25,25,88,25,88,88};
+		
 		player = new Player (200,200, playerAnimation, 20, 20);
-		watch = new Watch(300,300,enemyAnimation,20,20);
+		watch = new Watch(304,304,enemyAnimation,20,20, watchpoints,aPath);
 		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
 		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
