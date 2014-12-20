@@ -183,14 +183,14 @@ public class Watch extends MovableObject implements Mover
 		{
 			calculatePath();
 		}
-		System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
+		//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
 		if(getX()==points[currentStep]*8 && getY()==points[currentStep+1]*8)
 		{
 			currentStep +=2;
-			System.out.println("inc");
+			//System.out.println("inc");
 			if(currentStep > points.length-1)
 			{
-				System.out.println("Wrap around");
+				//System.out.println("Wrap around");
 				currentStep = 0;
 			}
 			calculatePath();
@@ -223,7 +223,7 @@ public class Watch extends MovableObject implements Mover
 	
 	public void calculatePath()
 	{
-		System.out.println(currentStep);
+		//System.out.println(currentStep);
 		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(points[currentStep]), Math.round(points[currentStep+1]));
 		pCur = 0;
 	}
