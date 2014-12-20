@@ -44,19 +44,7 @@ public abstract class LevelHandler extends BasicGameState
 	
 	/**The default time that an alarm lasts*/
 	protected static final int alarmTimeDefault = 600;
-	
-	/**The current health of the player(might migrate this into player actually)*/
-	protected float playerHealth;
-	
-	/**The health the player starts with by default*/
-	protected static final float playerHealthDefault = 300;
-	
-	/**The current energy of the player(might migrate this into player actually)*/
-	protected float playerEnergy;
-	
-	/**The energy the player starts with by default*/
-	protected static final float playerEnergyDefault = 300;
-	
+		
 	/**A variable to track how long the player stood in the WatchSightArea*/
 	protected int durationChecker;
 	
@@ -139,8 +127,8 @@ public abstract class LevelHandler extends BasicGameState
 			l.init();
 		}
 			watch.init(solids);
-			playerHealth = playerHealthDefault;
-			playerEnergy = playerEnergyDefault;
+			player.setHealth();
+			player.setEnergy();
 			watch.setRotation(watch.getDirection()+180);
 			player.setRotation(0);
 			target.animation.setCurrentFrame(2);
@@ -224,7 +212,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(new Color(0.2f,0.2f,0.2f));
 		g.fillRect(755, 789, 310, 30);
 		g.setColor(Color.green);
-		g.fillRect(760, 794, playerHealth, 20); //300px Healthbar
+		g.fillRect(760, 794, player.getHealth(), 20); //300px Healthbar
 		
 		if (mission){
 			g.drawString("Target successfully killed",40, 850);
@@ -234,7 +222,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(new Color(0.2f,0.2f,0.2f));
 		g.fillRect(215, 789, 310, 30);
 		g.setColor(Color.yellow);
-		g.fillRect(220, 794, playerEnergy, 20); //300px Energybar
+		g.fillRect(220, 794, player.getEnergy(), 20); //300px Energybar
 		
 	}
 
@@ -251,9 +239,9 @@ public abstract class LevelHandler extends BasicGameState
 		
 		checkAlarm();
 		
-    	if(!alarm && (playerHealth<(playerHealthDefault/2)))
+    	if(!alarm && (player.getHealth()<(player.getHealthDefault()/2)))
     	{
-    		playerHealth += 0.5;
+    		player.setHealth(player.getHealth() + 0.5f);
     	}
     	
 		//Debug Toggle
@@ -419,13 +407,13 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(player.isStealth() || player.isSprint())
 		{
-			playerEnergy-=2;
+			player.setEnergy(player.getEnergy() - 2f);
 		}
-		else if(playerEnergy<playerEnergyDefault)
+		else if(player.getEnergy()<player.getEnergyDefault())
 		{
-			playerEnergy++;
+			player.setEnergy(player.getEnergy() + 1f);
 		}
-		if(playerEnergy<=0)
+		if(player.getEnergy()<=0)
 		{
 			player.setStealth(false);
 			player.setSprint(false);
@@ -588,7 +576,7 @@ public abstract class LevelHandler extends BasicGameState
     	
     	
 		//Spielende
-		if(playerHealth<=0)
+		if(player.getHealth()<=0)
 		{
 			Fail fail = (Fail) game.getState(3);
 			fail.setLast(this.getID());
@@ -636,7 +624,7 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		
 		//Death Animation
-		if (mission)
+		if(mission)
 		{
 			target.animation2.update(delta);
 			target.animation2.start();
@@ -666,7 +654,7 @@ public abstract class LevelHandler extends BasicGameState
 	    	durationChecker++;
 	    	if(durationChecker>=10)
 	    	{
-	    		playerHealth -= 3;
+	    		player.setHealth(player.getHealth() - 3);
 	    	}
 	    }
 		else

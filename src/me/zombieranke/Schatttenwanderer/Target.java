@@ -13,6 +13,7 @@ public class Target extends MovableObject
 	private static final float DEFAULT_COL_X = 10;
 	private static final float DEFAULT_COL_Y = 10;
 	private boolean dead = false;
+	private boolean discovered = true;
 	
 	public Target(float x, float y, Image img)
 	{
@@ -46,6 +47,7 @@ public class Target extends MovableObject
 	public void setDead(boolean dead)
 	{
 		this.dead = dead;
+		discovered = false;
 	}
 	
 	public void render(Graphics g)

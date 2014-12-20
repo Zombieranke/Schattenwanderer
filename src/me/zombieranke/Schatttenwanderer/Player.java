@@ -12,6 +12,16 @@ import org.newdawn.slick.Image;
 public class Player extends MovableObject
 {
 	
+	/**The health the player starts with by default*/
+	protected static final float playerHealthDefault = 300;
+	/**The current health of the player(might migrate this into player actually)*/
+	protected float playerHealth;
+	
+	/**The energy the player starts with by default*/
+	protected static final float playerEnergyDefault = 300;
+	/**The current energy of the player(might migrate this into player actually)*/
+	protected float playerEnergy;
+	
 	private static final float DEFAULT_COL_X = 20;
 	private static final float DEFAULT_COL_Y = 20;
 	private boolean stealth = false;
@@ -70,6 +80,48 @@ public class Player extends MovableObject
 		}
 		
 	}
+	
+	public float getHealthDefault()
+	{
+		return playerHealthDefault;
+	}
+	
+	public void setHealth()
+	{
+		playerHealth = playerHealthDefault;
+	}
+	
+	public void setHealth(float x)
+	{
+		playerHealth = x;
+	}
+	
+	public float getHealth()
+	{
+		return playerHealth;
+	}
+	
+	public float getEnergyDefault()
+	{
+		return playerEnergyDefault;
+	}
+	
+	public void setEnergy()
+	{
+		playerEnergy = playerEnergyDefault;
+	}
+	
+	public void setEnergy(float x)
+	{
+		playerEnergy = x;
+	}
+	
+	public float getEnergy()
+	{
+		return playerEnergy;
+	}
+	
+	
 	
 	public boolean isStealth()
 	{
