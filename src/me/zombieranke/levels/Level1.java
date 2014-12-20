@@ -81,9 +81,9 @@ public class Level1 extends LevelHandler
 		targetAnimation.setPingPong(true);
 		targetAnimation.setAutoUpdate(false);
 		
-		deathAnimation = new Animation(Ressources.TARGET_DEATH_SPRITESHEET, 200);
-		deathAnimation.setDuration(0, 500);
-		deathAnimation.setDuration(2, 500);
+		deathAnimation = new Animation(Ressources.TARGET_DEATH_SPRITESHEET, 100);
+		deathAnimation.setDuration(0, 300);
+		deathAnimation.setDuration(2, 300);
 		deathAnimation.setAutoUpdate(false);
 		
 		alarmMusic = Ressources.ALARM_MUSIC;
