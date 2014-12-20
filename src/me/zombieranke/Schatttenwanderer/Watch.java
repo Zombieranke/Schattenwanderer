@@ -19,6 +19,8 @@ public class Watch extends MovableObject
 	private static int speedAlarm = 2;
 	private static int speedWalk = 1;
 	
+	private boolean alarmed;
+	
 	/**Permanent radius of the hearing circle*/
 	private static final float playerNoiseDefault = 20;
 	
@@ -79,14 +81,23 @@ public class Watch extends MovableObject
 		animation.draw(x, y);
 	}
 	
-	public int getSpeedWalk()
+	public int getSpeed()
 	{
+		if(alarmed)
+		{
+			return speedAlarm;
+		}
 		return speedWalk;
 	}
 	
-	public int getSpeedAlarm()
+	public void setAlarmed(boolean alarm)
 	{
-		return speedAlarm;
+		alarmed = alarm;
+	}
+	
+	public boolean getAlarmed()
+	{
+		return alarmed;
 	}
 	
 	

@@ -55,6 +55,10 @@ public abstract class LevelHandler extends BasicGameState
 	/**Keeps track when the player last get out of stealth*/
 	protected int stealthCooldown;
 	
+	protected static final int leverResetTimeDefault = 150;
+	
+	protected int leverResetTime = 0;
+	
 	/**Everything that cannot be trespassed*/
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
 	
@@ -119,25 +123,29 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	public void initObjects(GameContainer container) throws SlickException
 	{
-		for(Laser l : laser){
+		for(Laser l : laser)
+		{
 			l.init(container.getWidth(),container.getHeight(),solids);
 		}
-		for(Lever l : lever){
+		for(Lever l : lever)
+		{
 			l.init();
 		}
-			watch.init(solids);
-			player.setHealth();
-			player.setEnergy();
-			watch.setRotation(watch.getDirection()+180);
-			player.setRotation(0);
-			target.animation.setCurrentFrame(2);
-			target.animation.stop();
-			exit.animation.setCurrentFrame(0);
-			exit.animation.stop();
-			player.setMoving(false);
-			watch.setMoving(false);
-			watch.setNoise(watch.getNoiseDefault());
-		}
+		
+		watch.init(solids);
+		player.setHealth();
+		player.setEnergy();
+		watch.setRotation(watch.getDirection()+180);
+		player.setRotation(0);
+		target.animation.setCurrentFrame(2);
+		target.animation.stop();
+		exit.animation.setCurrentFrame(0);
+		exit.animation.stop();
+		player.setMoving(false);
+		watch.setMoving(false);
+		watch.setNoise(watch.getNoiseDefault());
+		
+	}
 	
 	/** Used to reset the Level when exiting
 	 * 
@@ -201,6 +209,10 @@ public abstract class LevelHandler extends BasicGameState
 			g.setColor(Color.red);
 			g.drawString("ALARM", container.getWidth()/2, 50);
 			g.fillRect(container.getWidth()/2-125, 70, alarmTime/2, 10);
+			if(leverResetTime>0)
+			{
+				g.drawString("Lever Reset in "+ Math.ceil(leverResetTime/50.0)+"!", container.getWidth()/2 +100, 60);
+			}
 		}
 		
 		//Lebensbar anzeigen
@@ -448,16 +460,16 @@ public abstract class LevelHandler extends BasicGameState
 			watch.setMoving(true);
 			if(alarm)
 			{
-				if(watch.canMove(-watch.getSpeedAlarm(), 0, solids, exit))
+				if(watch.canMove(-watch.getSpeed(), 0, solids, exit))
 				{
-					watch.move(-watch.getSpeedAlarm(), 0);
+					watch.move(-watch.getSpeed(), 0);
 				}
 			}
 			else
 			{
-				if(watch.canMove(-watch.getSpeedWalk(), 0, solids, exit))
+				if(watch.canMove(-watch.getSpeed(), 0, solids, exit))
 				{
-					watch.move(-watch.getSpeedWalk(), 0);
+					watch.move(-watch.getSpeed(), 0);
 				}
 			}
 		}
@@ -467,16 +479,16 @@ public abstract class LevelHandler extends BasicGameState
 			watch.setMoving(true);
 			if(alarm)
 			{
-				if(watch.canMove(watch.getSpeedAlarm(), 0, solids, exit))
+				if(watch.canMove(watch.getSpeed(), 0, solids, exit))
 				{
-					watch.move(watch.getSpeedAlarm(), 0);
+					watch.move(watch.getSpeed(), 0);
 				}
 		    }
 			else
 			{
-				if(watch.canMove(watch.getSpeedWalk(), 0, solids, exit))
+				if(watch.canMove(watch.getSpeed(), 0, solids, exit))
 				{
-					watch.move(watch.getSpeedWalk(), 0);
+					watch.move(watch.getSpeed(), 0);
 				}
 			}
 		}
@@ -486,16 +498,16 @@ public abstract class LevelHandler extends BasicGameState
 			watch.setMoving(true);
 			if(alarm)
 			{
-				if(watch.canMove(0, -watch.getSpeedAlarm(), solids, exit))
+				if(watch.canMove(0, -watch.getSpeed(), solids, exit))
 				{
-					watch.move(0, -watch.getSpeedAlarm());
+					watch.move(0, -watch.getSpeed());
 				}
 		    }
 			else
 			{
-				if(watch.canMove(0, -watch.getSpeedWalk(), solids, exit))
+				if(watch.canMove(0, -watch.getSpeed(), solids, exit))
 				{
-					watch.move(0, -watch.getSpeedWalk());
+					watch.move(0, -watch.getSpeed());
 				}
 			}
 		}
@@ -505,16 +517,16 @@ public abstract class LevelHandler extends BasicGameState
 			watch.setMoving(true);
 			if(alarm)
 			{
-				if(watch.canMove(0, watch.getSpeedAlarm(), solids, exit))
+				if(watch.canMove(0, watch.getSpeed(), solids, exit))
 				{
-					watch.move(0, watch.getSpeedAlarm());
+					watch.move(0, watch.getSpeed());
 				}
 		    }
 			else
 			{
-				if(watch.canMove(0, watch.getSpeedWalk(), solids, exit))
+				if(watch.canMove(0, watch.getSpeed(), solids, exit))
 				{	
-					watch.move(0, watch.getSpeedWalk());
+					watch.move(0, watch.getSpeed());
 				}
 			}
 		}
@@ -542,7 +554,7 @@ public abstract class LevelHandler extends BasicGameState
 			case 9: player.setRotation(45); break;
 		}
 		
-		if (!player.isMoving())
+		if(!player.isMoving())
 		{
 			player.animation.setCurrentFrame(2);
 			player.animation.stop();
@@ -552,7 +564,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.animation.start();
 		}
 		
-		if (!watch.isMoving())
+		if(!watch.isMoving())
 		{
 			watch.animation.setCurrentFrame(2);
 			watch.animation.stop();
@@ -718,6 +730,18 @@ public abstract class LevelHandler extends BasicGameState
 	    		deactivateAlarm();
 	    	}
 		}
+		
+		leverResetTime --;
+		if(leverResetTime==0)
+		{
+			for(Lever l: lever)
+			{
+				if(l.isFlipped())
+				{
+					l.flipLever();
+				}
+			}
+		}
 	}
 	
 	/**Activates the alarm
@@ -749,6 +773,8 @@ public abstract class LevelHandler extends BasicGameState
 	public void onAlarmActivate()
 	{
 		watch.setSightRadius(150);
+		watch.setAlarmed(alarm);
+		leverResetTime = leverResetTimeDefault;
 		closeExit();
 	}
 	
@@ -756,6 +782,7 @@ public abstract class LevelHandler extends BasicGameState
 	public void onAlarmDeactivate()
 	{
 		watch.setSightRadius(100);
+		watch.setAlarmed(alarm);
 		openExit();
 	}
 	

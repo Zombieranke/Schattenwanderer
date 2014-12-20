@@ -89,6 +89,11 @@ public class Lever extends GameObject {
 		flipped = !flipped;
 	}
 	
+	public boolean isFlipped()
+	{
+		return flipped;
+	}
+	
 	/**Initialize the lever by rotating it according to facing*/
 	public void init(){
 		

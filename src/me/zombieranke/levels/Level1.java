@@ -98,15 +98,20 @@ public class Level1 extends LevelHandler
 	@Override
 	public void onLoad(GameContainer container) throws SlickException 
 	{
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5, Ressources.LASER.copy(),16,16,Direction.EAST);
-		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5.25f, Ressources.LASER.copy(),16,16,Direction.EAST);
+		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5.25f, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);
+		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 31.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.25f,Ressources.LASER.copy(),16,16,Direction.WEST);
 		laser.add(laser1);
 		laser.add(laser2);
+		laser.add(laser3);
 		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser1);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 15, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser2);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE *1.25f,ORIGIN_Y+ DEFAULT_TILE_SIZE, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser1);
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser2);
+		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 14.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.WEST,laser3);
 		lever.add(lever1);
 		lever.add(lever2);
+		lever.add(lever3);
+		
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watch = new Watch(300,300,enemyAnimation,20,20);
