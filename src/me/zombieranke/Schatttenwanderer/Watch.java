@@ -15,7 +15,16 @@ public class Watch extends MovableObject
 	protected float direction = 0;
 	protected float sightRadius = 100;
 	private float angle = 60;
-	private float playerNoise = 10;
+	
+	private static int speedAlarm = 2;
+	private static int speedWalk = 1;
+	
+	/**Permanent radius of the hearing circle*/
+	private static final float playerNoiseDefault = 20;
+	
+	/**Current aberration of the default radius of the hearing circle*/
+	private float playerNoise;
+	
 	private WatchSightArea sightCone;
 	private Circle hearCircle;
 
@@ -70,6 +79,17 @@ public class Watch extends MovableObject
 		animation.draw(x, y);
 	}
 	
+	public int getSpeedWalk()
+	{
+		return speedWalk;
+	}
+	
+	public int getSpeedAlarm()
+	{
+		return speedAlarm;
+	}
+	
+	
 	public void addNoise(float deltaNoise)
 	{
 		playerNoise += deltaNoise;
@@ -83,6 +103,11 @@ public class Watch extends MovableObject
 	public float getNoise()
 	{
 		return playerNoise;
+	}
+	
+	public float getNoiseDefault()
+	{
+		return playerNoiseDefault;
 	}
 	
 	public Shape getSightCone()

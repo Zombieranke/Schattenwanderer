@@ -36,6 +36,10 @@ public abstract class LevelHandler extends BasicGameState
 	/**The watch (later a list of watches) that the player has to sneak by*/
 	protected Watch watch;
 	
+	protected int watchSpeed;
+	
+	protected boolean sneaking;
+	
 	/**A boolean indicating whether the alarm is currently active*/ 
 	protected boolean alarm;
 	
@@ -46,7 +50,10 @@ public abstract class LevelHandler extends BasicGameState
 	protected static final int alarmTimeDefault = 600;
 		
 	/**A variable to track how long the player stood in the WatchSightArea*/
-	protected int durationChecker;
+	protected int gracePeriod;
+	
+	/**Keeps track when the player last get out of stealth*/
+	protected int stealthCooldown;
 	
 	/**Everything that cannot be trespassed*/
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
@@ -66,12 +73,6 @@ public abstract class LevelHandler extends BasicGameState
 	
 	/**Indicates which direction the player looks(use with caution)*/
 	private int state;
-	
-	/**Indicates if the player is moving*/
-	private boolean isMoving;
-	
-	/**Indicates if the watch is moving(will have to change once we have multiple watches)*/
-	private boolean enemyIsMoving;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
 	private boolean mission;
@@ -102,8 +103,6 @@ public abstract class LevelHandler extends BasicGameState
 		lever = new ArrayList<Lever>();
 		debug = false;
 		state = 1;
-		isMoving = false;
-		enemyIsMoving = false;
 		mission = false;
 	}
 	
@@ -135,6 +134,9 @@ public abstract class LevelHandler extends BasicGameState
 			target.animation.stop();
 			exit.animation.setCurrentFrame(0);
 			exit.animation.stop();
+			player.setMoving(false);
+			watch.setMoving(false);
+			watch.setNoise(watch.getNoiseDefault());
 		}
 	
 	/** Used to reset the Level when exiting
@@ -157,7 +159,8 @@ public abstract class LevelHandler extends BasicGameState
 		game_background.draw(100, 100);
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
-		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 40);
+		g.drawString("Schleichen: Shift", 300, 20);
+		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 60);
 		
 		for(SolidObject w : solids)
 		{
@@ -245,6 +248,8 @@ public abstract class LevelHandler extends BasicGameState
     	if(input.isKeyPressed(Input.KEY_H))
     	{
     		deactivateAlarm();
+    		player.setHealth();
+    		player.setEnergy();
     	}  
     	
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
@@ -267,121 +272,125 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		
 		//Player Movement Start
-		isMoving = false;
+		player.setMoving(false);
+		sneaking = false;
+		
+		if((input.isKeyDown(Input.KEY_LSHIFT) || input.isKeyDown(Input.KEY_RSHIFT)) && !player.isSprint())
+		{
+			sneaking = true;
+		}
 		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
 			player.setStealth(false);
-			isMoving = true;
+			player.setMoving(true);
 			state += 8;
 			if(player.isSprint())
 			{
-				for(int i = -4;i<0;i+=2)
+				if(player.canMove(-player.getSpeedSprint(), 0, solids, exit))
 				{
-					if(player.canMove(i, 0, solids, exit))
-					{
-						player.move(i, 0);
-						break;
-					}
-			    }
+					player.move(-player.getSpeedSprint(), 0);
+				}
+			}
+			else if(sneaking)
+			{
+
+				if(player.canMove(-player.getSpeedSneak(), 0, solids, exit))
+				{
+					player.move(-player.getSpeedSneak(), 0);
+				}
 			}
 			else
 			{
-				for(int i = -2;i<0;i++)
+
+				if(player.canMove(-player.getSpeedWalk(), 0, solids, exit))
 				{
-					if(player.canMove(i, 0, solids, exit))
-					{
-						player.move(i, 0);
-						break;
-					}
-			    }
+					player.move(-player.getSpeedWalk(), 0);
+				}
 			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
 			player.setStealth(false);
-			isMoving = true;
+			player.setMoving(true);
 			state += 2;
 			if(player.isSprint())
 			{
-				for(int i = 4;i>0;i-=2)
+				if(player.canMove(player.getSpeedSprint(), 0, solids, exit))
 				{
-					if(player.canMove(i, 0, solids, exit))
-					{
-						player.move(i, 0);
-						break;
-					}
-			    }
+					player.move(player.getSpeedSprint(), 0);
+				}
+			}
+			else if(sneaking)
+			{
+				if(player.canMove(player.getSpeedSneak(), 0, solids, exit))
+				{
+					player.move(player.getSpeedSneak(), 0);
+				}
 			}
 			else
 			{
-				for(int i = 2;i>0;i--)
+				if(player.canMove(player.getSpeedWalk(), 0, solids, exit))
 				{
-					if(player.canMove(i, 0, solids, exit))
-					{
-						player.move(i, 0);
-						break;
-					}
-			    }
+					player.move(player.getSpeedWalk(), 0);
+				}
 			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
 			player.setStealth(false);
-			isMoving = true;
+			player.setMoving(true);
 			state += 1;
 			if(player.isSprint())
 			{
-				for(int i = -4;i<0;i+=2)
+				if(player.canMove(0, -player.getSpeedSprint(), solids, exit))
 				{
-					if(player.canMove(0, i, solids, exit))
-					{
-						player.move(0, i);
-						break;
-					}
-			    }
+					player.move(0, -player.getSpeedSprint());
+				}
+			}
+			else if(sneaking)
+			{
+				if(player.canMove(0, -player.getSpeedSneak(), solids, exit))
+				{
+					player.move(0, -player.getSpeedSneak());
+				}
 			}
 			else
 			{
-				for(int i = -2;i<0;i++)
+				if(player.canMove(0, -player.getSpeedWalk(), solids, exit))
 				{
-					if(player.canMove(0, i, solids, exit))
-					{
-						player.move(0, i);
-						break;
-					}
-			    }
+					player.move(0, -player.getSpeedWalk());
+				} 
 			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
 			player.setStealth(false);
-			isMoving = true;
+			player.setMoving(true);
 			state += 4;
 			if(player.isSprint())
 			{
-				for(int i = 4;i>0;i-=2)
+				if(player.canMove(0, player.getSpeedSprint(), solids, exit))
 				{
-					if(player.canMove(0, i, solids, exit))
-					{
-						player.move(0, i);
-						break;
-					}
-			    }
+					player.move(0, player.getSpeedSprint());
+				}
+			}
+			else if(sneaking)
+			{
+				if(player.canMove(0, player.getSpeedSneak(), solids, exit))
+				{
+					player.move(0, player.getSpeedSneak());
+				}
 			}
 			else
 			{
-				for(int i = 2;i>0;i--)
+				if(player.canMove(0, player.getSpeedWalk(), solids, exit))
 				{
-					if(player.canMove(0, i, solids, exit))
-					{
-						player.move(0, i);
-						break;
-					}
-			    }
+					player.move(0, player.getSpeedWalk());
+				}
 			}
 		}
 		//Player Movement Ende
@@ -392,18 +401,34 @@ public abstract class LevelHandler extends BasicGameState
 			player.switchSprint();
 		}
 		
-		if(input.isKeyPressed(Input.KEY_C))
+		if(input.isKeyPressed(Input.KEY_C) && stealthCooldown<=0)
 		{
+			if(player.isStealth())
+			{
+				stealthCooldown = 50;
+			}
 			player.switchStealth();
 		}
 		
-		if(player.isStealth() || player.isSprint())
+		if(!player.isStealth())
 		{
-			player.setEnergy(player.getEnergy() - 2f);
+			stealthCooldown--;
 		}
-		else if(player.getEnergy()<player.getEnergyDefault())
+		
+		if(player.isStealth())
 		{
-			player.setEnergy(player.getEnergy() + 1f);
+			player.setEnergy(player.getEnergy() - 1.2f);
+		}
+		
+		if(player.isSprint())
+		{
+			player.setEnergy(player.getEnergy() - 2.5f);
+		}
+		
+		
+		if(!(player.isStealth() || player.isSprint()) && player.getEnergy()<player.getEnergyDefault())
+		{
+			player.setEnergy(player.getEnergy() + 0.5f);
 		}
 		if(player.getEnergy()<=0)
 		{
@@ -416,62 +441,82 @@ public abstract class LevelHandler extends BasicGameState
 		
 	    //Debug Watch Movement
 		
-		enemyIsMoving = false;
+		watch.setMoving(false);
 		
 		if(input.isKeyDown(Input.KEY_A))
 		{
-			enemyIsMoving = true;
-			for(int i = -2;i<0;i++)
+			watch.setMoving(true);
+			if(alarm)
 			{
-				if(watch.canMove(i, 0, solids, exit))
+				if(watch.canMove(-watch.getSpeedAlarm(), 0, solids, exit))
 				{
-					
-					watch.move(i, 0);
-					break;
+					watch.move(-watch.getSpeedAlarm(), 0);
 				}
-		    }
+			}
+			else
+			{
+				if(watch.canMove(-watch.getSpeedWalk(), 0, solids, exit))
+				{
+					watch.move(-watch.getSpeedWalk(), 0);
+				}
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_D))
 		{
-			enemyIsMoving = true;
-			for(int i = 2;i>0;i--)
+			watch.setMoving(true);
+			if(alarm)
 			{
-				if(watch.canMove(i, 0, solids, exit))
+				if(watch.canMove(watch.getSpeedAlarm(), 0, solids, exit))
 				{
-					
-					watch.move(i, 0);
-					break;
+					watch.move(watch.getSpeedAlarm(), 0);
 				}
 		    }
+			else
+			{
+				if(watch.canMove(watch.getSpeedWalk(), 0, solids, exit))
+				{
+					watch.move(watch.getSpeedWalk(), 0);
+				}
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_W))
 		{
-			enemyIsMoving = true;
-			for(int i = -2;i<0;i++)
+			watch.setMoving(true);
+			if(alarm)
 			{
-				if(watch.canMove(0, i, solids, exit))
+				if(watch.canMove(0, -watch.getSpeedAlarm(), solids, exit))
 				{
-					
-					watch.move(0, i);
-					break;
+					watch.move(0, -watch.getSpeedAlarm());
 				}
 		    }
+			else
+			{
+				if(watch.canMove(0, -watch.getSpeedWalk(), solids, exit))
+				{
+					watch.move(0, -watch.getSpeedWalk());
+				}
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_S))
 		{
-			enemyIsMoving = true;
-			for(int i = 2;i>0;i--)
+			watch.setMoving(true);
+			if(alarm)
 			{
-				if(watch.canMove(0, i, solids, exit))
+				if(watch.canMove(0, watch.getSpeedAlarm(), solids, exit))
 				{
-					
-					watch.move(0, i);
-					break;
+					watch.move(0, watch.getSpeedAlarm());
 				}
 		    }
+			else
+			{
+				if(watch.canMove(0, watch.getSpeedWalk(), solids, exit))
+				{	
+					watch.move(0, watch.getSpeedWalk());
+				}
+			}
 		}
 		
 
@@ -497,7 +542,7 @@ public abstract class LevelHandler extends BasicGameState
 			case 9: player.setRotation(45); break;
 		}
 		
-		if (!isMoving)
+		if (!player.isMoving())
 		{
 			player.animation.setCurrentFrame(2);
 			player.animation.stop();
@@ -507,7 +552,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.animation.start();
 		}
 		
-		if (!enemyIsMoving)
+		if (!watch.isMoving())
 		{
 			watch.animation.setCurrentFrame(2);
 			watch.animation.stop();
@@ -587,19 +632,23 @@ public abstract class LevelHandler extends BasicGameState
 		
 		
 		//Hear Circle Logic
-		float hearMax = player.isSprint() ? 70 : 50;
+		float hearMax = player.isSprint() ? 75 : 50;
 		float incrementPerUpdate = player.isSprint() ? 2 : 1;
+		float alarmMultiplier = alarm ? 1.3f : 1;
+		hearMax *= alarmMultiplier;
+		float calmDown = 1.7f - alarmMultiplier;
 		
-		if(isMoving && watch.getNoise() < hearMax)
+		
+		if(player.isMoving() && (watch.getNoise() < hearMax) && !sneaking)
 		{
 			if( watch.getNoise() < hearMax - incrementPerUpdate)
 			{
 				watch.addNoise(incrementPerUpdate);
 			}
 		}
-		else if(watch.getNoise()>10)
+		else if(watch.getNoise()>watch.getNoiseDefault()*alarmMultiplier)
 		{
-			watch.addNoise(-1);
+			watch.addNoise(-calmDown);
 		}
 		
 		//Updates
@@ -643,15 +692,15 @@ public abstract class LevelHandler extends BasicGameState
 	    {
 	    	activateAlarm();
 	    	
-	    	durationChecker++;
-	    	if(durationChecker>=10)
+	    	gracePeriod++;
+	    	if(gracePeriod>=10)
 	    	{
 	    		player.setHealth(player.getHealth() - 3);
 	    	}
 	    }
 		else
 		{
-			durationChecker = 0;
+			gracePeriod = 0;
 		}
 		
 		if(target.checkCollision(watch.getSightCone()) && !target.isDiscovered())

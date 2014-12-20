@@ -22,6 +22,10 @@ public class Player extends MovableObject
 	/**The current energy of the player(might migrate this into player actually)*/
 	protected float playerEnergy;
 	
+	protected static int speedSprint = 4;
+	protected static int speedWalk = 2;
+	protected static int speedSneak = 1;
+	
 	private static final float DEFAULT_COL_X = 20;
 	private static final float DEFAULT_COL_Y = 20;
 	private boolean stealth = false;
@@ -121,7 +125,20 @@ public class Player extends MovableObject
 		return playerEnergy;
 	}
 	
+	public int getSpeedSprint()
+	{
+		return speedSprint;
+	}
 	
+	public int getSpeedWalk()
+	{
+		return speedWalk;
+	}
+	
+	public int getSpeedSneak()
+	{
+		return speedSneak;
+	}
 	
 	public boolean isStealth()
 	{

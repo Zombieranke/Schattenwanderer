@@ -9,8 +9,9 @@ import org.newdawn.slick.geom.Shape;
 
 public abstract class MovableObject extends GameObject
 {
-
 	
+	/**Indicates if the object is moving*/
+	protected boolean moving = false;
 	
 	public MovableObject(float x, float y, Image img, Shape collisionArea)
 	{
@@ -85,6 +86,16 @@ public abstract class MovableObject extends GameObject
 	{
 		collisionArea.setX(x);
 		collisionArea.setY(y);
+	}
+	
+	public void setMoving(boolean moving)
+	{
+		this.moving = moving;
+	}
+	
+	public boolean isMoving()
+	{
+		return moving;
 	}
 	
 	
