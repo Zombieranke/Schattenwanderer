@@ -694,7 +694,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			target.animation2.update(delta);
 			target.animation2.start();
-			target.animation2.stopAt(8);
+			target.animation2.stopAt(9);
 		}
 		watch.move(2);
 	}
