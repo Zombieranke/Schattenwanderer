@@ -15,8 +15,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
-import org.newdawn.slick.util.pathfinding.Mover;
-import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 /**The basic game Logic that every Level must extend*/
@@ -37,9 +35,6 @@ public abstract class LevelHandler extends BasicGameState
 	/**The exit that the player has to escape through*/
 	protected Exit exit;
 	
-	/**The watch (later a list of watches) that the player has to sneak by*/
-	protected Watch watch;
-	
 	protected int watchSpeed;
 	
 	protected boolean sneaking;
@@ -59,9 +54,13 @@ public abstract class LevelHandler extends BasicGameState
 	/**Keeps track when the player last get out of stealth*/
 	protected int stealthCooldown;
 	
+	/**Default time it takes for a lever to reset in alarm situations*/
 	protected static final int leverResetTimeDefault = 150;
 	
+	/**The remaining time until all levers reset*/
 	protected int leverResetTime = 0;
+	
+	protected ArrayList<Watch> watches;
 	
 	/**Everything that cannot be trespassed*/
 	protected ArrayList<SolidObject> solids = new ArrayList<SolidObject>();
@@ -113,6 +112,7 @@ public abstract class LevelHandler extends BasicGameState
 		alarm = false;
 		laser = new ArrayList<Laser>();
 		lever = new ArrayList<Lever>();
+		watches = new ArrayList<Watch>();
 		debug = false;
 		state = 1;
 		mission = false;
@@ -140,19 +140,22 @@ public abstract class LevelHandler extends BasicGameState
 			l.init();
 		}
 		
-		watch.init(solids);
+		for(Watch w: watches)
+		{
+			w.init(solids);
+			w.setRotation(w.getDirection()+180);
+			w.setMoving(false);
+			w.setNoise(w.getNoiseDefault());
+		}
+		
 		player.setHealth();
 		player.setEnergy();
-		watch.setRotation(watch.getDirection()+180);
 		player.setRotation(0);
 		target.animation.setCurrentFrame(2);
 		target.animation.stop();
 		exit.animation.setCurrentFrame(0);
 		exit.animation.stop();
-		player.setMoving(false);
-		watch.setMoving(false);
-		watch.setNoise(watch.getNoiseDefault());
-		
+		player.setMoving(false);	
 	}
 	
 	/** Used to reset the Level when exiting
@@ -182,16 +185,23 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			w.render(g);
 		}
+		
 		for(Laser l: laser)
 		{
 			l.render(g);
 		}
+		
 		for(Lever l: lever)
 		{
 			l.render(g);
 		}
+		
+		for(Watch w: watches)
+		{
+			w.render(g);
+		}
+		
 		target.render(g);
-		watch.render(g);
 		player.render(g);
 		exit.render(g);
 		if(debug)
@@ -201,7 +211,11 @@ public abstract class LevelHandler extends BasicGameState
 				w.renderCollisionArea(g);
 			}
 			player.renderCollisionArea(g);
-			watch.renderCollisionArea(g);
+			for(Watch w : watches)
+			{
+				w.renderCollisionArea(g);
+			}
+			
 			target.renderCollisionArea(g);
 			for(Laser l: laser)
 			{
@@ -239,12 +253,7 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.yellow);
 		g.fillRect(220, 794, player.getEnergy(), 20); //300px Energybar
 		
-		g.setColor(Color.red);
-		for(int i = 0; i<watch.getPath().getLength();i++)
-		{
-			g.fillRect(watch.getPath().getX(i)*8, watch.getPath().getY(i)*8, 1, 1);
-		}
-		
+		g.setColor(Color.red);	
 	}
 
 	@Override
@@ -255,7 +264,10 @@ public abstract class LevelHandler extends BasicGameState
 		state = 0;
 		
 		player.animation.update(delta);
-		watch.animation.update(delta);
+		for(Watch w : watches)
+		{
+			w.animation.update(delta);
+		}
 		exit.animation.update(delta);
 		
 		checkAlarm();
@@ -463,99 +475,6 @@ public abstract class LevelHandler extends BasicGameState
 		}
 		//Skills Ende
 		
-		
-		
-	    //Debug Watch Movement
-		
-		watch.setMoving(false);
-		
-		if(input.isKeyDown(Input.KEY_A))
-		{
-			watch.setMoving(true);
-			if(alarm)
-			{
-				if(watch.canMove(-watch.getSpeed(), 0, solids, exit))
-				{
-					watch.move(-watch.getSpeed(), 0);
-				}
-			}
-			else
-			{
-				if(watch.canMove(-watch.getSpeed(), 0, solids, exit))
-				{
-					watch.move(-watch.getSpeed(), 0);
-				}
-			}
-		}
-		
-		if(input.isKeyDown(Input.KEY_D))
-		{
-			watch.setMoving(true);
-			if(alarm)
-			{
-				if(watch.canMove(watch.getSpeed(), 0, solids, exit))
-				{
-					watch.move(watch.getSpeed(), 0);
-				}
-		    }
-			else
-			{
-				if(watch.canMove(watch.getSpeed(), 0, solids, exit))
-				{
-					watch.move(watch.getSpeed(), 0);
-				}
-			}
-		}
-		
-		if(input.isKeyDown(Input.KEY_W))
-		{
-			watch.setMoving(true);
-			if(alarm)
-			{
-				if(watch.canMove(0, -watch.getSpeed(), solids, exit))
-				{
-					watch.move(0, -watch.getSpeed());
-				}
-		    }
-			else
-			{
-				if(watch.canMove(0, -watch.getSpeed(), solids, exit))
-				{
-					watch.move(0, -watch.getSpeed());
-				}
-			}
-		}
-		
-		if(input.isKeyDown(Input.KEY_S))
-		{
-			watch.setMoving(true);
-			if(alarm)
-			{
-				if(watch.canMove(0, watch.getSpeed(), solids, exit))
-				{
-					watch.move(0, watch.getSpeed());
-				}
-		    }
-			else
-			{
-				if(watch.canMove(0, watch.getSpeed(), solids, exit))
-				{	
-					watch.move(0, watch.getSpeed());
-				}
-			}
-		}
-		
-
-		if(input.isKeyDown(Input.KEY_Q))
-		{
-			watch.setDirection(watch.getDirection()-1);
-		}
-		
-		if(input.isKeyDown(Input.KEY_E))
-		{
-			watch.setDirection(watch.getDirection()+1);
-		}
-		
 		switch(state)
 		{
 			case 1: player.setRotation(90); break;
@@ -576,17 +495,6 @@ public abstract class LevelHandler extends BasicGameState
 		else 
 		{
 			player.animation.start();
-		}
-		
-		if(!watch.isMoving())
-		{
-			watch.animation.setCurrentFrame(2);
-			watch.animation.stop();
-		}
-		else
-		{
-			watch.setRotation(watch.getDirection()+180);
-			watch.animation.start();
 		}
 		
 		//Funktion des Ausgangs Anfang(old)
@@ -664,23 +572,30 @@ public abstract class LevelHandler extends BasicGameState
 		hearMax *= alarmMultiplier;
 		float calmDown = 1.7f - alarmMultiplier;
 		
-		
-		if(player.isMoving() && (watch.getNoise() < hearMax) && !sneaking)
+		for(Watch w : watches)
 		{
-			if( watch.getNoise() < hearMax - incrementPerUpdate)
+			if(player.isMoving() && (w.getNoise() < hearMax) && !sneaking)
 			{
-				watch.addNoise(incrementPerUpdate);
+				if( w.getNoise() < hearMax - incrementPerUpdate)
+				{
+					w.addNoise(incrementPerUpdate);
+				}
+			}
+			else if(w.getNoise()>w.getNoiseDefault()*alarmMultiplier)
+			{
+				w.addNoise(-calmDown);
 			}
 		}
-		else if(watch.getNoise()>watch.getNoiseDefault()*alarmMultiplier)
-		{
-			watch.addNoise(-calmDown);
-		}
-		
+			
 		//Updates
 		player.update(delta);
-		watch.update(delta);
-		watch.updateSight(solids);
+		
+		for(Watch w : watches)
+		{
+			w.move(2);
+			w.update(delta);
+			w.updateSight(solids);
+		}
 		
 		//Kill target
 		if(target.checkCollision(player)){
@@ -696,7 +611,7 @@ public abstract class LevelHandler extends BasicGameState
 			target.animation2.start();
 			target.animation2.stopAt(9);
 		}
-		watch.move(2);
+		
 	}
 	
 	/**Checks if the alarm should be activated, ticks it down if it is, deactivates it if alarmTime has reached 0 and 
@@ -715,25 +630,28 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
-		if((player.checkCollision(watch.getSightCone()) || player.checkCollision(watch.getHearCircle()))  && !player.isStealth())
-	    {
-	    	activateAlarm();
-	    	
-	    	gracePeriod++;
-	    	if(gracePeriod>=10)
-	    	{
-	    		player.setHealth(player.getHealth() - 3);
-	    	}
-	    }
-		else
+		for(Watch w : watches)
 		{
-			gracePeriod = 0;
-		}
-		
-		if(target.checkCollision(watch.getSightCone()) && !target.isDiscovered())
-		{
-			activateAlarm();
-			target.setDiscovered(true);
+			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
+		    {
+		    	activateAlarm();
+		    	
+		    	gracePeriod++;
+		    	if(gracePeriod>=10)
+		    	{
+		    		player.setHealth(player.getHealth() - 3);
+		    	}
+		    }
+			else
+			{
+				gracePeriod = 0;
+			}
+			
+			if(target.checkCollision(w.getSightCone()) && !target.isDiscovered())
+			{
+				activateAlarm();
+				target.setDiscovered(true);
+			}
 		}
 		
 		if(alarm)
@@ -770,6 +688,7 @@ public abstract class LevelHandler extends BasicGameState
     	onAlarmActivate();
 	}
 	
+	@SuppressWarnings("unused")
 	private void activateAlarm(int alarmTime)
 	{
 		alarm = true;
@@ -787,8 +706,12 @@ public abstract class LevelHandler extends BasicGameState
 	/**Event that is fired when the alarm gets activated. Extends watch sight radius and closes the door*/
 	public void onAlarmActivate()
 	{
-		watch.setSightRadius(150);
-		watch.setAlarmed(alarm);
+		for(Watch w : watches)
+		{
+			w.setSightRadius(150);
+			w.setAlarmed(alarm);
+		}
+		
 		leverResetTime = leverResetTimeDefault;
 		closeExit();
 	}
@@ -796,8 +719,12 @@ public abstract class LevelHandler extends BasicGameState
 	/**Event that gets fired when the alarm gets deactivated. Resets watch sights radius and reopens the door(if mission has already been accomplished)*/
 	public void onAlarmDeactivate()
 	{
-		watch.setSightRadius(100);
-		watch.setAlarmed(alarm);
+		for(Watch w : watches)
+		{
+			w.setSightRadius(100);
+			w.setAlarmed(alarm);
+		}
+		
 		openExit();
 	}
 	
