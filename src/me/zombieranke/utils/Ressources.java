@@ -35,6 +35,7 @@ public class Ressources
 	
 	public static Music ALARM_MUSIC;
 	public static Music GAME_MUSIC;
+	public static Music MENU_MUSIC;
 	
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
@@ -68,6 +69,7 @@ public class Ressources
 		
 		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
 		GAME_MUSIC			= new Music("res/Game_Music.ogg",false);
+		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
 		
 		EXIT_SOUND			= new Sound("res/Exit_Sound.ogg");
 		LEVER_SOUND			= new Sound("res/Lever_Sound.ogg");
