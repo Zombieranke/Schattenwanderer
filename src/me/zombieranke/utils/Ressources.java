@@ -71,7 +71,7 @@ public class Ressources
 		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
 		GAME_MUSIC			= new Music("res/Game_Music2.ogg",false);
 		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
-		END_MUSIC           = new Music("res/End_Music.ogg",false);
+		END_MUSIC           = new Music("res/End_Music3.ogg",false);
 		
 		EXIT_SOUND			= new Sound("res/Exit_Sound.ogg");
 		LEVER_SOUND			= new Sound("res/Lever_Sound.ogg");
