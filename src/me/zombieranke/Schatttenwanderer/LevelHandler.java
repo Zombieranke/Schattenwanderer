@@ -90,6 +90,8 @@ public abstract class LevelHandler extends BasicGameState
 	/**The music to play when there is no alarm*/
 	protected Music gameMusic;
 	
+	protected Music endMusic;
+	
 	/**The sound to play when the exit opens*/
 	protected Sound exitSound;
 	
@@ -560,6 +562,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
+			endMusic.loop(1,1);
 			resetOnLeave(container, game);
 			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}

@@ -36,6 +36,7 @@ public class Ressources
 	public static Music ALARM_MUSIC;
 	public static Music GAME_MUSIC;
 	public static Music MENU_MUSIC;
+	public static Music END_MUSIC;
 	
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
@@ -68,8 +69,9 @@ public class Ressources
 		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_SpriteSheet.png", 60, 50);
 		
 		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
-		GAME_MUSIC			= new Music("res/Game_Music.ogg",false);
+		GAME_MUSIC			= new Music("res/Game_Music2.ogg",false);
 		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
+		END_MUSIC           = new Music("res/End_Music.ogg",false);
 		
 		EXIT_SOUND			= new Sound("res/Exit_Sound.ogg");
 		LEVER_SOUND			= new Sound("res/Lever_Sound.ogg");

@@ -85,6 +85,7 @@ public class Level1 extends LevelHandler
 		
 		alarmMusic = Ressources.ALARM_MUSIC;
 		gameMusic = Ressources.GAME_MUSIC;
+		endMusic = Ressources.END_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
 		game_background = Ressources.GAME_BACKGROUND;
