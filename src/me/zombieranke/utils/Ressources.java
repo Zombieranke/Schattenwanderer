@@ -26,12 +26,14 @@ public class Ressources
 	public static Image OPTIONS_LIGHTED;
 	public static Image OPTIONS_UNLIGHTED;
 	public static Image WALL_TYPE_1;
+	public static Image GAME_WON;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
 	public static SpriteSheet PLAYER_SPRITESHEET;
 	public static SpriteSheet TARGET_SPRITESHEET;
 	public static SpriteSheet TARGET_DEATH_SPRITESHEET;
+	public static SpriteSheet GAME_WON_SPRITESHEET;
 	
 	public static Music ALARM_MUSIC;
 	public static Music GAME_MUSIC;
@@ -45,9 +47,9 @@ public class Ressources
 	{
 		GAME_BACKGROUND 	= new Image("res/Game_Background.jpg");
 		UI_BACKGROUND 		= new Image("res/UI_Background.png");
-		BACKGROUND_FAIL		= new Image("res/Background_Fail.png");
+		BACKGROUND_FAIL		= new Image("res/Background_Fail.jpg");
 		BACKGROUND_MENU		= new Image("res/Background_Menu.jpg");
-		BACKGROUND_SUCCESS	= new Image("res/Background_Success.png");
+		BACKGROUND_SUCCESS	= new Image("res/Background_Success.jpg");
 		DEATH_1				= new Image("res/Death_1.png");
 		EXIT_LIGHTED		= new Image("res/Exit_Lighted.png");
 		EXIT_UNLIGHTED		= new Image("res/Exit_Unlighted.png");
@@ -67,6 +69,7 @@ public class Ressources
 		PLAYER_SPRITESHEET	= new SpriteSheet("res/Player_SpriteSheet.png", 20, 20);
 		TARGET_SPRITESHEET	= new SpriteSheet("res/Target_SpriteSheet.png", 20, 20);
 		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_SpriteSheet.png", 60, 50);
+		GAME_WON_SPRITESHEET = new SpriteSheet("res/Dripping_Blood.png", 29, 248);
 		
 		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
 		GAME_MUSIC			= new Music("res/Game_Music2.ogg",false);
