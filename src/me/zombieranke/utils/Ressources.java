@@ -71,7 +71,7 @@ public class Ressources
 		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_SpriteSheet.png", 60, 50);
 		GAME_WON_SPRITESHEET = new SpriteSheet("res/Dripping_Blood.png", 29, 248);
 		
-		ALARM_MUSIC			= new Music("res/Alarm_Music.ogg",false);
+		ALARM_MUSIC			= new Music("res/Alarm.ogg",false);
 		GAME_MUSIC			= new Music("res/Game_Music2.ogg",false);
 		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
 		END_MUSIC           = new Music("res/End_Music3.ogg",false);
