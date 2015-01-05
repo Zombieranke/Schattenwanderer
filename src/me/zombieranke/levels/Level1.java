@@ -3,6 +3,7 @@ package me.zombieranke.levels;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import me.zombieranke.Schatttenwanderer.Exit;
@@ -112,7 +113,7 @@ public class Level1 extends LevelHandler
 		lever.add(lever3);
 		
 		
-		float[] watchpoints = {25,25,88,25,88,88};
+		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watches.add(new Watch(304,304,enemyAnimation,20,20, watchpoints,aPath));

@@ -34,7 +34,7 @@ public class Watch extends MovableObject implements Mover
 	private WatchSightArea sightCone;
 	private Circle hearCircle;
 	private AStarPathFinder aPath;
-	private float[] points;
+	private Vector2f[] points;
 	private int currentStep = 0;
 	private Path p;
 	private int pCur = 0;
@@ -69,7 +69,7 @@ public class Watch extends MovableObject implements Mover
 		super(x,y,img);
 	}
 	
-	public Watch(float x, float y, Animation animation, float colX, float colY, float[] points, AStarPathFinder aPath)
+	public Watch(float x, float y, Animation animation, float colX, float colY, Vector2f[] points, AStarPathFinder aPath)
 	{
 		super(x, y, animation, colX, colY);
 		this.points = points;
@@ -181,19 +181,19 @@ public class Watch extends MovableObject implements Mover
 	{
 		if(p == null)
 		{
-			calculatePath();
+			calculatePath(points[currentStep]);
 		}
 		//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
-		if(getX()==points[currentStep]*8 && getY()==points[currentStep+1]*8)
+		if(getX()==points[currentStep].x*8 && getY()==points[currentStep].y*8)
 		{
-			currentStep +=2;
+			currentStep +=1;
 			//System.out.println("inc");
 			if(currentStep > points.length-1)
 			{
 				//System.out.println("Wrap around");
 				currentStep = 0;
 			}
-			calculatePath();
+			calculatePath(points[currentStep]);
 		}
 		
 		if(getX()==p.getX(pCur)*8 && getY()==p.getY(pCur)*8)
@@ -221,10 +221,10 @@ public class Watch extends MovableObject implements Mover
 		
 	}
 	
-	public void calculatePath()
+	public void calculatePath(Vector2f v)
 	{
 		//System.out.println(currentStep);
-		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(points[currentStep]), Math.round(points[currentStep+1]));
+		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(v.x), Math.round(v.y));
 		pCur = 0;
 	}
 	
