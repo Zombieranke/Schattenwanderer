@@ -725,7 +725,7 @@ public abstract class LevelHandler extends BasicGameState
 			w.setPath(null);
 		}
 		
-		leverResetTime = leverResetTimeDefault;
+		//leverResetTime = leverResetTimeDefault;
 		closeExit();
 	}
 	
