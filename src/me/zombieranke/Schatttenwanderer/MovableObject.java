@@ -88,10 +88,11 @@ public abstract class MovableObject extends GameObject
 				return false;
 			}
 		}
-		/*if(exit.checkCollision(colArea)&&exit.isOpen()==false)
+		
+		if(exit.checkCollision(colArea)&&exit.isOpen()==false)
 		{
 			return false;
-		}*/
+		}
 		return true;
 	}
 	

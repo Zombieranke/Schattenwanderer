@@ -5,10 +5,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.pathfinding.AStarPathFinder;
+import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 import me.zombieranke.Schatttenwanderer.Exit;
 import me.zombieranke.Schatttenwanderer.Laser;
 import me.zombieranke.Schatttenwanderer.LevelHandler;
+import me.zombieranke.Schatttenwanderer.LevelMap;
 import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
 import me.zombieranke.Schatttenwanderer.Target;
@@ -69,6 +72,8 @@ public class Level1 extends LevelHandler
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
+		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
 		playerAnimation.setAutoUpdate(false);
@@ -91,6 +96,10 @@ public class Level1 extends LevelHandler
 		leverSound = Ressources.LEVER_SOUND;
 		game_background = Ressources.GAME_BACKGROUND;
 		UI_Background = Ressources.UI_BACKGROUND;
+		
+		levelMap = new LevelMap(solids,exit);
+		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
+		
 		super.resetOnLeave(container, game);
 		
 	}
@@ -118,7 +127,6 @@ public class Level1 extends LevelHandler
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watches.add(new Watch(304,304,enemyAnimation,20,20, watchpoints,aPath));
 		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		super.initObjects(container);
 	}
