@@ -13,7 +13,7 @@ public class LevelMap implements TileBasedMap  {
 	private Exit exit;
 	private final float SQRT_2 = (float) Math.sqrt(2);
 	
-	LevelMap(ArrayList<SolidObject> solids, Exit exit)
+	public LevelMap(ArrayList<SolidObject> solids, Exit exit)
 	{
 		this.solids = solids;
 		this.exit = exit;

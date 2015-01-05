@@ -10,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -104,9 +105,9 @@ public abstract class LevelHandler extends BasicGameState
 	/** Background for the "outer layer"/UI Elements outside of boundaries as a tile */
 	protected Image UI_Background;
 	
-	protected LevelMap levelMap = new LevelMap(solids,exit);
+	protected LevelMap levelMap;
 	
-	protected AStarPathFinder aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
+	protected AStarPathFinder aPath;
 	
 	/**Reset everything that is the same between levels*/
 	public void reset()
@@ -118,6 +119,8 @@ public abstract class LevelHandler extends BasicGameState
 		debug = false;
 		state = 1;
 		mission = false;
+		exit.setOpen(false);
+		exit.animation.setCurrentFrame(0);
 	}
 	
 	/**Function to reload stuff on level entry
@@ -157,7 +160,7 @@ public abstract class LevelHandler extends BasicGameState
 		target.animation.stop();
 		exit.animation.setCurrentFrame(0);
 		exit.animation.stop();
-		player.setMoving(false);	
+		player.setMoving(false);
 	}
 	
 	/** Used to reset the Level when exiting
@@ -595,25 +598,23 @@ public abstract class LevelHandler extends BasicGameState
 		
 		for(Watch w : watches)
 		{
-			w.move(2);
+			w.move(solids,exit);
 			w.update(delta);
 			w.updateSight(solids);
 		}
 		
 		//Kill target
-		if(target.checkCollision(player)){
+		if(target.checkCollision(player) && !mission){
 			mission = true;
 			target.setDead(true);
+			target.animation2.setCurrentFrame(0);
+			target.animation2.start();
+			target.animation2.stopAt(9);
 			openExit();
 		}
 		
 		//Death Animation
-		if(mission)
-		{
 			target.animation2.update(delta);
-			target.animation2.start();
-			target.animation2.stopAt(9);
-		}
 		
 	}
 	
@@ -633,28 +634,43 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
+		boolean inSight = false;
+		
 		for(Watch w : watches)
 		{
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
-		    	activateAlarm();
-		    	
-		    	gracePeriod++;
-		    	if(gracePeriod>=10)
-		    	{
-		    		player.setHealth(player.getHealth() - 3);
-		    	}
+				inSight = true;
+				if(!alarm)
+				{
+					activateAlarm();
+				}
+				
+				if(w.getPath() == null)
+				{
+					w.calculatePath(new Vector2f(player.getX()/8, player.getY()/8));
+				}
 		    }
-			else
-			{
-				gracePeriod = 0;
-			}
+
 			
 			if(target.checkCollision(w.getSightCone()) && !target.isDiscovered())
 			{
 				activateAlarm();
 				target.setDiscovered(true);
 			}
+		}
+		
+		if(inSight)
+		{
+			gracePeriod++;
+			if(gracePeriod>=10)
+    		{
+    			player.setHealth(player.getHealth() - 3);
+    		}
+		}
+		else
+		{
+			gracePeriod = 0;
 		}
 		
 		if(alarm)
@@ -686,24 +702,24 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	private void activateAlarm()
 	{
-		alarm = true;
-    	this.alarmTime = alarmTimeDefault;
-    	onAlarmActivate();
+			alarm = true;
+	    	this.alarmTime = alarmTimeDefault;
+	    	onAlarmActivate();
 	}
 	
 	@SuppressWarnings("unused")
 	private void activateAlarm(int alarmTime)
 	{
-		alarm = true;
-    	this.alarmTime = alarmTime;
-    	onAlarmActivate();
+			alarm = true;
+	    	this.alarmTime = alarmTime;
+	    	onAlarmActivate();
 	}
 	
 	/**Deactivates the alarm*/
 	private void deactivateAlarm()
 	{
-		alarm = false;
-		onAlarmDeactivate();
+			alarm = false;
+			onAlarmDeactivate();
 	}
 	
 	/**Event that is fired when the alarm gets activated. Extends watch sight radius and closes the door*/
@@ -713,9 +729,10 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			w.setSightRadius(150);
 			w.setAlarmed(alarm);
+			w.setPath(null);
 		}
 		
-		leverResetTime = leverResetTimeDefault;
+		//leverResetTime = leverResetTimeDefault;
 		closeExit();
 	}
 	

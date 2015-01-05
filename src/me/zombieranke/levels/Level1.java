@@ -3,11 +3,15 @@ package me.zombieranke.levels;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.pathfinding.AStarPathFinder;
+import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 import me.zombieranke.Schatttenwanderer.Exit;
 import me.zombieranke.Schatttenwanderer.Laser;
 import me.zombieranke.Schatttenwanderer.LevelHandler;
+import me.zombieranke.Schatttenwanderer.LevelMap;
 import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
 import me.zombieranke.Schatttenwanderer.Target;
@@ -36,6 +40,9 @@ public class Level1 extends LevelHandler
 	
 	/**The animation of the exit*/
 	private Animation exitAnimation;
+	
+	/**Animation of the second Watch*/
+	private Animation enemyAnimation2;
 	
 	/**X-Coordinate of the level start*/
 	private final float ORIGIN_X = 100;
@@ -68,6 +75,8 @@ public class Level1 extends LevelHandler
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
+		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
 		playerAnimation.setAutoUpdate(false);
@@ -75,6 +84,10 @@ public class Level1 extends LevelHandler
 		enemyAnimation = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
 		enemyAnimation.setPingPong(true);
 		enemyAnimation.setAutoUpdate(false);
+		
+		enemyAnimation2 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
+		enemyAnimation2.setPingPong(true);
+		enemyAnimation2.setAutoUpdate(false);
 		
 		targetAnimation = new Animation(Ressources.TARGET_SPRITESHEET, 100);
 		targetAnimation.setPingPong(true);
@@ -90,6 +103,10 @@ public class Level1 extends LevelHandler
 		leverSound = Ressources.LEVER_SOUND;
 		game_background = Ressources.GAME_BACKGROUND;
 		UI_Background = Ressources.UI_BACKGROUND;
+		
+		levelMap = new LevelMap(solids,exit);
+		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
+		
 		super.resetOnLeave(container, game);
 		
 	}
@@ -112,12 +129,13 @@ public class Level1 extends LevelHandler
 		lever.add(lever3);
 		
 		
-		float[] watchpoints = {25,25,88,25,88,88};
+		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
+		Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
-		watches.add(new Watch(304,304,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
 		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		super.initObjects(container);
 	}

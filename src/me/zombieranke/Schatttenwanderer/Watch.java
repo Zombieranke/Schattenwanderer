@@ -1,6 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -34,7 +35,7 @@ public class Watch extends MovableObject implements Mover
 	private WatchSightArea sightCone;
 	private Circle hearCircle;
 	private AStarPathFinder aPath;
-	private float[] points;
+	private Vector2f[] points;
 	private int currentStep = 0;
 	private Path p;
 	private int pCur = 0;
@@ -69,7 +70,7 @@ public class Watch extends MovableObject implements Mover
 		super(x,y,img);
 	}
 	
-	public Watch(float x, float y, Animation animation, float colX, float colY, float[] points, AStarPathFinder aPath)
+	public Watch(float x, float y, Animation animation, float colX, float colY, Vector2f[] points, AStarPathFinder aPath)
 	{
 		super(x, y, animation, colX, colY);
 		this.points = points;
@@ -177,25 +178,93 @@ public class Watch extends MovableObject implements Mover
 		this.p=p;
 	}
 	
-	public void move(float speed)
+	public void move(ArrayList<SolidObject> solids, Exit exit)
 	{
-		if(p == null)
-		{
-			calculatePath();
-		}
-		//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
-		if(getX()==points[currentStep]*8 && getY()==points[currentStep+1]*8)
-		{
-			currentStep +=2;
-			//System.out.println("inc");
-			if(currentStep > points.length-1)
-			{
-				//System.out.println("Wrap around");
-				currentStep = 0;
-			}
-			calculatePath();
-		}
 		
+		if(alarmed)
+		{
+			if(p == null)
+			{
+				Random rnd = new Random();
+				Vector2f move = new Vector2f(speedAlarm,0);
+				move.setTheta(direction);
+				float rndMove = rnd.nextFloat();
+				if(rndMove<0.98){
+					if(canMove(move.x,move.y,solids,exit))
+					{
+						x += move.x;
+						y += move.y;
+					}
+					else
+					{
+						if(rndMove<0.5)
+						{
+							while(!canMove(move.x,move.y,solids,exit))
+							{
+								setDirection(direction + 45);
+								move.setTheta(direction);
+							}
+						}
+						else
+						{
+							while(!canMove(move.x,move.y,solids,exit))
+							{
+								setDirection(direction - 45);
+								move.setTheta(direction);
+							}
+						}
+					}
+					super.setRotation(direction+180);
+				}
+				else if(rndMove<0.99)
+				{
+					do
+					{
+						setDirection(direction + 45);
+						move.setTheta(direction);
+					}
+					while(!canMove(move.x,move.y,solids,exit));
+				}
+				else
+				{
+					do
+					{
+						setDirection(direction - 45);
+						move.setTheta(direction);
+					}
+					while(!canMove(move.x,move.y,solids,exit));
+				}
+					
+			}
+			else
+			{
+				followPath(speedAlarm);
+			}
+		}
+		else
+		{
+			if(p == null)
+			{
+				calculatePath(points[currentStep]);
+			}
+			//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
+			if(getX()==points[currentStep].x*8 && getY()==points[currentStep].y*8)
+			{
+				currentStep +=1;
+				//System.out.println("inc");
+				if(currentStep > points.length-1)
+				{
+					//System.out.println("Wrap around");
+					currentStep = 0;
+				}
+				calculatePath(points[currentStep]);
+			}
+			followPath(speedWalk);
+		}
+	}
+	
+	public void followPath(float speed)
+	{
 		if(getX()==p.getX(pCur)*8 && getY()==p.getY(pCur)*8)
 		{
 			pCur++;
@@ -205,12 +274,16 @@ public class Watch extends MovableObject implements Mover
 		setDirection((float) goal.getTheta());
 		//System.out.println(getX()+","+getY()+","+p.getX(pCur)*8f+","+p.getY(pCur)*8f);
 		
-		if(goal.length()<speed)
+		if(goal.length()<=speed)
 		{
 			x += goal.x;
 			y += goal.y;
-			speed -= goal.length();
-			move(speed);
+			
+			if(pCur == p.getLength()-1)
+			{
+				p = null;
+				//System.out.println("Set to null");
+			}
 		}
 		else
 		{
@@ -218,13 +291,13 @@ public class Watch extends MovableObject implements Mover
 			x += goal.x;
 			y += goal.y;
 		}
-		
 	}
 	
-	public void calculatePath()
+
+	public void calculatePath(Vector2f v)
 	{
 		//System.out.println(currentStep);
-		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(points[currentStep]), Math.round(points[currentStep+1]));
+		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(v.x), Math.round(v.y));
 		pCur = 0;
 	}
 	
