@@ -634,10 +634,13 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
+		boolean inSight = false;
+		
 		for(Watch w : watches)
 		{
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
+				inSight = true;
 				if(!alarm)
 				{
 					activateAlarm();
@@ -647,23 +650,27 @@ public abstract class LevelHandler extends BasicGameState
 				{
 					w.calculatePath(new Vector2f(player.getX()/8, player.getY()/8));
 				}
-				
-		    	gracePeriod++;
-		    	if(gracePeriod>=10)
-		    	{
-		    		player.setHealth(player.getHealth() - 3);
-		    	}
 		    }
-			else
-			{
-				gracePeriod = 0;
-			}
+
 			
 			if(target.checkCollision(w.getSightCone()) && !target.isDiscovered())
 			{
 				activateAlarm();
 				target.setDiscovered(true);
 			}
+		}
+		
+		if(inSight)
+		{
+			gracePeriod++;
+			if(gracePeriod>=10)
+    		{
+    			player.setHealth(player.getHealth() - 3);
+    		}
+		}
+		else
+		{
+			gracePeriod = 0;
 		}
 		
 		if(alarm)

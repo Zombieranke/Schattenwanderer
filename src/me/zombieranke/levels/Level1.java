@@ -41,6 +41,9 @@ public class Level1 extends LevelHandler
 	/**The animation of the exit*/
 	private Animation exitAnimation;
 	
+	/**Animation of the second Watch*/
+	private Animation enemyAnimation2;
+	
 	/**X-Coordinate of the level start*/
 	private final float ORIGIN_X = 100;
 	
@@ -81,6 +84,10 @@ public class Level1 extends LevelHandler
 		enemyAnimation = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
 		enemyAnimation.setPingPong(true);
 		enemyAnimation.setAutoUpdate(false);
+		
+		enemyAnimation2 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
+		enemyAnimation2.setPingPong(true);
+		enemyAnimation2.setAutoUpdate(false);
 		
 		targetAnimation = new Animation(Ressources.TARGET_SPRITESHEET, 100);
 		targetAnimation.setPingPong(true);
@@ -123,9 +130,11 @@ public class Level1 extends LevelHandler
 		
 		
 		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
+		Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
-		watches.add(new Watch(304,304,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
 		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
