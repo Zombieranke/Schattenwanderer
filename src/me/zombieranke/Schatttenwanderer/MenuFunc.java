@@ -42,11 +42,17 @@ public class MenuFunc
 	
 	public void setLock(boolean lock)
 	{
-		if(lock)
-		{
-			//area.setNormalImage(Ressources.);
-		}
 		locked = lock;
+	}
+	
+	public void setNormalImage(Image img)
+	{
+		area.setNormalImage(img);
+	}
+	
+	public void setMouseOverImage(Image img)
+	{
+		area.setMouseOverImage(img);
 	}
 	
 	public boolean isLocked()

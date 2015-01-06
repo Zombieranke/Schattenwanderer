@@ -47,6 +47,7 @@ public class Schattenwanderer extends StateBasedGame
 		addState(new OptionsScreen());
 		addState(new Level1());
 		addState(new Level2());
+		System.out.println("HIER");
 		addState(new LevelSelect());
 	}
 

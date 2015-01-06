@@ -293,7 +293,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 			if(st.getNumber("lastSuccessful") < this.getID() - levelOffset)
 			{
-				st.setNumber("lastSuccesful", this.getID() - levelOffset);
+				st.setNumber("lastSuccessful", this.getID() - levelOffset);
 			}
 			
 			try
@@ -623,7 +623,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 			if(st.getNumber("lastSuccessful") < this.getID() - levelOffset)
 			{
-				st.setNumber("lastSuccesful", this.getID() - levelOffset);
+				st.setNumber("lastSuccessful", this.getID() - levelOffset);
 			}
 			
 			try
