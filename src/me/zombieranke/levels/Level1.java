@@ -129,6 +129,7 @@ public class Level1 extends LevelHandler
 		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
 		Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
 		
+		
 		player = new Player (200,200, playerAnimation, 20, 20);
 		watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
 		watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));

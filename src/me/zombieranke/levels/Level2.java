@@ -63,18 +63,36 @@ public class Level2 extends LevelHandler
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		
-		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 20, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 23, ORIGIN_Y, 10, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 20, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 30, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 32, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 32, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y + DEFAULT_TILE_SIZE, 5, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 33, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 3, 8, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 8, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 2, 2, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 7, 8, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 8, 8, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 6, 2, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 11, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 12, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 13, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 14, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 15, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE * 18, 4, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE * 19, 4, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 12, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 10, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		
 		
 		exitAnimation = new Animation(Ressources.EXIT_SPRITESHEET, 50);
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*30, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
@@ -128,13 +146,14 @@ public class Level2 extends LevelHandler
 		lever.add(lever3);
 		
 		
-		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
+		//Vector2f[] watchpoints = {new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 14)/8)), new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 10)/8))};
 		//Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
 		
-		player = new Player (200,200, playerAnimation, 20, 20);
-		watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
+		player = new Player (ORIGIN_X + DEFAULT_TILE_SIZE + 10, ORIGIN_Y + DEFAULT_TILE_SIZE + 10, playerAnimation, 20, 20);
+		
+		//watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 2,ORIGIN_Y + DEFAULT_TILE_SIZE * 14,enemyAnimation,20,20, watchpoints,aPath));
 		//watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
-		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
+		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 3,ORIGIN_Y + DEFAULT_TILE_SIZE * 18, targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
 	}
