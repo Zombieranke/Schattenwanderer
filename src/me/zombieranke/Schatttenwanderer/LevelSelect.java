@@ -49,7 +49,7 @@ public class LevelSelect extends BasicGameState {
 		
 		for(int i = 1; i<=LevelHandler.levelCount;i++)
 		{
-			gui.add(new MenuFunc(new MouseOverArea(container, new Image("res/Level" + i + "_Unlighted.png"), 112 + ((i-1)%3)*300, 112 + row *227),new Image("res/Level" + i + "_Lighted.png"),LevelHandler.levelOffset+i));
+			gui.add(new MenuFunc(new MouseOverArea(container, new Image("res/Level" + i + "_Unlighted.png"), 240 + ((i-1)%3)*300, 112 + row *227),new Image("res/Level" + i + "_Lighted.png"),LevelHandler.levelOffset+i));
 			if(i%3==0)
 			{
 				row++;
@@ -123,7 +123,6 @@ public class LevelSelect extends BasicGameState {
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 
