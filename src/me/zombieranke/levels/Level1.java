@@ -62,18 +62,26 @@ public class Level1 extends LevelHandler
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 20, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 23, ORIGIN_Y, 10, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 20, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 13, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 16, ORIGIN_Y, 17, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 32, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 32, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y + DEFAULT_TILE_SIZE, 5, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 33, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 29, ORIGIN_Y + DEFAULT_TILE_SIZE * 3, 15, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 28, ORIGIN_Y + DEFAULT_TILE_SIZE * 3, 10, Direction.WEST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 28, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, 10, Direction.WEST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 18, ORIGIN_Y + DEFAULT_TILE_SIZE, 8, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 18, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, 6, Direction.NORTH,Ressources.WALL_TYPE_1));
+		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 8, ORIGIN_Y + DEFAULT_TILE_SIZE, 8, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 8, ORIGIN_Y + DEFAULT_TILE_SIZE * 12, 5, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		
 		exitAnimation = new Animation(Ressources.EXIT_SPRITESHEET, 50);
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*20, ORIGIN_Y, exitAnimation, 96, 32);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*13, ORIGIN_Y, exitAnimation, 96, 32);
 		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
@@ -111,29 +119,37 @@ public class Level1 extends LevelHandler
 	@Override
 	public void onLeave(GameContainer container) throws SlickException 
 	{
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5.25f, Ressources.LASER.copy(),16,16,Direction.EAST);
-		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5.25f, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);
-		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 31.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.25f,Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
+		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 11.5f,Ressources.LASER.copy(),16,16,Direction.NORTH);
+		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 9, ORIGIN_Y + DEFAULT_TILE_SIZE * 15.25f,Ressources.LASER.copy(),16,16,Direction.EAST);
+		Laser laser4 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 28.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 8.25f,Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser5 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 28.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.25f,Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser6 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 25.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 4,Ressources.LASER.copy(),16,16,Direction.SOUTH);
 		laser.add(laser1);
 		laser.add(laser2);
 		laser.add(laser3);
+		laser.add(laser4);
+		laser.add(laser5);
+		laser.add(laser6);
 		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE *1.25f,ORIGIN_Y+ DEFAULT_TILE_SIZE, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser1);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser2);
-		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 14.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.WEST,laser3);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser3);
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser4);
+		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.EAST,laser5);
+		Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 25.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 2.5f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.NORTH,laser6);
 		lever.add(lever1);
 		lever.add(lever2);
 		lever.add(lever3);
+		lever.add(lever4);
 		
 		
-		Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
-		Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
+		//Vector2f[] watchpoints = {new Vector2f(25,25),new Vector2f(88,25),new Vector2f(88,88)};
+		//Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
 		
 		
 		player = new Player (200,200, playerAnimation, 20, 20);
-		watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
-		watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
-		target = new Target(600,600,targetAnimation, deathAnimation, 20, 20);
+		//watches.add(new Watch(504,304,enemyAnimation,20,20, watchpoints,aPath));
+		//watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
+		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 10,targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
 	}
