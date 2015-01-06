@@ -21,8 +21,8 @@ public class Watch extends MovableObject implements Mover
 	protected float sightRadius = 100;
 	private float angle = 60;
 	
-	private static int speedAlarm = 2;
-	private static int speedWalk = 1;
+	private static float speedAlarm = 1.5f;
+	private static float speedWalk = 1;
 	
 	private boolean alarmed;
 	
@@ -94,7 +94,7 @@ public class Watch extends MovableObject implements Mover
 		animation.draw(x, y);
 	}
 	
-	public int getSpeed()
+	public float getSpeed()
 	{
 		if(alarmed)
 		{
