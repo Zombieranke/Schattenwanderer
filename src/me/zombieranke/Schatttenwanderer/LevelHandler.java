@@ -112,6 +112,10 @@ public abstract class LevelHandler extends BasicGameState
 	
 	protected AStarPathFinder aPath;
 	
+	protected void renderSpecific(GameContainer container, StateBasedGame game, Graphics g){}
+	
+	protected void updateSpecific(GameContainer container, StateBasedGame game, int delta){}
+	
 	/**Reset everything that is the same between levels*/
 	public void reset()
 	{
@@ -185,7 +189,7 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
-		
+		renderSpecific(container,game,g);
 		UI_Background.draw(0, 0);
 		game_background.draw(100, 100);
 		g.setColor(Color.black);
@@ -271,6 +275,7 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
 	{
+		updateSpecific(container,game,delta);
 		Input input = container.getInput();
 		
 		state = 0;
