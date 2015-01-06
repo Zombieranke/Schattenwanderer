@@ -256,9 +256,18 @@ public class Watch extends MovableObject implements Mover
 		}
 		else
 		{
-			if(p == null)
+			while(p == null)
 			{
 				calculatePath(points[currentStep]);
+				if(p == null)
+				{
+					currentStep++;
+					if(currentStep > points.length-1)
+					{
+						//System.out.println("Wrap around");
+						currentStep = 0;
+					}
+				}
 			}
 			//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
 			if(getX()==points[currentStep].x*8 && getY()==points[currentStep].y*8)
@@ -285,7 +294,7 @@ public class Watch extends MovableObject implements Mover
 		
 		Vector2f goal = new Vector2f(p.getX(pCur)*8 - getX(), p.getY(pCur)*8 - getY());
 		setDirection((float) goal.getTheta());
-		//System.out.println(getX()+","+getY()+","+p.getX(pCur)*8f+","+p.getY(pCur)*8f);
+		System.out.println(getX()+","+getY()+","+p.getX(pCur)*8f+","+p.getY(pCur)*8f);
 		
 		if(goal.length()<=speed)
 		{
