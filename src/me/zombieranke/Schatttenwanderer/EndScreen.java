@@ -29,7 +29,7 @@ public class EndScreen extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		leaveTime+=delta;
-		if(leaveTime>5000)
+		if(leaveTime>1000)
 		{
 			container.exit();
 		}
