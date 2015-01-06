@@ -39,6 +39,7 @@ public class Watch extends MovableObject implements Mover
 	private int currentStep = 0;
 	private Path p;
 	private int pCur = 0;
+	private Vector2f playerLastKnown;
 
 	public Watch(float x, float y, Image img, Shape collisionArea)
 	{
@@ -100,6 +101,11 @@ public class Watch extends MovableObject implements Mover
 			return speedAlarm;
 		}
 		return speedWalk;
+	}
+	
+	public void setPLayerLastKnown(Vector2f plk)
+	{
+		this.playerLastKnown = plk;
 	}
 	
 	public void setAlarmed(boolean alarm)
@@ -183,7 +189,7 @@ public class Watch extends MovableObject implements Mover
 		
 		if(alarmed)
 		{
-			if(p == null)
+			if(playerLastKnown == null)
 			{
 				Random rnd = new Random();
 				Vector2f move = new Vector2f(speedAlarm,0);
@@ -238,7 +244,14 @@ public class Watch extends MovableObject implements Mover
 			}
 			else
 			{
-				followPath(speedAlarm);
+				if(!(playerLastKnown.x == x && playerLastKnown.y ==y))
+				{
+					p = new Path();
+					p.appendStep(Math.round(playerLastKnown.x/8), Math.round(playerLastKnown.y/8));
+					pCur = 0;
+					playerLastKnown = null;
+					followPath(speedAlarm);
+				}
 			}
 		}
 		else

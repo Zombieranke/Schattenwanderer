@@ -674,15 +674,8 @@ public abstract class LevelHandler extends BasicGameState
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
 				inSight = true;
-				if(!alarm)
-				{
-					activateAlarm();
-				}
-				
-				if(w.getPath() == null)
-				{
-					w.calculatePath(new Vector2f(player.getX()/8, player.getY()/8));
-				}
+				activateAlarm();
+				w.setPLayerLastKnown(new Vector2f(player.getX(),player.getY()));
 		    }
 
 			
