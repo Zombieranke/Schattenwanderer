@@ -15,7 +15,18 @@ public class Success extends BasicGameState
 {
 	private Image background;
 	private Animation blood;
-	private int ID = 2;
+	private static final int ID = 2;
+	
+	/**The ID this state was entered from*/
+	private int lastID = 1;
+	
+	/**Set from which state this state was entered
+	 * 
+	 * @param last The ID of the state which entered this state
+	 */
+	public void setLast(int last){
+		lastID = last;
+	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
@@ -45,7 +56,15 @@ public class Success extends BasicGameState
 		{
 			blood.setCurrentFrame(0);
 			blood.stop();
-			game.enterState(1);
+			//System.out.println("Entering " + lastID + 1);
+			try
+			{
+				game.enterState(lastID + 1);
+			}
+			catch(RuntimeException rte)
+			{
+				game.enterState(1);
+			}
 		}
 	}
 	

@@ -16,7 +16,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
-import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 /**The basic game Logic that every Level must extend*/
 public abstract class LevelHandler extends BasicGameState
@@ -555,14 +554,16 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			Fail fail = (Fail) game.getState(3);
 			fail.setLast(this.getID());
-			resetOnLeave(container, game);
-			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 			gameMusic.stop();
 			alarmMusic.stop();
+			resetOnLeave(container, game);
+			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		if(player.checkCollision(exit) && exit.isOpen())
 		{
+			Success success = (Success) game.getState(2);
+			success.setLast(this.getID());
 			gameMusic.stop();
 			alarmMusic.stop();
 			endMusic.loop(1,1);
