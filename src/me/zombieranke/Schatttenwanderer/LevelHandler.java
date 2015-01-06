@@ -599,7 +599,7 @@ public abstract class LevelHandler extends BasicGameState
 		//Spielende
 		if(player.getHealth()<=0)
 		{
-			Fail fail = (Fail) game.getState(3);
+			Fail fail = (Fail) game.getState(5);
 			fail.setLast(this.getID());
 			gameMusic.stop();
 			alarmMusic.stop();

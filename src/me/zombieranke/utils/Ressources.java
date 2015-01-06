@@ -27,6 +27,11 @@ public class Ressources
 	public static Image OPTIONS_UNLIGHTED;
 	public static Image WALL_TYPE_1;
 	public static Image GAME_WON;
+	public static Image LEVEL1_UNLIGHTED;
+	public static Image LEVEL1_LIGHTED;
+	public static Image LEVEL2_UNLIGHTED;
+	public static Image LEVEL2_LIGHTED;
+	public static Image LEVEL_GREYED;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -63,6 +68,11 @@ public class Ressources
 		OPTIONS_LIGHTED		= new Image("res/Options_Lighted.png");
 		OPTIONS_UNLIGHTED	= new Image("res/Options_Unlighted.png");
 		WALL_TYPE_1			= new Image("res/Wall_Type_1.png");
+		LEVEL1_UNLIGHTED	= new Image("res/Level1_Unlighted.png");
+		LEVEL1_LIGHTED		= new Image("res/Level1_Lighted.png");
+		LEVEL2_UNLIGHTED	= new Image("res/Level2_Unlighted.png");
+		LEVEL2_LIGHTED		= new Image("res/Level2_Lighted.png");
+		LEVEL_GREYED		= new Image("res/Level_Greyed.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);

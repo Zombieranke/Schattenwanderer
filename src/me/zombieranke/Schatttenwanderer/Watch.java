@@ -111,6 +111,10 @@ public class Watch extends MovableObject implements Mover
 	public void setAlarmed(boolean alarm)
 	{
 		alarmed = alarm;
+		if(!alarm)
+		{
+			calculatePath(points[currentStep]);
+		}
 	}
 	
 	public boolean getAlarmed()
@@ -250,7 +254,7 @@ public class Watch extends MovableObject implements Mover
 					p.appendStep(Math.round(playerLastKnown.x/8), Math.round(playerLastKnown.y/8));
 					pCur = 0;
 					playerLastKnown = null;
-					followPath(speedAlarm);
+					followPath(speedAlarm, solids, exit);
 				}
 			}
 		}
@@ -281,11 +285,11 @@ public class Watch extends MovableObject implements Mover
 				}
 				calculatePath(points[currentStep]);
 			}
-			followPath(speedWalk);
+			followPath(speedWalk, solids, exit);
 		}
 	}
 	
-	public void followPath(float speed)
+	public void followPath(float speed, ArrayList<SolidObject> solids, Exit exit)
 	{
 		if(getX()==p.getX(pCur)*8 && getY()==p.getY(pCur)*8 && pCur != p.getLength()-1)
 		{
@@ -296,22 +300,79 @@ public class Watch extends MovableObject implements Mover
 		setDirection((float) goal.getTheta());
 		//System.out.println(getX()+","+getY()+","+p.getX(pCur)*8f+","+p.getY(pCur)*8f);
 		
-		if(goal.length()<=speed)
+		
+		
+		if(canMove(goal.x,goal.y,solids, exit))
 		{
-			x += goal.x;
-			y += goal.y;
-			
-			if(pCur == p.getLength()-1)
+			if(goal.length()<=speed)
 			{
-				p = null;
-				//System.out.println("Set to null");
+				x += goal.x;
+				y += goal.y;
+				
+				if(pCur == p.getLength()-1)
+				{
+					p = null;
+					//System.out.println("Set to null");
+				}
+			}
+			else
+			{
+				goal.normalise().scale(speed);
+				x += goal.x;
+				y += goal.y;
 			}
 		}
 		else
 		{
-			goal.normalise().scale(speed);
-			x += goal.x;
-			y += goal.y;
+			double angle = goal.getTheta();
+			angle = Math.floor(angle/90) * 90;
+			goal.setTheta(angle);
+			
+			if(canMove(goal.x,goal.y,solids, exit))
+			{
+				if(goal.length()<=speed)
+				{
+					x += goal.x;
+					y += goal.y;
+					
+					if(pCur == p.getLength()-1)
+					{
+						p = null;
+						//System.out.println("Set to null");
+					}
+				}
+				else
+				{
+					goal.normalise().scale(speed);
+					x += goal.x;
+					y += goal.y;
+				}
+			}
+			else
+			{
+				goal.setTheta(angle + 90);
+				
+				if(canMove(goal.x,goal.y,solids, exit))
+				{
+					if(goal.length()<=speed)
+					{
+						x += goal.x;
+						y += goal.y;
+						
+						if(pCur == p.getLength()-1)
+						{
+							p = null;
+							//System.out.println("Set to null");
+						}
+					}
+					else
+					{
+						goal.normalise().scale(speed);
+						x += goal.x;
+						y += goal.y;
+					}
+				}
+			}
 		}
 	}
 	

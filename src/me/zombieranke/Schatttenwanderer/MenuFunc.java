@@ -10,6 +10,8 @@ public class MenuFunc
 	
 	private int stateToEnter;
 	
+	private boolean locked = false;
+	
 	// Constructors
 	public MenuFunc(MouseOverArea area, Image image, int stateToEnter)
 	{
@@ -28,9 +30,28 @@ public class MenuFunc
 		return area.isMouseOver();
 	}
 	
+	public boolean isClickable()
+	{
+		return isMouseOver() && !locked;
+	}
+	
 	public int getState()
 	{
 		return stateToEnter;
+	}
+	
+	public void setLock(boolean lock)
+	{
+		if(lock)
+		{
+			//area.setNormalImage(Ressources.);
+		}
+		locked = lock;
+	}
+	
+	public boolean isLocked()
+	{
+		return locked;
 	}
 
 }
