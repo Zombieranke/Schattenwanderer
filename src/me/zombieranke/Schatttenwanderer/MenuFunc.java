@@ -8,28 +8,29 @@ public class MenuFunc
 	/**The area that can be mouseovered*/
 	private MouseOverArea area; // Create a Mouseover area
 	
-	private Image image; // Create an image to switch the MouseOverArea
+	private int stateToEnter;
 	
 	// Constructors
-	public MenuFunc(MouseOverArea area, Image image)
+	public MenuFunc(MouseOverArea area, Image image, int stateToEnter)
 	{
 		this.area = area;
-		this.image = image;
+		this.stateToEnter = stateToEnter;
+		area.setMouseOverImage(image);
 	}
 	
 	public void draw(Graphics g, GameContainer container)
 	{
 		area.render(container, g);
 	}
-	
-	public void update (int delta)
-	{
-		area.setMouseOverImage(image);
-	}
-	
+		
 	public boolean isMouseOver()
 	{
 		return area.isMouseOver();
+	}
+	
+	public int getState()
+	{
+		return stateToEnter;
 	}
 
 }

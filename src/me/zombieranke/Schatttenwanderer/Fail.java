@@ -16,7 +16,7 @@ public class Fail extends BasicGameState
 	private Image background;
 	
 	/**The ID of this state*/
-	private int ID = 3;
+	private int ID = 5;
 	
 	/**The ID this state was entered from*/
 	private int lastID = 1;

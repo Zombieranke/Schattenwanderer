@@ -570,7 +570,7 @@ public abstract class LevelHandler extends BasicGameState
 			gameMusic.stop();
 			alarmMusic.stop();
 			resetOnLeave(container, game);
-			game.enterState(3, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(5, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		if(player.checkCollision(exit) && exit.isOpen())
@@ -605,7 +605,7 @@ public abstract class LevelHandler extends BasicGameState
 			alarmMusic.stop();
 			endMusic.loop(1,1);
 			resetOnLeave(container, game);
-			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		

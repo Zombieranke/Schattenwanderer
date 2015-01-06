@@ -41,8 +41,11 @@ public class Schattenwanderer extends StateBasedGame
 	{
 		Ressources.init();
 		addState(new GameMenu());
+		addState(new EndScreen());
 		addState(new Success());
 		addState(new Fail());
+		addState(new LevelSelect());
+		addState(new OptionsScreen());
 		addState(new Level1());
 		addState(new Level2());
 	}

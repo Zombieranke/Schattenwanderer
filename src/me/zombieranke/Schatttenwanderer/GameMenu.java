@@ -1,5 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.util.ArrayList;
+
 import me.zombieranke.utils.Ressources;
 
 import org.newdawn.slick.GameContainer;
@@ -18,17 +20,7 @@ public class GameMenu extends BasicGameState
 	/**The background image for the menu*/
 	private Image background;
 	
-	/**The button for New Game*/
-	private MenuFunc NewGame;
-	
-	/**The button for Levels*/
-	private MenuFunc Levels;
-	
-	/**The button for Options*/
-	private MenuFunc Options;
-	
-	/**The button for Exit*/
-	private MenuFunc Exit;
+	private ArrayList<MenuFunc> gui = new ArrayList<MenuFunc>();
 	
 	private Music menuMusic;
 	
@@ -41,18 +33,18 @@ public class GameMenu extends BasicGameState
 		background = Ressources.BACKGROUND_MENU;
 		
 		// Initialisiere die Menüpunkte als MouseOverArea und gib ihnen ein Standard und ein mouseover image
-		NewGame = new MenuFunc(new MouseOverArea(container, Ressources.NEW_GAME_UNLIGTHED, 
+		gui.add(new MenuFunc(new MouseOverArea(container, Ressources.NEW_GAME_UNLIGTHED, 
 															130, 110), 
-															Ressources.NEW_GAME_LIGHTED);
-		Levels = new MenuFunc(new MouseOverArea(container, Ressources.LEVELS_UNLIGHTED, 
+															Ressources.NEW_GAME_LIGHTED,LevelHandler.levelOffset + 1));
+		gui.add(new MenuFunc(new MouseOverArea(container, Ressources.LEVELS_UNLIGHTED, 
 														   300, 300), 
-														   Ressources.LEVELS_LIGHTED);
-		Options = new MenuFunc(new MouseOverArea(container, Ressources.OPTIONS_UNLIGHTED, 
+														   Ressources.LEVELS_LIGHTED, 2));
+		gui.add(new MenuFunc(new MouseOverArea(container, Ressources.OPTIONS_UNLIGHTED, 
 															230, 480), 
-															Ressources.OPTIONS_LIGHTED);
-		Exit = new MenuFunc(new MouseOverArea(container, Ressources.EXIT_UNLIGHTED,
+															Ressources.OPTIONS_LIGHTED, 3));
+		gui.add(new MenuFunc(new MouseOverArea(container, Ressources.EXIT_UNLIGHTED,
 														 450, 660),
-														 Ressources.EXIT_LIGHTED);	
+														 Ressources.EXIT_LIGHTED, 0));	
 		
 		menuMusic = Ressources.MENU_MUSIC;
 	}
@@ -63,33 +55,31 @@ public class GameMenu extends BasicGameState
 		background.draw();
 		
 		// Draw Menu points
-		NewGame.draw(g, container);
-		Levels.draw(g, container);
-		Options.draw(g, container);
-		Exit.draw(g, container);
+		for(MenuFunc m :gui)
+		{
+			m.draw(g, container);
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		// Update option points to react to mouseovers
-		NewGame.update(delta);
-		Levels.update(delta);
-		Options.update(delta);
-		Exit.update(delta);
 		
 		Input input = container.getInput();
-		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && NewGame.isMouseOver()) // If Mouse is pressed and mouse is over the mouseoverarea
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) // If Mouse is pressed and mouse is over the mouseoverarea
 		{
-			game.enterState(6);
-		}
-		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && Exit.isMouseOver())
-		{
-			container.exit();
+			for(MenuFunc m : gui)
+			{
+				if (m.isMouseOver())
+				{
+					game.enterState(m.getState());
+				}
+			}
 		}
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
-			container.exit();
+			game.enterState(0);
 		}
 		
 	}
@@ -97,13 +87,13 @@ public class GameMenu extends BasicGameState
 	 @Override
 	 public void enter(GameContainer container, StateBasedGame game)
 	 {
-	  menuMusic.loop(1f,0.3f);
+		 menuMusic.loop(1f,0.3f);
 	 }
 	 
 	 @Override
 	 public void leave(GameContainer container, StateBasedGame game)
 	 {
-	  menuMusic.stop();
+		 //menuMusic.stop();
 	 }
 
 	@Override

@@ -15,7 +15,7 @@ public class Success extends BasicGameState
 {
 	private Image background;
 	private Animation blood;
-	private static final int ID = 2;
+	private static final int ID = 4;
 	
 	/**The ID this state was entered from*/
 	private int lastID = 1;
