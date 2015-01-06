@@ -58,11 +58,6 @@ public abstract class LevelHandler extends BasicGameState
 	/**Keeps track when the player last get out of stealth*/
 	protected int stealthCooldown;
 	
-	/**Default time it takes for a lever to reset in alarm situations*/
-	protected static final int leverResetTimeDefault = 150;
-	
-	/**The remaining time until all levers reset*/
-	protected int leverResetTime = 0;
 	
 	protected ArrayList<Watch> watches;
 	
@@ -195,7 +190,6 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.black);
 		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
 		g.drawString("Schleichen: Shift", 300, 20);
-		g.drawString("Wachenbewegung: WASD\nWachendrehung: Q,E", 300, 60);
 		
 		for(SolidObject w : solids)
 		{
@@ -247,10 +241,6 @@ public abstract class LevelHandler extends BasicGameState
 			g.setColor(Color.red);
 			g.drawString("ALARM", container.getWidth()/2, 50);
 			g.fillRect(container.getWidth()/2-125, 70, alarmTime/2, 10);
-			if(leverResetTime>0)
-			{
-				g.drawString("Lever Reset in "+ Math.ceil(leverResetTime/50.0)+"!", container.getWidth()/2 +100, 60);
-			}
 		}
 		
 		//Lebensbar anzeigen
@@ -507,6 +497,10 @@ public abstract class LevelHandler extends BasicGameState
 		if(player.isStealth())
 		{
 			player.setEnergy(player.getEnergy() - 1.2f);
+			if(player.isSprint())
+			{
+				player.switchSprint();
+			}
 		}
 		
 		if(player.isSprint())
@@ -712,9 +706,13 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
-				inSight = true;
-				activateAlarm();
-				w.setPLayerLastKnown(new Vector2f(player.getX(),player.getY()));
+				gracePeriod++;
+				if(gracePeriod>=10 || alarm)
+	    		{
+					activateAlarm();
+					inSight = true;
+					w.setPLayerLastKnown(new Vector2f(player.getX(),player.getY()));
+	    		}
 		    }
 
 			
@@ -727,11 +725,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(inSight)
 		{
-			gracePeriod++;
-			if(gracePeriod>=10)
-    		{
-    			player.setHealth(player.getHealth() - 3);
-    		}
+			player.setHealth(player.getHealth() - 3);
 		}
 		else
 		{
@@ -748,17 +742,6 @@ public abstract class LevelHandler extends BasicGameState
 	    	}
 		}
 		
-		leverResetTime --;
-		if(leverResetTime==0)
-		{
-			for(Lever l: lever)
-			{
-				if(l.isFlipped())
-				{
-					l.flipLever();
-				}
-			}
-		}
 	}
 	
 	/**Activates the alarm
@@ -796,8 +779,6 @@ public abstract class LevelHandler extends BasicGameState
 			w.setAlarmed(alarm);
 			w.setPath(null);
 		}
-		
-		//leverResetTime = leverResetTimeDefault;
 		closeExit();
 	}
 	
