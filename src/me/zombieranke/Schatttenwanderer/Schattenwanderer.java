@@ -2,6 +2,7 @@ package me.zombieranke.Schatttenwanderer;
 
 import me.zombieranke.levels.Level1;
 import me.zombieranke.levels.Level2;
+import me.zombieranke.levels.Level3;
 import me.zombieranke.utils.Ressources;
 
 import org.newdawn.slick.AppGameContainer;
@@ -47,6 +48,7 @@ public class Schattenwanderer extends StateBasedGame
 		addState(new OptionsScreen());
 		addState(new Level1());
 		addState(new Level2());
+		addState(new Level3());
 		addState(new LevelSelect());
 	}
 
