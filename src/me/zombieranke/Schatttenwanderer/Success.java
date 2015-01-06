@@ -57,11 +57,11 @@ public class Success extends BasicGameState
 			blood.setCurrentFrame(0);
 			blood.stop();
 			//System.out.println("Entering " + lastID + 1);
-			try
+			if(lastID - LevelHandler.levelOffset < LevelHandler.levelCount)
 			{
 				game.enterState(lastID + 1);
 			}
-			catch(RuntimeException rte)
+			else
 			{
 				game.enterState(1);
 			}

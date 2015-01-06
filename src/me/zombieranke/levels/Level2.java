@@ -55,7 +55,7 @@ public class Level2 extends LevelHandler
 
 	/**Default Constructor*/
 	public Level2(){
-		levelCount = levelID;
+		levelNumber = levelID;
 	}
 	
 	
@@ -111,7 +111,7 @@ public class Level2 extends LevelHandler
 	}
 	
 	@Override
-	public void onLoad(GameContainer container) throws SlickException 
+	public void onLeave(GameContainer container) throws SlickException 
 	{
 		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5.25f, Ressources.LASER.copy(),16,16,Direction.EAST);
 		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5.25f, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);

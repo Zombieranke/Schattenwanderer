@@ -4,9 +4,12 @@ import me.zombieranke.levels.Level1;
 import me.zombieranke.levels.Level2;
 import me.zombieranke.utils.Ressources;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+ 
 public class Schattenwanderer extends StateBasedGame
 {
 		

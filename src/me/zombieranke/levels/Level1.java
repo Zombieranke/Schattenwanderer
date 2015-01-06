@@ -55,15 +55,13 @@ public class Level1 extends LevelHandler
 
 	/**Default Constructor*/
 	public Level1(){
-		levelCount = levelID;
+		levelNumber = levelID;
 	}
 	
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
-		levelCount = 1;
-		
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 20, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 23, ORIGIN_Y, 10, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 20, Direction.SOUTH,Ressources.WALL_TYPE_1));
@@ -107,12 +105,11 @@ public class Level1 extends LevelHandler
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 		
-		super.resetOnLeave(container, game);
-		
+		super.resetOnLeave(container, game);	
 	}
 	
 	@Override
-	public void onLoad(GameContainer container) throws SlickException 
+	public void onLeave(GameContainer container) throws SlickException 
 	{
 		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5.25f, Ressources.LASER.copy(),16,16,Direction.EAST);
 		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5.25f, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);

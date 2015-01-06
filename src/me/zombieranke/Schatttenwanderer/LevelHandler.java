@@ -1,5 +1,6 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -8,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.SavedState;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Vector2f;
@@ -24,7 +26,9 @@ public abstract class LevelHandler extends BasicGameState
 	protected static final int levelOffset = 5;
 	
 	/**Indicates the number of the level (levelOffset + levelCount = levelID)*/
-	protected int levelCount;
+	protected int levelNumber;
+	
+	public static int levelCount;
 	
 	/**The Player*/
 	protected Player player;
@@ -122,11 +126,11 @@ public abstract class LevelHandler extends BasicGameState
 		exit.animation.setCurrentFrame(0);
 	}
 	
-	/**Function to reload stuff on level entry
+	/**Function to reload stuff on level leave
 	 * 
 	 * @param container The container holding the game
 	 */ 
-	public abstract void onLoad(GameContainer container) throws SlickException;
+	public abstract void onLeave(GameContainer container) throws SlickException;
 	
 	/**Initialize all game objects to be able to use them later
 	 * 
@@ -170,8 +174,12 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	public void resetOnLeave(GameContainer container, StateBasedGame game) throws SlickException
 	{
+		if(levelCount<levelNumber)
+		{
+			levelCount = levelNumber;
+		}
 		reset();
-		onLoad(container);
+		onLeave(container);
 	}
 
 	@Override
@@ -564,6 +572,30 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			Success success = (Success) game.getState(2);
 			success.setLast(this.getID());
+			
+			SavedState st = new SavedState("/Schattenwanderer_State");
+			try 
+			{
+				st.load();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+			if(st.getNumber("lastSuccessful") < this.getID() - levelOffset)
+			{
+				st.setNumber("lastSuccesful", this.getID() - levelOffset);
+			}
+			
+			try
+			{
+				st.save();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			
 			gameMusic.stop();
 			alarmMusic.stop();
 			endMusic.loop(1,1);
@@ -772,6 +804,6 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public int getID()
 	{
-		return levelOffset + levelCount;
+		return levelOffset + levelNumber;
 	}
 }
