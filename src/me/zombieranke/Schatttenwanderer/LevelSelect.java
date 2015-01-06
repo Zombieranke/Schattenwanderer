@@ -59,17 +59,18 @@ public class LevelSelect extends BasicGameState {
 		for(MenuFunc m : gui){
 			if(m.getState() - LevelHandler.levelOffset <= levelMax + 1)
 			{
-				System.out.println("Unlocked");
 				m.setLock(false);
 				int levelID = m.getState() - LevelHandler.levelOffset;
 				m.setNormalImage(new Image("res/Level" + levelID + "_Unlighted.png"));
-				m.setMouseOverImage(new Image("res/Level" + levelID + "_Lighted.png"));
+				
+				m.setMouseDownImage(new Image("res/Level" + levelID + "_Unlighted.png"));
 			}
 			else
 			{
 				m.setLock(true);
 				m.setNormalImage(Ressources.LEVEL_GREYED);
 				m.setMouseOverImage(Ressources.LEVEL_GREYED);
+				m.setMouseDownImage(Ressources.LEVEL_GREYED);
 			}
 		}
 		
@@ -105,7 +106,7 @@ public class LevelSelect extends BasicGameState {
 		{
 			for(MenuFunc m : gui)
 			{
-				if (m.isMouseOver())
+				if (m.isMouseOver() && !m.isLocked())
 				{
 					game.enterState(m.getState());
 				}

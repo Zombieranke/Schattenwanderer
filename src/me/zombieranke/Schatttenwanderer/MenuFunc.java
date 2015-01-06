@@ -55,6 +55,11 @@ public class MenuFunc
 		area.setMouseOverImage(img);
 	}
 	
+	public void setMouseDownImage(Image img)
+	{
+		area.setMouseDownImage(img);
+	}
+	
 	public boolean isLocked()
 	{
 		return locked;
