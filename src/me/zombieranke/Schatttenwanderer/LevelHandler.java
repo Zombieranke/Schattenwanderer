@@ -278,6 +278,40 @@ public abstract class LevelHandler extends BasicGameState
 		updateSpecific(container,game,delta);
 		Input input = container.getInput();
 		
+		if(input.isKeyPressed(Input.KEY_L)){
+			Success success = (Success) game.getState(4);
+			success.setLast(this.getID());
+			
+			SavedState st = new SavedState("/Schattenwanderer_State");
+			try 
+			{
+				st.load();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+			if(st.getNumber("lastSuccessful") < this.getID() - levelOffset)
+			{
+				st.setNumber("lastSuccesful", this.getID() - levelOffset);
+			}
+			
+			try
+			{
+				st.save();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			
+			gameMusic.stop();
+			alarmMusic.stop();
+			endMusic.loop(1,1);
+			resetOnLeave(container, game);
+			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+		}
+		
 		state = 0;
 		
 		player.animation.update(delta);
@@ -575,7 +609,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(player.checkCollision(exit) && exit.isOpen())
 		{
-			Success success = (Success) game.getState(2);
+			Success success = (Success) game.getState(4);
 			success.setLast(this.getID());
 			
 			SavedState st = new SavedState("/Schattenwanderer_State");
