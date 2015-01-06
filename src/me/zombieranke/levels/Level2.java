@@ -85,7 +85,14 @@ public class Level2 extends LevelHandler
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE * 18, 4, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 5, ORIGIN_Y + DEFAULT_TILE_SIZE * 19, 4, Direction.EAST,Ressources.WALL_TYPE_1));
 		
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 12, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 10, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 12, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 13, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 13, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 21, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 6, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 13, Direction.SOUTH,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 13, ORIGIN_Y + DEFAULT_TILE_SIZE * 16, 5, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 21, ORIGIN_Y + DEFAULT_TILE_SIZE * 16, 6, Direction.EAST,Ressources.WALL_TYPE_1));
+		
+		
 		
 		
 		exitAnimation = new Animation(Ressources.EXIT_SPRITESHEET, 50);
@@ -131,19 +138,24 @@ public class Level2 extends LevelHandler
 	@Override
 	public void onLeave(GameContainer container) throws SlickException 
 	{
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y + DEFAULT_TILE_SIZE * 5.25f, Ressources.LASER.copy(),16,16,Direction.EAST);
-		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 5.25f, ORIGIN_Y + DEFAULT_TILE_SIZE,Ressources.LASER.copy(),16,16,Direction.SOUTH);
-		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 31.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.25f,Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 11.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 11.25f, Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 20.5f, ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f, Ressources.LASER.copy(),16,16,Direction.WEST);
+		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 21.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LASER.copy(),16,16,Direction.SOUTH);
 		laser.add(laser1);
 		laser.add(laser2);
 		laser.add(laser3);
+
 		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE *1.25f,ORIGIN_Y+ DEFAULT_TILE_SIZE, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser1);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE,ORIGIN_Y+ DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser2);
-		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 14.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.WEST,laser3);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 13, ORIGIN_Y + DEFAULT_TILE_SIZE *11.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser1);
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *3.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser2);
+		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *5, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser2);
+		Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 23.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 15.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser3);
+		
 		lever.add(lever1);
 		lever.add(lever2);
 		lever.add(lever3);
+		lever.add(lever4);
+
 		
 		
 		//Vector2f[] watchpoints = {new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 14)/8)), new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 10)/8))};
