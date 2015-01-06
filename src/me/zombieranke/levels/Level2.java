@@ -31,6 +31,9 @@ public class Level2 extends LevelHandler
 	
 	/**The enemy animation*/
 	private Animation enemyAnimation;
+	private Animation enemyAnimation2;
+	private Animation enemyAnimation3;
+	private Animation enemyAnimation4;
 	
 	/**The target animation*/
 	private Animation targetAnimation;
@@ -68,13 +71,14 @@ public class Level2 extends LevelHandler
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 32, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 33, Direction.EAST,Ressources.WALL_TYPE_1));
 		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 2, 2, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 3, 8, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 4, 8, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 2, 2, Direction.EAST,Ressources.WALL_TYPE_1));
 		
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 6, 2, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 7, 8, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE, ORIGIN_Y + DEFAULT_TILE_SIZE * 8, 8, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 7, ORIGIN_Y + DEFAULT_TILE_SIZE * 6, 2, Direction.EAST,Ressources.WALL_TYPE_1));
+		
 		
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 11, 5, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 12, 5, Direction.EAST,Ressources.WALL_TYPE_1));
@@ -109,9 +113,17 @@ public class Level2 extends LevelHandler
 		enemyAnimation.setPingPong(true);
 		enemyAnimation.setAutoUpdate(false);
 		
-		//enemyAnimation2 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
-		//enemyAnimation2.setPingPong(true);
-		//enemyAnimation2.setAutoUpdate(false);
+		enemyAnimation2 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
+		enemyAnimation2.setPingPong(true);
+		enemyAnimation2.setAutoUpdate(false);
+		
+		enemyAnimation3 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
+		enemyAnimation3.setPingPong(true);
+		enemyAnimation3.setAutoUpdate(false);
+		
+		enemyAnimation4 = new Animation(Ressources.ENEMY_SPRITESHEET, 100);
+		enemyAnimation4.setPingPong(true);
+		enemyAnimation4.setAutoUpdate(false);
 		
 		targetAnimation = new Animation(Ressources.TARGET_SPRITESHEET, 100);
 		targetAnimation.setPingPong(true);
@@ -150,21 +162,33 @@ public class Level2 extends LevelHandler
 		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *3.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser2);
 		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *5, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser2);
 		Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 23.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 15.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser3);
-		
 		lever.add(lever1);
 		lever.add(lever2);
 		lever.add(lever3);
 		lever.add(lever4);
 
 		
+		Vector2f[] watchpoints = {new Vector2f(21, 73), new Vector2f(21, 51), new Vector2f(41, 51), new Vector2f(21, 51)};
+		Vector2f[] watchpoints2 = {new Vector2f(53,21),new Vector2f(53,85),new Vector2f(131,85),new Vector2f(131,21)};
+		Vector2f[] watchpoints3 = {new Vector2f(131,85),new Vector2f(131,21), new Vector2f(53,21),new Vector2f(53,85)};
+		Vector2f[] watchpoints4 = {new Vector2f(77,41),new Vector2f(77,67), new Vector2f(113,67),new Vector2f(113,41)};
 		
-		//Vector2f[] watchpoints = {new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 14)/8)), new Vector2f(Math.round((ORIGIN_X + DEFAULT_TILE_SIZE * 2)/8), Math.round((ORIGIN_Y + DEFAULT_TILE_SIZE * 10)/8))};
-		//Vector2f[] watchpoints2 = {new Vector2f(80,80),new Vector2f(80,40),new Vector2f(40,40),new Vector2f(40,80)};
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 16, ORIGIN_Y + DEFAULT_TILE_SIZE * 7 = 77, 41
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 25, ORIGIN_Y + DEFAULT_TILE_SIZE * 12 = 113, 61
+		
+		
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 10, ORIGIN_Y + DEFAULT_TILE_SIZE * 2 = 53, 21
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 10, ORIGIN_Y + DEFAULT_TILE_SIZE * 18 = 53, 85
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 18 = 133, 85
+		//ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 2 = 133, 21
+		
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 2,ORIGIN_Y + DEFAULT_TILE_SIZE * 14,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 18, ORIGIN_Y + DEFAULT_TILE_SIZE * 2,enemyAnimation2,20,20, watchpoints2,aPath));
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 18, ORIGIN_Y + DEFAULT_TILE_SIZE * 18,enemyAnimation3,20,20, watchpoints3,aPath));
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 20, ORIGIN_Y + DEFAULT_TILE_SIZE * 7,enemyAnimation4,20,20, watchpoints4,aPath));
 		
 		player = new Player (ORIGIN_X + DEFAULT_TILE_SIZE + 10, ORIGIN_Y + DEFAULT_TILE_SIZE + 10, playerAnimation, 20, 20);
 		
-		//watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 2,ORIGIN_Y + DEFAULT_TILE_SIZE * 14,enemyAnimation,20,20, watchpoints,aPath));
-		//watches.add(new Watch(604,604,enemyAnimation2,20,20, watchpoints2,aPath));
 		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 3,ORIGIN_Y + DEFAULT_TILE_SIZE * 18, targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
