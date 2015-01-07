@@ -505,7 +505,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if(player.isSprint())
 		{
-			player.setEnergy(player.getEnergy() - 2.5f);
+			player.setEnergy(player.getEnergy() - 2f);
 		}
 		
 		
