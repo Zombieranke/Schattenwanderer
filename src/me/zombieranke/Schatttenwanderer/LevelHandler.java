@@ -235,6 +235,13 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				l.renderCollisionArea(g);
 			}
+			g.setColor(Color.red);
+			g.fillRect(10,14,63,11);
+			container.setShowFPS(true);
+		}
+		else
+		{
+			container.setShowFPS(false);
 		}
 		if(alarm) //Alarmbalken und Info oben
 		{
