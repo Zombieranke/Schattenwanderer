@@ -59,6 +59,8 @@ public class Exit extends SolidObject
 		case WEST:
 			animation.getCurrentFrame().setRotation(0);
 			break;
+		default:
+			break;
 		
 		}
 		animation.draw(x, y);

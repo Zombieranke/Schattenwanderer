@@ -12,6 +12,7 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SavedState;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -667,13 +668,22 @@ public abstract class LevelHandler extends BasicGameState
 		}
 			
 		//Updates
-		player.update(delta);
+		//player.update(delta);
 		
 		for(Watch w : watches)
 		{
 			w.move(solids,exit);
 			w.update(delta);
-			w.updateSight(solids);
+			ArrayList<SolidObject> toPass = new ArrayList<SolidObject>();
+			Circle vicinity = new Circle(w.getX() + w.colX/2, w.getY() + w.colY/2, w.getSightRadius());
+			for(SolidObject s: solids)
+			{
+				if(s.checkCollision(vicinity))
+				{
+					toPass.add(s);
+				}
+			}
+				w.updateSight(toPass);
 		}
 		
 		//Kill target
