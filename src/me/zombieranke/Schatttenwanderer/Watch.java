@@ -156,7 +156,7 @@ public class Watch extends MovableObject implements Mover
 	
 	public void updateSight(ArrayList<SolidObject> wall)
 	{
-		sightCone = new WatchSightArea(x+colX/2,y+colY/2,sightRadius, direction, angle, wall);
+		sightCone = new WatchSightArea(x+colX/2,y+colY/2,sightRadius, direction, angle, wall, 20);
 		hearCircle.setRadius(playerNoise);
 		hearCircle.setCenterX(x+colX/2);
 		hearCircle.setCenterY(y+colY/2);
