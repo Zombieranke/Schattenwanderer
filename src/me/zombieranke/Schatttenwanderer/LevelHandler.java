@@ -707,10 +707,10 @@ public abstract class LevelHandler extends BasicGameState
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
 				gracePeriod++;
+				inSight = true;
 				if(gracePeriod>=10 || alarm)
 	    		{
 					activateAlarm();
-					inSight = true;
 					w.setPLayerLastKnown(new Vector2f(player.getX(),player.getY()));
 	    		}
 		    }
@@ -723,11 +723,11 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
-		if(inSight)
+		if(inSight && alarm)
 		{
 			player.setHealth(player.getHealth() - 3);
 		}
-		else
+		if(!inSight)
 		{
 			gracePeriod = 0;
 		}

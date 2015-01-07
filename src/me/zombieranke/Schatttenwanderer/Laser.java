@@ -23,6 +23,9 @@ public class Laser extends SolidObject
 	
 	/**Indicates whether the laser is turned on*/
 	private boolean on = true;
+	
+	/**The class number for a laser cluster*/
+	private int clusterNumber = 0;
 
 	/**Creates a Laser at x,y
 	 * 
@@ -47,6 +50,55 @@ public class Laser extends SolidObject
 		this.facing = facing;
 	}
 
+	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param colX The vertical size of the collision box
+	 * @param colY The horizontal size of the collision box
+	 * @param facing The direction the laser is facing 
+	 * @param clusterNumber Laser group for controlling certain laser clusters
+	 */
+	public Laser(float x, float y, Image img, float colX, float colY, Direction facing,int clusterNumber) {
+		super(x, y, img, colX, colY);
+		this.facing = facing;
+		this.clusterNumber = clusterNumber;
+	}
+	
+	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param colX The vertical size of the collision box
+	 * @param colY The horizontal size of the collision box
+	 * @param facing The direction the laser is facing 
+	 * @param active whether the Laser is on or out
+	 */
+	public Laser(float x, float y, Image img, float colX, float colY, Direction facing, boolean active) {
+		super(x, y, img, colX, colY);
+		this.facing = facing;
+		on = active;
+	}
+	
+	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
+	 * 
+	 * @param x The x coordinate of the laser
+	 * @param y The y coordinate of the laser
+	 * @param img The image of the laser
+	 * @param colX The vertical size of the collision box
+	 * @param colY The horizontal size of the collision box
+	 * @param facing The direction the laser is facing 
+	 * @param active whether the Laser is on or out
+	 * @param clusterNumber Laser group for controlling certain laser clusters
+	 */
+	public Laser(float x, float y, Image img, float colX, float colY, Direction facing, boolean active, int clusterNumber) {
+		super(x, y, img, colX, colY);
+		this.facing = facing;
+		on = active;
+		this.clusterNumber = clusterNumber;
+	}
 	/**Creates a laser at x,y with an image, a collision box and a direction it is facing
 	 * 
 	 * @param x The x coordinate of the laser
@@ -223,6 +275,11 @@ public class Laser extends SolidObject
 	/**Toggles the laser on/off*/
 	public void toggle(){
 		on = !on;
+	}
+	
+	public int getClusterNumber()
+	{
+		return clusterNumber;
 	}
 	
 }
