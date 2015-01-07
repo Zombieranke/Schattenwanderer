@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Shape;
 public class Lever extends GameObject {
 	
 	/**The corresponding laser controlled by this lever*/
-	private Laser laser;
+	private Laser laser[];
 	
 	/**The image to be render when this lver is flipped*/
 	private Image altImg;
@@ -31,7 +31,7 @@ public class Lever extends GameObject {
 	 * @param facing The direction the lever is facing
 	 * @param laser
 	 */
-	public Lever(float x, float y, Image img, Image altImg, float colX, float colY, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, float colX, float colY, Direction facing, Laser laser[]) {
 		super(x, y, img, colX, colY);
 		this.laser  = laser;
 		this.altImg = altImg;
@@ -48,7 +48,7 @@ public class Lever extends GameObject {
 	 * @param facing The direction the lever is facing
 	 * @param laser The corresponding laser
 	 */
-	public Lever(float x, float y, Image img, Image altImg, Shape collisionArea, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, Shape collisionArea, Direction facing, Laser laser[]) {
 		super(x, y, img, collisionArea);
 		this.laser  = laser;
 		this.altImg = altImg;
@@ -64,7 +64,7 @@ public class Lever extends GameObject {
 	 * @param facing The direction the lever is facing
 	 * @param laser The corresponding laser
 	 */
-	public Lever(float x, float y, Image img, Image altImg, Direction facing, Laser laser) {
+	public Lever(float x, float y, Image img, Image altImg, Direction facing, Laser laser[]) {
 		super(x, y, img);
 		this.laser  = laser;
 		this.altImg = altImg;
@@ -85,7 +85,11 @@ public class Lever extends GameObject {
 	
 	/**Flip the lever and toggle the according laser*/
 	public void flipLever(){
-		laser.toggle();
+		for(Laser l : laser)
+		{
+			l.toggle();
+		}
+		
 		flipped = !flipped;
 	}
 	

@@ -69,7 +69,7 @@ public class Level3 extends LevelHandler
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 32, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 13, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 17, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 18, Direction.EAST,Ressources.WALL_TYPE_1));
 		
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 3, ORIGIN_Y + DEFAULT_TILE_SIZE * 3, 7, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 4, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, 2, Direction.EAST,Ressources.WALL_TYPE_1));
@@ -89,7 +89,7 @@ public class Level3 extends LevelHandler
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE * 13, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, exitAnimation, 96, 32);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE * 12, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, exitAnimation, 96, 32, Direction.SOUTH);
 		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
@@ -184,8 +184,8 @@ public class Level3 extends LevelHandler
 		laser.add(laser13);
 		
 
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 13f, ORIGIN_Y + DEFAULT_TILE_SIZE * 14.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser5);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 13f, ORIGIN_Y + DEFAULT_TILE_SIZE * 14.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser10);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 13f, ORIGIN_Y + DEFAULT_TILE_SIZE * 14.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,new Laser[]{laser5});
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 13f, ORIGIN_Y + DEFAULT_TILE_SIZE * 14.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,new Laser[]{laser10});
 		//Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *3.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser2);
 		//Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26.25f, ORIGIN_Y + DEFAULT_TILE_SIZE *5, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser2);
 		//Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 23.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 15.5f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.NORTH,laser3);

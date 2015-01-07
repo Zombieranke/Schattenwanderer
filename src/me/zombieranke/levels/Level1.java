@@ -65,7 +65,7 @@ public class Level1 extends LevelHandler
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y, 13, Direction.EAST,Ressources.WALL_TYPE_1));
-		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y, 17, Direction.EAST,Ressources.WALL_TYPE_1));
+		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 15, ORIGIN_Y, 18, Direction.EAST,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X + DEFAULT_TILE_SIZE * 32, ORIGIN_Y + DEFAULT_TILE_SIZE, 19, Direction.SOUTH,Ressources.WALL_TYPE_1));
 		solids.addAll(Wall.createWall(ORIGIN_X, ORIGIN_Y + DEFAULT_TILE_SIZE * 20, 33, Direction.EAST,Ressources.WALL_TYPE_1));
@@ -83,7 +83,7 @@ public class Level1 extends LevelHandler
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*13, ORIGIN_Y, exitAnimation, 96, 32);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*13, ORIGIN_Y, exitAnimation, 96, 32, Direction.NORTH);
 		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
@@ -141,11 +141,11 @@ public class Level1 extends LevelHandler
 		laser.add(laser7);
 		
 		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,laser3);
-		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,laser4);
-		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.EAST,laser5);
-		Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 25.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 2.5f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.NORTH,laser6);
-		Lever lever5 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 19, ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.EAST,laser7);
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,new Laser[]{laser3});
+		Lever lever2 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 8.25f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.EAST,new Laser[]{laser4});
+		Lever lever3 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 30, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.EAST,new Laser[]{laser5});
+		Lever lever4 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 25.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 2.5f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.NORTH,new Laser[]{laser6});
+		Lever lever5 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 19, ORIGIN_Y + DEFAULT_TILE_SIZE * 4.25f,Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16,Direction.EAST,new Laser[]{laser7});
 		lever.add(lever1);
 		lever.add(lever2);
 		lever.add(lever3);
