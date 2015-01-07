@@ -68,7 +68,7 @@ public abstract class MovableObject extends GameObject
 		collisionArea.setY(y+deltaY);
 		for(SolidObject w : walls){
 			if(w.checkCollision(collisionArea)){
-				update();
+				//update();
 				return false;
 			}
 		}
@@ -84,7 +84,7 @@ public abstract class MovableObject extends GameObject
 		Rectangle colArea = new Rectangle(absX,absY,colX,colY); 
 		for(SolidObject w : walls){
 			if(w.checkCollision(colArea)){
-				update();
+				//update();
 				return false;
 			}
 		}
@@ -99,6 +99,7 @@ public abstract class MovableObject extends GameObject
 	public void move(float x, float y){
 		this.x+=x;
 		this.y+=y;
+		update();
 	}
 	public void update()
 	{
