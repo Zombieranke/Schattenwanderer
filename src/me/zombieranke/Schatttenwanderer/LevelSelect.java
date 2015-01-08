@@ -27,6 +27,7 @@ public class LevelSelect extends BasicGameState {
 	
 	private SavedState st;
 	
+	private MenuFunc backButton;
 	
 
 	@Override
@@ -46,6 +47,8 @@ public class LevelSelect extends BasicGameState {
 		gui = new ArrayList<MenuFunc>();
 		
 		int row = 0;
+		
+		backButton = new MenuFunc(new MouseOverArea(container, Ressources.BACK_UNLIGHTED, 50, 500), Ressources.BACK_LIGHTED, 1);
 		
 		for(int i = 1; i<=LevelHandler.levelCount;i++)
 		{
@@ -89,6 +92,7 @@ public class LevelSelect extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		background.draw();
+		backButton.draw(g, container);
 		
 		for(MenuFunc m : gui)
 		{
@@ -104,6 +108,10 @@ public class LevelSelect extends BasicGameState {
 		
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) // If Mouse is pressed and mouse is over the mouseoverarea
 		{
+			if (backButton.isMouseOver())
+			{
+				game.enterState(backButton.getState());
+			}
 			for(MenuFunc m : gui)
 			{
 				if (m.isMouseOver() && !m.isLocked())
@@ -112,6 +120,7 @@ public class LevelSelect extends BasicGameState {
 				}
 			}
 		}
+		
 		
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
