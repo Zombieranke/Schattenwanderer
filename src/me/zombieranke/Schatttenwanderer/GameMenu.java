@@ -87,7 +87,7 @@ public class GameMenu extends BasicGameState
 	 @Override
 	 public void enter(GameContainer container, StateBasedGame game)
 	 {
-		 menuMusic.loop(1f,0.3f);
+		 menuMusic.loop(1f,Ressources.Volume);
 	 }
 	 
 	 @Override

@@ -3,6 +3,8 @@ package me.zombieranke.Schatttenwanderer;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import me.zombieranke.utils.Ressources;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -305,7 +307,7 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			endMusic.loop(1,1);
+			endMusic.loop(1,Ressources.Volume + 0.7f);
 			resetOnLeave(container, game);
 			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
@@ -588,12 +590,12 @@ public abstract class LevelHandler extends BasicGameState
     	if(alarm && !alarmMusic.playing())
     	{
     		gameMusic.stop();
-    		alarmMusic.loop(1,1);
+    		alarmMusic.loop(1,Ressources.Volume + 0.7f);
     	}
     	if(!alarm && !gameMusic.playing())
     	{
     		alarmMusic.stop();
-    		gameMusic.loop(1,0.4f);
+    		gameMusic.loop(1,Ressources.Volume + 0.1f);
     	}
 		//Miracle of Sound Ende
     	

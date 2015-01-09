@@ -50,6 +50,9 @@ public class Ressources
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
 	
+	/** Initializiere den Volume als Variable für alle Sounds im Spiel */
+	public static float Volume = 0.3f;
+	
 	public static void init() throws SlickException
 	{
 		GAME_BACKGROUND 	= new Image("res/Game_Background.jpg");
