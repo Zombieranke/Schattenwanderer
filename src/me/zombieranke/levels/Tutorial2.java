@@ -106,6 +106,9 @@ public class Tutorial2 extends LevelHandler
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 		
+		hasMoved = false;
+		hasRemoved = false;
+		
 		super.resetOnLeave(container, game);	
 	}
 	
