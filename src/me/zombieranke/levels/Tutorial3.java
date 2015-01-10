@@ -37,6 +37,8 @@ public class Tutorial3 extends LevelHandler
 	/**The player animation*/
 	private Animation playerAnimation;
 	
+	private int laserTimer = 0;
+	
 	/**The enemy animation*/
 	private Animation enemyAnimation;
 	/**Animation of the second Watch*/
@@ -113,6 +115,13 @@ public class Tutorial3 extends LevelHandler
 	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
 	{
 		
+			g.setColor(Color.green);
+			g.drawString("Now you have to Sprint\nPress V to avtivate Sprinting", 300, 300);
+		
+		if(player.getX()>600)
+		{
+			g.drawString("You make a lot of noise by sprinting,\nnormal movement creates less noise", 300, 300);
+		}
 	}
 	
 	@Override
@@ -122,21 +131,66 @@ public class Tutorial3 extends LevelHandler
 			watches.get(0).setStopped(true);
 			watches.get(1).setDirection(90);
 			watches.get(1).setStopped(true);
+			
+			laserTimer++;
+			
+			if(laserTimer>150)
+			{
+				for(Laser l : laser)
+				{
+					if(l.getClusterNumber() == 1)
+					{
+						l.toggle();
+					}
+				}
+				
+				laserTimer = 0;
+			}
 	}
 	
 	@Override
 	public void onLeave(GameContainer container) throws SlickException 
 	{
-		/*Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
-
+		
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 7.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser2 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser3 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 9.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser4 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 10.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser5 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 11.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser6 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 12.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser7 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 13.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser8 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 14.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		Laser laser9 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 15.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);
+		
+		Laser laser10 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 7.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser11 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser12 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 9.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser13 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 10.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser14 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 11.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser15 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 12.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser16 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 13.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser17 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 14.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		Laser laser18 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 15.75f, ORIGIN_Y + DEFAULT_TILE_SIZE * 12.5f, Ressources.LASER.copy(),16,16,Direction.NORTH,1);
+		
 		laser.add(laser1);
-
+		laser.add(laser2);
+		laser.add(laser3);
+		laser.add(laser4);
+		laser.add(laser5);
+		laser.add(laser6);
+		laser.add(laser7);
+		laser.add(laser8);
+		laser.add(laser9);
+		laser.add(laser10);
+		laser.add(laser11);
+		laser.add(laser12);
+		laser.add(laser13);
+		laser.add(laser14);
+		laser.add(laser15);
+		laser.add(laser16);
+		laser.add(laser17);
+		laser.add(laser18);
 		
-		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,new Laser[]{laser1});
-		
-		lever.add(lever1);*/
-
 		
 		Vector2f[] watchpoints = {new Vector2f(21,55)};
 		

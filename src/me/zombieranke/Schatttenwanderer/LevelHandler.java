@@ -664,7 +664,7 @@ public abstract class LevelHandler extends BasicGameState
 					w.addNoise(incrementPerUpdate);
 				}
 			}
-			else if(w.getNoise()>w.getNoiseDefault()*alarmMultiplier)
+			else if(w.getNoise()>w.getNoiseDefault()*alarmMultiplier*alarmMultiplier)
 			{
 				w.addNoise(-calmDown);
 			}

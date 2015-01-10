@@ -112,6 +112,13 @@ public class Tutorial2 extends LevelHandler
 	@Override
 	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
 	{
+		if(player.getX()<405)
+		{
+			g.setColor(Color.green);
+			g.drawString("Move here\n", 380, 390);
+			g.drawOval(405, 430, 30, 30);
+		}
+		
 		if(player.getX() > 400)
 		{
 			g.setColor(Color.red);
