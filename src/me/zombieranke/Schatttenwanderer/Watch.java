@@ -199,13 +199,24 @@ public class Watch extends MovableObject implements Mover
 		{
 			if(alarmed)
 			{
-				if(p != null)
+				if(playerLastKnown != null)
+				{
+					p = new Path();
+					p.appendStep(Math.round(playerLastKnown.x/8), Math.round(playerLastKnown.y/8));
+					pCur = 0;
+					if(Math.round(playerLastKnown.x/8) == Math.round(x/8) && Math.round(playerLastKnown.y/8) == Math.round(y/8))
+					{
+						playerLastKnown = null;
+					}
+					followPath(speedAlarm, solids, exit);
+					p = null;
+				}
+				else if(p != null)
 				{
 					followPath(speedAlarm, solids, exit);
 				}
-				else if(playerLastKnown == null)
-				{
-					
+				else
+				{	
 					Random rnd = new Random();
 					Vector2f move = new Vector2f(speedAlarm,0);
 					move.setTheta(direction);
@@ -256,19 +267,7 @@ public class Watch extends MovableObject implements Mover
 						while(!canMove(move.x,move.y,solids,exit));
 					}
 						
-				}
-				else
-				{
-					p = new Path();
-					p.appendStep(Math.round(playerLastKnown.x/8), Math.round(playerLastKnown.y/8));
-					pCur = 0;
-					if(Math.round(playerLastKnown.x/8) == Math.round(x/8) && Math.round(playerLastKnown.y/8) == Math.round(y/8))
-					{
-						playerLastKnown = null;
-					}
-					followPath(speedAlarm, solids, exit);
-					p = null;
-				}			
+				}		
 			}
 			else
 			{

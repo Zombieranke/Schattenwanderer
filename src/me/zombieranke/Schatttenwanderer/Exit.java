@@ -11,6 +11,10 @@ public class Exit extends SolidObject
 	/**Indicates whether the exit is open or not*/
 	private boolean open;
 	
+	private float renderOffsetX;
+	
+	private float renderOffsetY;
+	
 	private Direction orient;
 	
 	/**Creates an exit at the position x,y
@@ -46,24 +50,32 @@ public class Exit extends SolidObject
 		{
 		case NORTH:
 			animation.getCurrentFrame().setRotation(0);
+			renderOffsetX = 0;
+			renderOffsetY = 0;
 			break;
 			
 		case EAST:
 			animation.getCurrentFrame().setRotation(90);
+			renderOffsetX = -32;
+			renderOffsetY = 32;
 			break;
 			
 		case SOUTH:
 			animation.getCurrentFrame().setRotation(180);
+			renderOffsetX = 0;
+			renderOffsetY = 0;
 			break;
 		
 		case WEST:
 			animation.getCurrentFrame().setRotation(0);
+			renderOffsetX = -32;
+			renderOffsetY = 32;
 			break;
 		default:
 			break;
 		
 		}
-		animation.draw(x, y);
+		animation.draw(x + renderOffsetX, y + renderOffsetY);
 	}
 	
 	/**Check if the exit is open
