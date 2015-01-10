@@ -77,13 +77,13 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	protected ArrayList<Lever> lever;
 	
-	Laser triggered;
-	
 	/**Indicates if we are in debug view(shows all hitboxes)*/
 	private boolean debug;
 	
 	/**Indicates which direction the player looks(use with caution)*/
 	private int state;
+	
+	private boolean inLaser = false;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
 	protected boolean mission;
@@ -710,7 +710,7 @@ public abstract class LevelHandler extends BasicGameState
 	 * deals damage to the player if he stands in front of a watch*/
 	private void checkAlarm()
 	{
-
+		boolean inLaserNow = false;
 		for(Laser l: laser)
 		{
 			if(l.isOn())
@@ -718,17 +718,19 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
 			    	activateAlarm();
-			    	for(Watch w: watches)
+			    	inLaserNow = true;
+			    	if(!inLaser)
 			    	{
-			    		if(l != triggered)
+			    		for(Watch w: watches)
 			    		{
 			    			w.calculatePath(new Vector2f(Math.round(player.x/8),Math.round(player.y/8)), solids, exit);
-					    	triggered = l;
 			    		}
 			    	}
 			    }
 			}
 		}
+		
+		inLaser = inLaserNow;
 		
 		boolean inSight = false;
 		
