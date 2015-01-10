@@ -91,6 +91,11 @@ public class OptionsScreen extends BasicGameState {
 					menuMusic.pause();
 				}
 			}
+			
+		}
+		
+		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
+		{
 			if (soundBar.isMouseOver())
 			{
 				soundSlider.setX(input.getMouseX());
