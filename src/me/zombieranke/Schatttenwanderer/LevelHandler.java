@@ -307,7 +307,7 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			endMusic.loop(1,Ressources.Volume + 0.7f);
+			endMusic.loop(1,Ressources.Volume * 2.333f);
 			resetOnLeave(container, game);
 			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
@@ -355,7 +355,7 @@ public abstract class LevelHandler extends BasicGameState
 			for(Lever l : lever){
 				if(player.checkCollision(l)){
 					l.flipLever();
-					leverSound.play(1,0.3f);
+					leverSound.play(1,Ressources.Volume);
 				}
 			}
 		}
@@ -590,12 +590,12 @@ public abstract class LevelHandler extends BasicGameState
     	if(alarm && !alarmMusic.playing())
     	{
     		gameMusic.stop();
-    		alarmMusic.loop(1,Ressources.Volume + 0.7f);
+    		alarmMusic.loop(1,Ressources.Volume * 2.333f);
     	}
     	if(!alarm && !gameMusic.playing())
     	{
     		alarmMusic.stop();
-    		gameMusic.loop(1,Ressources.Volume + 0.1f);
+    		gameMusic.loop(1,Ressources.Volume * 1.333f);
     	}
 		//Miracle of Sound Ende
     	
@@ -641,7 +641,7 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			endMusic.loop(1,1);
+			endMusic.loop(1f,Ressources.Volume * 2.333f);
 			resetOnLeave(container, game);
 			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
@@ -821,7 +821,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			exit.animation.start();
 			exit.animation.stopAt(7);
-			exitSound.play(1,0.5f);
+			exitSound.play(1,Ressources.Volume * 1.666f);
 			exit.setOpen(true);
 		}
 	}
