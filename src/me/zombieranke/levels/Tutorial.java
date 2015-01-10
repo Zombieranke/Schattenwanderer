@@ -29,6 +29,8 @@ public class Tutorial extends LevelHandler
 	/** The ID of the level*/
 	private int levelID = 1;
 	
+	private boolean alarmhint = false;
+	
 	/**The player animation*/
 	private Animation playerAnimation;
 	
@@ -112,11 +114,25 @@ public class Tutorial extends LevelHandler
 	@Override
 	public void renderSpecificAfter(GameContainer container,StateBasedGame game,Graphics g)
 	{
+		
+		g.setColor(Color.red);
+		g.drawString("Use arrowkeys to move", 300,300);
+		
+		if (player.getX()>200)
+		{
+			g.drawString("Run over the target to kill him", 600,600);
+		}
+		
 		if(alarm)
 		{
-			g.setColor(Color.red);
-			g.drawString("Move here and press f to deactivate the alarm", 700, 300);
-		}
+			if (alarmhint==false) g.drawString("Move here", 890, 320);
+		
+		    if (player.getX()>=920 && player.getX()<=940 && player.getY()<400)
+		    {
+	        alarmhint=true;
+			g.drawString("Press f to deactivate the laser\n", 890, 320);
+		    }
+	     }
 	}
 	
 	@Override
