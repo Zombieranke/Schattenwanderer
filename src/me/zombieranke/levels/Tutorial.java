@@ -130,7 +130,7 @@ public class Tutorial extends LevelHandler
 		    if (player.getX()>=920 && player.getX()<=940 && player.getY()<400)
 		    {
 	        alarmhint=true;
-			g.drawString("Press f to deactivate the alarm\n", 890, 320);
+			g.drawString("Press f to deactivate the laser\n", 890, 320);
 		    }
 	     }
 	}
