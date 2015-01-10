@@ -103,7 +103,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected Sound leverSound;
 	
 	/** Background Image */
-	protected Image game_background;
+	protected Image game_Background;
 	
 	/** Background for the "outer layer"/UI Elements outside of boundaries as a tile */
 	protected Image UI_Background;
@@ -112,7 +112,9 @@ public abstract class LevelHandler extends BasicGameState
 	
 	protected AStarPathFinder aPath;
 	
-	protected void renderSpecific(GameContainer container, StateBasedGame game, Graphics g){}
+	protected void renderSpecificBefore(GameContainer container, StateBasedGame game, Graphics g){}
+	
+	protected void renderSpecificAfter(GameContainer container, StateBasedGame game, Graphics g){}
 	
 	protected void updateSpecific(GameContainer container, StateBasedGame game, int delta){}
 	
@@ -189,9 +191,8 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
-		UI_Background.draw(0, 0);
-		game_background.draw(100, 100);
-
+		renderSpecificBefore(container,game,g);
+		
 		for(SolidObject w : solids)
 		{
 			w.render(g);
@@ -269,7 +270,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		g.setColor(Color.red);	
 		
-		renderSpecific(container,game,g);
+		renderSpecificAfter(container,game,g);
 	}
 
 	@Override
