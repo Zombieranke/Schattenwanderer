@@ -1,7 +1,9 @@
 package me.zombieranke.levels;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -103,17 +105,27 @@ public class Tutorial extends LevelHandler
 	}
 	
 	@Override
+	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
+	{
+		if(alarm)
+		{
+			g.setColor(Color.red);
+			g.drawString("Press f to deactivate the laser", 300, 300);
+		}
+	}
+	
+	@Override
 	public void onLeave(GameContainer container) throws SlickException 
 	{
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 27.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
 		laser.add(laser1);
 		
 		
-		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 8.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 17, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,new Laser[]{laser1});
+		Lever lever1 = new Lever(ORIGIN_X + DEFAULT_TILE_SIZE * 26f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9f, Ressources.LEVER_UP.copy(), Ressources.LEVER_DOWN.copy(),16,16, Direction.SOUTH,new Laser[]{laser1});
 		lever.add(lever1);
 		
-		player = new Player (200,200, playerAnimation, 20, 20);
-		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 10,targetAnimation, deathAnimation, 20, 20);
+		player = new Player (ORIGIN_X + DEFAULT_TILE_SIZE * 2, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f, playerAnimation, 20, 20);
+		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 10, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
 	}
