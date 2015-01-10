@@ -84,7 +84,7 @@ public abstract class LevelHandler extends BasicGameState
 	private int state;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
-	private boolean mission;
+	protected boolean mission;
 	
 	/**The music to play when there is an alarm*/
 	protected Music alarmMusic;

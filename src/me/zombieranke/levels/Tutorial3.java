@@ -23,10 +23,10 @@ import me.zombieranke.utils.Direction;
 import me.zombieranke.utils.Ressources;
 
 /**The first Level */
-public class Tutorial2 extends LevelHandler 
+public class Tutorial3 extends LevelHandler 
 {	
 	/** The ID of the level*/
-	private int levelID = 2;
+	private int levelID = 3;
 	
 	/** Whether the Watch has already spawned or not.*/
 	private boolean hasMoved = false;
@@ -60,7 +60,7 @@ public class Tutorial2 extends LevelHandler
 	private final float DEFAULT_TILE_SIZE = 32;
 
 	/**Default Constructor*/
-	public Tutorial2(){
+	public Tutorial3(){
 		levelNumber = levelID;
 	}
 	
@@ -112,49 +112,16 @@ public class Tutorial2 extends LevelHandler
 	@Override
 	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
 	{
-		if(player.getX() > 400)
-		{
-			g.setColor(Color.red);
-			g.drawString("Beware of the guards!\nPress C to enter Stealth", 300, 300);
-		}
 		
-		if(hasMoved)
-		{
-			g.drawString("Stealth will make you invisible preventing the activation of the alarm.\nAs soon as you move or if you run out of energy stealth will end.", 350, 600);
-		}
-		
-		if(mission)
-		{
-			g.drawString("If guards discover the body\nthe alarm will be triggered", 700, 300);
-		}
 	}
 	
 	@Override
 	public void updateSpecific(GameContainer container, StateBasedGame game, int delta)
 	{
-		if(!hasMoved)
-		{
-			watches.get(0).setDirection(180);
+			watches.get(0).setDirection(270);
 			watches.get(0).setStopped(true);
-		}
-		
-		if(player.getX() > 350 && !hasMoved && player.isStealth())
-		{
-			
-			watches.get(0).setStopped(false);
-			hasMoved = true;
-		}
-		
-		
-		if(!hasRemoved)
-		{
-			if(watches.get(0).getX() < 250)
-			{
-				watches.remove(0);
-				hasRemoved = true;
-			}
-		}
-		
+			watches.get(1).setDirection(90);
+			watches.get(1).setStopped(true);
 	}
 	
 	@Override
@@ -175,12 +142,12 @@ public class Tutorial2 extends LevelHandler
 		
 		// ORIGIN_X + DEFAULT_TILE_SIZE * 2, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f = 21,55
 		
-		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 14, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,enemyAnimation,20,20, watchpoints,aPath));
-		
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 22, ORIGIN_Y + DEFAULT_TILE_SIZE * 9.25f,enemyAnimation,20,20, watchpoints,aPath));
+		watches.add(new Watch(ORIGIN_X + DEFAULT_TILE_SIZE * 22, ORIGIN_Y + DEFAULT_TILE_SIZE * 11.75f,enemyAnimation,20,20, watchpoints,aPath));
 		
 		player = new Player (ORIGIN_X + DEFAULT_TILE_SIZE * 2, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f, playerAnimation, 20, 20);
 		
-		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 23, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
+		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
 	}
