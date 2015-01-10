@@ -52,7 +52,7 @@ public class OptionsScreen extends BasicGameState {
 			throws SlickException {
 		
 		Input input = container.getInput();
-		/* Überprüfe den Volume und stelle das jeweilge Mouse Over Area ein (Stufe 0-3)*/
+		/* ï¿½berprï¿½fe den Volume und stelle das jeweilge Mouse Over Area ein (Stufe 0-3)*/
 		if (Ressources.Volume == 0)
 		{
 			m = sound.get(0);
@@ -70,7 +70,7 @@ public class OptionsScreen extends BasicGameState {
 			m = sound.get(3);
 		}
 		
-		/* Wenn der Sound button gedrückt wird: Mute */
+		/* Wenn der Sound button gedrï¿½ckt wird: Mute */
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 		{
 			if(m.isMouseOver())
@@ -78,7 +78,7 @@ public class OptionsScreen extends BasicGameState {
 				if (Ressources.Volume == 0f)
 				{
 					Ressources.Volume = tempVolume;
-					menuMusic.play();
+					menuMusic.play(1f, Ressources.Volume);
 					
 				}
 				else
