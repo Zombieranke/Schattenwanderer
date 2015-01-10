@@ -84,17 +84,14 @@ public class GameMenu extends BasicGameState
 		
 	}
 	
-	 @Override
-	 public void enter(GameContainer container, StateBasedGame game)
-	 {
-		 menuMusic.loop(1f,Ressources.Volume);
-	 }
-	 
-	 @Override
-	 public void leave(GameContainer container, StateBasedGame game)
-	 {
-		 menuMusic.stop();
-	 }
+	
+	public void enter(GameContainer container, StateBasedGame game)
+	{
+		if(!menuMusic.playing())
+		{
+			menuMusic.loop(1f,Ressources.Volume);
+		}
+	}
 
 	@Override
 	public int getID()

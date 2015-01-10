@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SavedState;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -29,10 +30,18 @@ public class LevelSelect extends BasicGameState {
 	
 	private MenuFunc backButton;
 	
+	private Music menuMusic;
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 	{
+		menuMusic = Ressources.MENU_MUSIC;
+		
+		if(!menuMusic.playing())
+		 {
+			 menuMusic.loop(1f,Ressources.Volume);
+		 }
+		
 		try
 		{
 			st.load();
