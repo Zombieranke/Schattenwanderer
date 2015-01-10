@@ -37,6 +37,11 @@ public class Ressources
 	public static Image SOUND_BAR;
 	public static Image SOUND_SLIDER_UNLIGHTED;
 	public static Image SOUND_SLIDER_LIGHTED;
+	public static Image MISSION_ACCOMPLISHED;
+	public static Image EXIT_MISSION_CLICKED;
+	public static Image EXIT_MISSION_UNCLICKED;
+	public static Image NEXT_MISSION_CLICKED;
+	public static Image NEXT_MISSION_UNCLICKED;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -53,7 +58,7 @@ public class Ressources
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
 	
-	/** Initializiere den Volume als Variable für alle Sounds im Spiel */
+	/** Initializiere den Volume als Variable fï¿½r alle Sounds im Spiel */
 	public static float Volume = 0.3f;
 	
 	public static void init() throws SlickException
@@ -86,6 +91,11 @@ public class Ressources
 		SOUND_BAR 			= new Image("res/Sound_Bar.png");
 		SOUND_SLIDER_UNLIGHTED = new Image("res/Sound_Slider_Unlighted.png");
 		SOUND_SLIDER_LIGHTED = new Image ("res/Sound_Slider_Lighted.png");
+		MISSION_ACCOMPLISHED = new Image ("res/Mission_Accomplished.png");
+		EXIT_MISSION_CLICKED = new Image ("res/Mission_Accomplished_Exit_Clicked.png");
+		EXIT_MISSION_UNCLICKED = new Image ("res/Mission_Accomplished_Exit_Unclicked.png");
+		NEXT_MISSION_CLICKED = new Image ("res/Mission_Accomplished_Next_Clicked.png");
+		NEXT_MISSION_UNCLICKED = new Image("res/Mission_Accomplished_Next_Unclicked.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
