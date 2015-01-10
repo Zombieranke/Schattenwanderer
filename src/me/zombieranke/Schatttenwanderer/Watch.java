@@ -199,7 +199,11 @@ public class Watch extends MovableObject implements Mover
 		{
 			if(alarmed)
 			{
-				if(playerLastKnown == null)
+				if(p != null)
+				{
+					followPath(speedAlarm, solids, exit);
+				}
+				else if(playerLastKnown == null)
 				{
 					
 					Random rnd = new Random();
