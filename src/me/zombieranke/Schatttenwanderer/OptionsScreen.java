@@ -18,7 +18,8 @@ public class OptionsScreen extends BasicGameState {
 
 	private static final int ID = 3;
 	private Image background;
-	private Image soundBar;
+	private MouseOverArea soundBar;
+	private MenuFunc soundSlider;
 	private ArrayList<MenuFunc> sound = new ArrayList<MenuFunc>(); 
 	private MenuFunc m;
 	private float barLength = 500f;
@@ -31,7 +32,8 @@ public class OptionsScreen extends BasicGameState {
 			throws SlickException {
 		background = Ressources.BACKGROUND_MENU;
 		menuMusic = Ressources.MENU_MUSIC;
-		soundBar = Ressources.SOUND_BAR;
+		soundBar = new MouseOverArea(container, Ressources.SOUND_BAR, 200, 230);
+		soundSlider = new MenuFunc(new MouseOverArea(container, Ressources.SOUND_SLIDER_UNLIGHTED, 200, 220), Ressources.SOUND_SLIDER_LIGHTED, 3);
 		for (int i = 0; i <= 3; i++)
 		{
 			sound.add(new MenuFunc(new MouseOverArea(container, new Image("res/Sound" + i + "_Unlighted.png"), 100, 200), new Image("res/Sound" + i + "_Lighted.png"), 3));
@@ -42,7 +44,8 @@ public class OptionsScreen extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		background.draw();
-		soundBar.draw(200, 230);
+		soundBar.render(container, g);
+		soundSlider.draw(g, container);
 		m.draw(g, container);
 		
 	}
@@ -57,15 +60,15 @@ public class OptionsScreen extends BasicGameState {
 		{
 			m = sound.get(0);
 		}
-		else if (Ressources.Volume > 0 && Ressources.Volume < barLength/3)
+		else if (Ressources.Volume > 0 && Ressources.Volume < (barLength/3)/500f)
 		{
 			m = sound.get(1);
 		}
-		else if (Ressources.Volume > barLength/3f && Ressources.Volume < 2f * (barLength/3f))
+		else if (Ressources.Volume > (barLength/3f)/500f && Ressources.Volume < (2f * (barLength/3f))/500f)
 		{
 			m = sound.get(2);
 		}
-		else if (Ressources.Volume > 2f * (barLength/3f))
+		else if (Ressources.Volume > (2f * (barLength/3f))/500f)
 		{
 			m = sound.get(3);
 		}
@@ -87,6 +90,13 @@ public class OptionsScreen extends BasicGameState {
 					Ressources.Volume = 0f;
 					menuMusic.pause();
 				}
+			}
+			if (soundBar.isMouseOver())
+			{
+				soundSlider.setX(input.getMouseX());
+				float getVolume = (input.getMouseX()-200)/500f;
+				Ressources.Volume = getVolume;
+				menuMusic.setVolume(Ressources.Volume);
 			}
 		}
 		

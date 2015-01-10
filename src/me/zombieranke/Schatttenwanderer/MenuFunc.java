@@ -60,6 +60,11 @@ public class MenuFunc
 		area.setMouseDownImage(img);
 	}
 	
+	public void setX(float x)
+	{
+		area.setX(x);
+	}
+	
 	public boolean isLocked()
 	{
 		return locked;
