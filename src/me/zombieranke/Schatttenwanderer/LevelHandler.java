@@ -187,7 +187,6 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
-		renderSpecific(container,game,g);
 		UI_Background.draw(0, 0);
 		game_background.draw(100, 100);
 		g.setColor(Color.black);
@@ -270,6 +269,8 @@ public abstract class LevelHandler extends BasicGameState
 		g.fillRect(220, 794, player.getEnergy(), 20); //300px Energybar
 		
 		g.setColor(Color.red);	
+		
+		renderSpecific(container,game,g);
 	}
 
 	@Override

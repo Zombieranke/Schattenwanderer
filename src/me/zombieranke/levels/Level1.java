@@ -24,7 +24,7 @@ import me.zombieranke.utils.Ressources;
 public class Level1 extends LevelHandler 
 {	
 	/** The ID of the level*/
-	private int levelID = 1;
+	private int levelID = 4;
 	
 	/**The player animation*/
 	private Animation playerAnimation;
