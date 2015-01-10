@@ -229,6 +229,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 			
 			target.renderCollisionArea(g);
+			exit.renderCollisionArea(g);
 			for(Laser l: laser)
 			{
 				l.renderCollisionArea(g);
