@@ -36,9 +36,6 @@ public class Tutorial extends LevelHandler
 	
 	/**The enemy animation*/
 	private Animation enemyAnimation;
-	/**Animation of the second Watch*/
-	private Animation enemyAnimation2;
-	private Animation enemyAnimation3;
 	
 	/**The target animation*/
 	private Animation targetAnimation;
@@ -97,7 +94,7 @@ public class Tutorial extends LevelHandler
 		endMusic = Ressources.END_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
-		game_background = Ressources.GAME_BACKGROUND;
+		game_Background = Ressources.GAME_BACKGROUND;
 		UI_Background = Ressources.UI_BACKGROUND;
 		
 		levelMap = new LevelMap(solids,exit);
@@ -107,7 +104,15 @@ public class Tutorial extends LevelHandler
 	}
 	
 	@Override
-	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
+	protected void renderSpecificBefore(GameContainer container, StateBasedGame game, Graphics g)
+	{
+		UI_Background.draw(0,0);
+		game_Background.draw(100, 356, 1055, 160);
+		//game_Background.draw(100, 100, 1055, 671);
+	}
+	
+	@Override
+	public void renderSpecificAfter(GameContainer container,StateBasedGame game,Graphics g)
 	{
 		
 		g.setColor(Color.red);

@@ -77,13 +77,13 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	protected ArrayList<Lever> lever;
 	
-	Laser triggered;
-	
 	/**Indicates if we are in debug view(shows all hitboxes)*/
 	private boolean debug;
 	
 	/**Indicates which direction the player looks(use with caution)*/
 	private int state;
+	
+	private boolean inLaser = false;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
 	protected boolean mission;
@@ -103,7 +103,7 @@ public abstract class LevelHandler extends BasicGameState
 	protected Sound leverSound;
 	
 	/** Background Image */
-	protected Image game_background;
+	protected Image game_Background;
 	
 	/** Background for the "outer layer"/UI Elements outside of boundaries as a tile */
 	protected Image UI_Background;
@@ -112,7 +112,9 @@ public abstract class LevelHandler extends BasicGameState
 	
 	protected AStarPathFinder aPath;
 	
-	protected void renderSpecific(GameContainer container, StateBasedGame game, Graphics g){}
+	protected void renderSpecificBefore(GameContainer container, StateBasedGame game, Graphics g){}
+	
+	protected void renderSpecificAfter(GameContainer container, StateBasedGame game, Graphics g){}
 	
 	protected void updateSpecific(GameContainer container, StateBasedGame game, int delta){}
 	
@@ -189,9 +191,8 @@ public abstract class LevelHandler extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
 	{
-		UI_Background.draw(0, 0);
-		game_background.draw(100, 100);
-
+		renderSpecificBefore(container,game,g);
+		
 		for(SolidObject w : solids)
 		{
 			w.render(g);
@@ -269,7 +270,7 @@ public abstract class LevelHandler extends BasicGameState
 		
 		g.setColor(Color.red);	
 		
-		renderSpecific(container,game,g);
+		renderSpecificAfter(container,game,g);
 	}
 
 	@Override
@@ -707,7 +708,7 @@ public abstract class LevelHandler extends BasicGameState
 	 * deals damage to the player if he stands in front of a watch*/
 	private void checkAlarm()
 	{
-
+		boolean inLaserNow = false;
 		for(Laser l: laser)
 		{
 			if(l.isOn())
@@ -715,17 +716,19 @@ public abstract class LevelHandler extends BasicGameState
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
 			    	activateAlarm();
-			    	for(Watch w: watches)
+			    	inLaserNow = true;
+			    	if(!inLaser)
 			    	{
-			    		if(l != triggered)
+			    		for(Watch w: watches)
 			    		{
 			    			w.calculatePath(new Vector2f(Math.round(player.x/8),Math.round(player.y/8)), solids, exit);
-					    	triggered = l;
 			    		}
 			    	}
 			    }
 			}
 		}
+		
+		inLaser = inLaserNow;
 		
 		boolean inSight = false;
 		

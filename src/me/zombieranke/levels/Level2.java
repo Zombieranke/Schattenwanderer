@@ -2,6 +2,7 @@ package me.zombieranke.levels;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -137,7 +138,7 @@ public class Level2 extends LevelHandler
 		endMusic = Ressources.END_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
-		game_background = Ressources.GAME_BACKGROUND;
+		game_Background = Ressources.GAME_BACKGROUND;
 		UI_Background = Ressources.UI_BACKGROUND;
 		
 		levelMap = new LevelMap(solids,exit);
@@ -145,6 +146,13 @@ public class Level2 extends LevelHandler
 		
 		super.resetOnLeave(container, game);
 		
+	}
+	
+	@Override
+	protected void renderSpecificBefore(GameContainer container, StateBasedGame game, Graphics g)
+	{
+		UI_Background.draw(0,0);
+		game_Background.draw(100, 100, 1055, 671);
 	}
 	
 	@Override
