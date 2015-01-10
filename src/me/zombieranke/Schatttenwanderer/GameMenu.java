@@ -93,7 +93,7 @@ public class GameMenu extends BasicGameState
 	 @Override
 	 public void leave(GameContainer container, StateBasedGame game)
 	 {
-		 //menuMusic.stop();
+		 menuMusic.stop();
 	 }
 
 	@Override

@@ -34,6 +34,9 @@ public class Ressources
 	public static Image LEVEL_GREYED;
 	public static Image BACK_LIGHTED;
 	public static Image BACK_UNLIGHTED;
+	public static Image SOUND_BAR;
+	public static Image SOUND_SLIDER_UNLIGHTED;
+	public static Image SOUND_SLIDER_LIGHTED;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -80,6 +83,9 @@ public class Ressources
 		LEVEL_GREYED		= new Image("res/Level_Greyed.png");
 		BACK_LIGHTED 		= new Image("res/Back_Lighted.png");
 		BACK_UNLIGHTED		= new Image("res/Back_Unlighted.png");
+		SOUND_BAR 			= new Image("res/Sound_Bar.png");
+		SOUND_SLIDER_UNLIGHTED = new Image("res/Sound_Slider_Unlighted.png");
+		SOUND_SLIDER_LIGHTED = new Image ("res/Sound_Slider_Lighted.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
