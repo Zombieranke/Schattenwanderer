@@ -77,6 +77,8 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	protected ArrayList<Lever> lever;
 	
+	Laser triggered;
+	
 	/**Indicates if we are in debug view(shows all hitboxes)*/
 	private boolean debug;
 	
@@ -84,7 +86,7 @@ public abstract class LevelHandler extends BasicGameState
 	private int state;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
-	private boolean mission;
+	protected boolean mission;
 	
 	/**The music to play when there is an alarm*/
 	protected Music alarmMusic;
@@ -715,7 +717,15 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				if(player.checkCollision(l.getBeam())&& !player.isStealth())
 			    {
-			    	activateAlarm();			    
+			    	activateAlarm();
+			    	for(Watch w: watches)
+			    	{
+			    		if(l != triggered)
+			    		{
+			    			w.calculatePath(new Vector2f(Math.round(player.x/8),Math.round(player.y/8)), solids, exit);
+					    	triggered = l;
+			    		}
+			    	}
 			    }
 			}
 		}
@@ -734,6 +744,7 @@ public abstract class LevelHandler extends BasicGameState
 					w.setPLayerLastKnown(new Vector2f(player.getX(),player.getY()));
 	    		}
 		    }
+			
 
 			
 			if(target.checkCollision(w.getSightCone()) && !target.isDiscovered())
@@ -770,9 +781,12 @@ public abstract class LevelHandler extends BasicGameState
 	 */
 	private void activateAlarm()
 	{
+		if(!alarm)
+    	{
 			alarm = true;
-	    	this.alarmTime = alarmTimeDefault;
 	    	onAlarmActivate();
+	    }
+	    this.alarmTime = alarmTimeDefault;
 	}
 	
 	@SuppressWarnings("unused")
