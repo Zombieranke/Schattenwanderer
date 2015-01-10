@@ -51,6 +51,8 @@ public class Schattenwanderer extends StateBasedGame
 		addState(new Tutorial2());
 		addState(new Tutorial3());
 		addState(new LevelSelect());
+		addState(new Victory());
+		addState(new Credits());
 	}
 
 }
