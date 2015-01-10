@@ -191,10 +191,7 @@ public abstract class LevelHandler extends BasicGameState
 	{
 		UI_Background.draw(0, 0);
 		game_background.draw(100, 100);
-		g.setColor(Color.black);
-		g.drawString("Bewegung: Pfeiltasten\nSchalter betätigen: F\nStealth: C\nSprint: V", 40, 20);
-		g.drawString("Schleichen: Shift", 300, 20);
-		
+
 		for(SolidObject w : solids)
 		{
 			w.render(g);

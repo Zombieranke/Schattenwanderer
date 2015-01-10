@@ -115,12 +115,16 @@ public class Tutorial3 extends LevelHandler
 	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
 	{
 		
-			g.setColor(Color.green);
-			g.drawString("Now you have to Sprint\nPress V to avtivate Sprinting", 300, 300);
+			g.setColor(Color.black);
+			g.drawString("Now you have to Sprint\nPress V to avtivate Sprinting", 250, 300);
 		
-		if(player.getX()>600)
+		if(player.getX()>440)
 		{
-			g.drawString("You make a lot of noise by sprinting,\nnormal movement creates less noise", 300, 300);
+			g.drawString("Sprinting makes more noise than normal movement\nand consumes more enery than stealth", 440, 600);
+		}
+		if(player.getX()>650)
+		{
+			g.drawString("Try to sneak past the guards by\npressing Shift additionally to the arrow keys", 630, 300);
 		}
 	}
 	
