@@ -112,10 +112,20 @@ public class Tutorial2 extends LevelHandler
 	@Override
 	public void renderSpecific(GameContainer container,StateBasedGame game,Graphics g)
 	{
-		if(player.getX() > 350)
+		if(player.getX() > 400)
 		{
 			g.setColor(Color.red);
 			g.drawString("Beware of the guards!\nPress C to enter Stealth", 300, 300);
+		}
+		
+		if(hasMoved)
+		{
+			g.drawString("Stealth will make you invisible preventing the activation of the alarm.\nAs soon as you move or if you run out of energy stealth will end.", 350, 600);
+		}
+		
+		if(mission)
+		{
+			g.drawString("If guards discover the body\nthe alarm will be triggered", 700, 300);
 		}
 	}
 	
@@ -170,7 +180,7 @@ public class Tutorial2 extends LevelHandler
 		
 		player = new Player (ORIGIN_X + DEFAULT_TILE_SIZE * 2, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f, playerAnimation, 20, 20);
 		
-		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
+		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 23, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
 		
 		super.initObjects(container);
 	}
