@@ -304,11 +304,6 @@ public class Watch extends MovableObject implements Mover
 	
 	public void followPath(float speed, ArrayList<SolidObject> solids, Exit exit)
 	{
-		if(getX()==p.getX(pCur)*8 && getY()==p.getY(pCur)*8 && pCur != p.getLength()-1)
-		{
-			pCur++;
-		}
-		
 		Vector2f goal = new Vector2f(p.getX(pCur)*8 - getX(), p.getY(pCur)*8 - getY());
 		setDirection((float) goal.getTheta());
 		//System.out.println(getX()+","+getY()+","+p.getX(pCur)*8f+","+p.getY(pCur)*8f);
@@ -333,12 +328,6 @@ public class Watch extends MovableObject implements Mover
 					{
 						x += goal.x;
 						y += goal.y;
-						
-						if(pCur == p.getLength()-1)
-						{
-							p = null;
-							//System.out.println("Set to null");
-						}
 					}
 					else
 					{
@@ -357,12 +346,6 @@ public class Watch extends MovableObject implements Mover
 						{
 							x += goal.x;
 							y += goal.y;
-							
-							if(pCur == p.getLength()-1)
-							{
-								p = null;
-								//System.out.println("Set to null");
-							}
 						}
 						else
 						{
@@ -372,12 +355,6 @@ public class Watch extends MovableObject implements Mover
 						}
 					}
 				}
-			}
-			
-			if(pCur == p.getLength()-1)
-			{
-				p = null;
-				//System.out.println("Set to null");
 			}
 		}
 		else
@@ -399,12 +376,6 @@ public class Watch extends MovableObject implements Mover
 					{
 						x += goal.x;
 						y += goal.y;
-						
-						if(pCur == p.getLength()-1)
-						{
-							p = null;
-							//System.out.println("Set to null");
-						}
 					}
 					else
 					{
@@ -423,12 +394,6 @@ public class Watch extends MovableObject implements Mover
 						{
 							x += goal.x;
 							y += goal.y;
-							
-							if(pCur == p.getLength()-1)
-							{
-								p = null;
-								//System.out.println("Set to null");
-							}
 						}
 						else
 						{
@@ -441,6 +406,18 @@ public class Watch extends MovableObject implements Mover
 			}
 		}
 		
+		if(getX()==p.getX(pCur)*8 && getY()==p.getY(pCur)*8)
+		{
+			if(pCur != p.getLength()-1)
+			{
+				pCur++;
+			}
+			else
+			{
+				p = null;
+				pCur = 0;
+			}
+		}
 	}
 	
 
