@@ -110,7 +110,7 @@ public class Tutorial extends LevelHandler
 		if(alarm)
 		{
 			g.setColor(Color.red);
-			g.drawString("Press f to deactivate the laser", 300, 300);
+			g.drawString("Move here and press f to deactivate the alarm", 700, 300);
 		}
 	}
 	
