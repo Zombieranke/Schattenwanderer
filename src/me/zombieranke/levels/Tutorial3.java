@@ -14,7 +14,6 @@ import me.zombieranke.Schatttenwanderer.Exit;
 import me.zombieranke.Schatttenwanderer.Laser;
 import me.zombieranke.Schatttenwanderer.LevelHandler;
 import me.zombieranke.Schatttenwanderer.LevelMap;
-import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
 import me.zombieranke.Schatttenwanderer.Target;
 import me.zombieranke.Schatttenwanderer.Wall;
@@ -27,12 +26,6 @@ public class Tutorial3 extends LevelHandler
 {	
 	/** The ID of the level*/
 	private int levelID = 3;
-	
-	/** Whether the Watch has already spawned or not.*/
-	private boolean hasMoved = false;
-	
-	/** Whether the Watch has already been removed or not.*/
-	private boolean hasRemoved = false;
 	
 	/**The player animation*/
 	private Animation playerAnimation;

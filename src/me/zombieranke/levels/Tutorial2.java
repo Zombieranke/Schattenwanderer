@@ -11,10 +11,8 @@ import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
 
 import me.zombieranke.Schatttenwanderer.Exit;
-import me.zombieranke.Schatttenwanderer.Laser;
 import me.zombieranke.Schatttenwanderer.LevelHandler;
 import me.zombieranke.Schatttenwanderer.LevelMap;
-import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
 import me.zombieranke.Schatttenwanderer.Target;
 import me.zombieranke.Schatttenwanderer.Wall;

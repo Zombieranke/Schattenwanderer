@@ -1,5 +1,6 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import me.zombieranke.utils.Ressources;
@@ -9,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.SavedState;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
@@ -26,16 +28,24 @@ public class OptionsScreen extends BasicGameState {
 	private float barLength = 500f;
 	private float tempVolume = 0f;
 	private Music menuMusic;
+	private SavedState st;
 	
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		st = new SavedState("Schattenwanderer_Options");
+		try {
+			st.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Ressources.Volume = (float) st.getNumber("Mastervolume", 0.3);
 		background = Ressources.BACKGROUND_MENU;
 		menuMusic = Ressources.MENU_MUSIC;
 		back = new MenuFunc(new MouseOverArea(container, Ressources.BACK_UNLIGHTED, 100, 500), Ressources.BACK_LIGHTED, 1);
 		soundBar = new MouseOverArea(container, Ressources.SOUND_BAR, 400, 230);
-		soundSlider = new MenuFunc(new MouseOverArea(container, Ressources.SOUND_SLIDER_UNLIGHTED, 450, 220), Ressources.SOUND_SLIDER_LIGHTED, 3);
+		soundSlider = new MenuFunc(new MouseOverArea(container, Ressources.SOUND_SLIDER_UNLIGHTED, Math.round(400 + 500 * Ressources.Volume), 220), Ressources.SOUND_SLIDER_LIGHTED, 3);
 		for (int i = 0; i <= 3; i++)
 		{
 			sound.add(new MenuFunc(new MouseOverArea(container, new Image("res/Sound" + i + "_Unlighted.png"), 300, 200), new Image("res/Sound" + i + "_Lighted.png"), 3));
@@ -126,12 +136,22 @@ public class OptionsScreen extends BasicGameState {
 		 {
 			 menuMusic.loop(1f,Ressources.Volume);
 		 }
-	}
+	 }
+	
+	 @Override
+	 public void leave(GameContainer container, StateBasedGame game)
+	 {
+		 st.setNumber("Mastervolume", Ressources.Volume);
+		 try {
+			st.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 }
 	 
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 

@@ -2,7 +2,6 @@ package me.zombieranke.Schatttenwanderer;
 
 import me.zombieranke.utils.Ressources;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,7 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Success extends BasicGameState
 {
 	private Image background;
-	private Animation blood;
 	private MenuFunc next;
 	private MenuFunc exit;
 	private static final int ID = 4;

@@ -5,7 +5,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.heuristics.ManhattanHeuristic;
@@ -18,7 +17,6 @@ import me.zombieranke.Schatttenwanderer.Lever;
 import me.zombieranke.Schatttenwanderer.Player;
 import me.zombieranke.Schatttenwanderer.Target;
 import me.zombieranke.Schatttenwanderer.Wall;
-import me.zombieranke.Schatttenwanderer.Watch;
 import me.zombieranke.utils.Direction;
 import me.zombieranke.utils.Ressources;
 
@@ -33,9 +31,6 @@ public class Tutorial extends LevelHandler
 	
 	/**The player animation*/
 	private Animation playerAnimation;
-	
-	/**The enemy animation*/
-	private Animation enemyAnimation;
 	
 	/**The target animation*/
 	private Animation targetAnimation;

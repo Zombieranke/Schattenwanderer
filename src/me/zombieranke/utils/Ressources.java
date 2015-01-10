@@ -60,7 +60,7 @@ public class Ressources
 	public static Sound LEVER_SOUND;
 	
 	/** Initializiere den Volume als Variable f�r alle Sounds im Spiel */
-	public static float Volume = 0.3f;
+	public static float Volume;
 	
 	public static void init() throws SlickException
 	{
