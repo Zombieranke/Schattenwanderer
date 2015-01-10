@@ -32,6 +32,7 @@ public class Watch extends MovableObject implements Mover
 	/**Current aberration of the default radius of the hearing circle*/
 	private float playerNoise;
 	
+	private boolean stopped;
 	private WatchSightArea sightCone;
 	private Circle hearCircle;
 	private AStarPathFinder aPath;
@@ -111,10 +112,6 @@ public class Watch extends MovableObject implements Mover
 	public void setAlarmed(boolean alarm)
 	{
 		alarmed = alarm;
-		if(!alarm)
-		{
-			calculatePath(points[currentStep]);
-		}
 	}
 	
 	public boolean getAlarmed()
@@ -154,6 +151,14 @@ public class Watch extends MovableObject implements Mover
 	}
 	
 	
+	public boolean isStopped() {
+		return stopped;
+	}
+
+	public void setStopped(boolean stopped) {
+		this.stopped = stopped;
+	}
+
 	public void updateSight(ArrayList<SolidObject> wall)
 	{
 		sightCone = new WatchSightArea(x+colX/2,y+colY/2,sightRadius, direction, angle, wall, 20);
@@ -190,102 +195,106 @@ public class Watch extends MovableObject implements Mover
 	
 	public void move(ArrayList<SolidObject> solids, Exit exit)
 	{
-		
-		if(alarmed)
+		if(!stopped)
 		{
-			if(playerLastKnown == null)
+			if(alarmed)
 			{
-				Random rnd = new Random();
-				Vector2f move = new Vector2f(speedAlarm,0);
-				move.setTheta(direction);
-				float rndMove = rnd.nextFloat();
-				if(rndMove<0.98){
-					if(canMove(move.x,move.y,solids,exit))
-					{
-						x += move.x;
-						y += move.y;
-					}
-					else
-					{
-						if(rndMove<0.5)
+				if(playerLastKnown == null)
+				{
+					
+					Random rnd = new Random();
+					Vector2f move = new Vector2f(speedAlarm,0);
+					move.setTheta(direction);
+					float rndMove = rnd.nextFloat();
+					if(rndMove<0.98){
+						if(canMove(move.x,move.y,solids,exit))
 						{
-							while(!canMove(move.x,move.y,solids,exit))
-							{
-								setDirection(direction + 45);
-								move.setTheta(direction);
-							}
+							x += move.x;
+							y += move.y;
 						}
 						else
 						{
-							while(!canMove(move.x,move.y,solids,exit))
+							if(rndMove<0.5)
 							{
-								setDirection(direction - 45);
-								move.setTheta(direction);
+								while(!canMove(move.x,move.y,solids,exit))
+								{
+									setDirection(direction + 45);
+									move.setTheta(direction);
+								}
+							}
+							else
+							{
+								while(!canMove(move.x,move.y,solids,exit))
+								{
+									setDirection(direction - 45);
+									move.setTheta(direction);
+								}
 							}
 						}
+						super.setRotation(direction+180);
 					}
-					super.setRotation(direction+180);
-				}
-				else if(rndMove<0.99)
-				{
-					do
+					else if(rndMove<0.99)
 					{
-						setDirection(direction + 45);
-						move.setTheta(direction);
+						do
+						{
+							setDirection(direction + 45);
+							move.setTheta(direction);
+						}
+						while(!canMove(move.x,move.y,solids,exit));
 					}
-					while(!canMove(move.x,move.y,solids,exit));
+					else
+					{
+						do
+						{
+							setDirection(direction - 45);
+							move.setTheta(direction);
+						}
+						while(!canMove(move.x,move.y,solids,exit));
+					}
+						
 				}
 				else
-				{
-					do
-					{
-						setDirection(direction - 45);
-						move.setTheta(direction);
-					}
-					while(!canMove(move.x,move.y,solids,exit));
-				}
-					
-			}
-			else
-			{
-				if(!(playerLastKnown.x == x && playerLastKnown.y ==y))
 				{
 					p = new Path();
 					p.appendStep(Math.round(playerLastKnown.x/8), Math.round(playerLastKnown.y/8));
 					pCur = 0;
-					playerLastKnown = null;
+					if(Math.round(playerLastKnown.x/8) == Math.round(x/8) && Math.round(playerLastKnown.y/8) == Math.round(y/8))
+					{
+						playerLastKnown = null;
+					}
 					followPath(speedAlarm, solids, exit);
-				}
+					p = null;
+				}			
 			}
-		}
-		else
-		{
-			while(p == null)
+			else
 			{
-				calculatePath(points[currentStep]);
-				if(p == null)
+				while(p == null)
 				{
-					currentStep++;
+					calculatePath(points[currentStep],solids, exit);
+					if(p == null)
+					{
+						currentStep++;
+						if(currentStep > points.length-1)
+						{
+							//System.out.println("Wrap around");
+							currentStep = 0;
+						}
+					}
+				}
+				//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
+				if(getX()==points[currentStep].x*8 && getY()==points[currentStep].y*8)
+				{
+					currentStep +=1;
+					//System.out.println("inc");
 					if(currentStep > points.length-1)
 					{
 						//System.out.println("Wrap around");
 						currentStep = 0;
 					}
+					calculatePath(points[currentStep],solids,exit);
 				}
+				followPath(speedWalk, solids, exit);
 			}
-			//System.out.println(getX()+","+getY()+","+points[currentStep]+","+points[currentStep+1]);
-			if(getX()==points[currentStep].x*8 && getY()==points[currentStep].y*8)
-			{
-				currentStep +=1;
-				//System.out.println("inc");
-				if(currentStep > points.length-1)
-				{
-					//System.out.println("Wrap around");
-					currentStep = 0;
-				}
-				calculatePath(points[currentStep]);
-			}
-			followPath(speedWalk, solids, exit);
 		}
 	}
 	
@@ -431,10 +440,21 @@ public class Watch extends MovableObject implements Mover
 	}
 	
 
-	public void calculatePath(Vector2f v)
+	public void calculatePath(Vector2f v, ArrayList<SolidObject> solids, Exit exit)
 	{
 		//System.out.println(currentStep);
-		p = aPath.findPath(this, Math.round(getX()/8), Math.round(getY()/8), Math.round(v.x), Math.round(v.y));
+		Vector2f curPos = new Vector2f(Math.round(getX()/8),Math.round(getY()/8)); 
+		if(!canMoveAbsolute(curPos.x*8,curPos.y*8, solids, exit))
+		{
+			//curPos = findValidPos(curPos);
+		}
+		
+		if(!canMoveAbsolute(v.x*8,v.y*8, solids, exit))
+		{	
+			//v = findvalidPos(v);
+		}
+		
+		p=aPath.findPath(this, Math.round(curPos.x), Math.round(curPos.y), Math.round(v.x), Math.round(v.y));
 		pCur = 0;
 	}
 	
