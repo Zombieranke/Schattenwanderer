@@ -282,7 +282,7 @@ public abstract class LevelHandler extends BasicGameState
 		updateSpecific(container,game,delta);
 		Input input = container.getInput();
 		
-		if(input.isKeyPressed(Input.KEY_L)){
+		if(input.isKeyPressed(Input.KEY_L) && input.isKeyPressed(Input.KEY_T)){
 			Success success = (Success) game.getState(4);
 			success.setLast(this.getID());
 			
@@ -360,7 +360,7 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(1);
 		}
 		
-		if(input.isKeyPressed(Input.KEY_F))
+		if(input.isKeyPressed(Input.KEY_B))
 		{
 			player.setStealth(false);
 			for(Lever l : lever){

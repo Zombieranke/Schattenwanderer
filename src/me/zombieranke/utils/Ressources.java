@@ -43,6 +43,7 @@ public class Ressources
 	public static Image EXIT_MISSION_UNCLICKED;
 	public static Image NEXT_MISSION_CLICKED;
 	public static Image NEXT_MISSION_UNCLICKED;
+	public static Image CREDITS_TEXT;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -99,6 +100,7 @@ public class Ressources
 		EXIT_MISSION_UNCLICKED = new Image ("res/Mission_Accomplished_Exit_Unclicked.png");
 		NEXT_MISSION_CLICKED = new Image ("res/Mission_Accomplished_Next_Clicked.png");
 		NEXT_MISSION_UNCLICKED = new Image("res/Mission_Accomplished_Next_Unclicked.png");
+		CREDITS_TEXT		= new Image ("res/Credits_Text.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
