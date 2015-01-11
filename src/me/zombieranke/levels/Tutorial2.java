@@ -62,6 +62,12 @@ public class Tutorial2 extends LevelHandler
 		levelNumber = levelID;
 	}
 	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException
+	{
+		hasRemoved = false;
+		hasMoved = false;
+	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
