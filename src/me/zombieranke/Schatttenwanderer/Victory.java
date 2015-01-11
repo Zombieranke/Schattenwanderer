@@ -53,6 +53,7 @@ public class Victory extends BasicGameState
 		{
 			blood.setCurrentFrame(0);
 			blood.stop();
+			endMusic.stop();
 			game.enterState(7);
 		}
 	}
