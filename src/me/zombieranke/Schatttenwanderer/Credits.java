@@ -1,4 +1,4 @@
-/*package me.zombieranke.Schatttenwanderer;
+package me.zombieranke.Schatttenwanderer;
 
 import me.zombieranke.utils.Ressources;
 
@@ -50,4 +50,4 @@ public class Credits extends BasicGameState
 	{
 		return ID;
 	}
-}*/
+}

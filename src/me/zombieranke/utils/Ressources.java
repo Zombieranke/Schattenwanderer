@@ -13,6 +13,7 @@ public class Ressources
 	public static Image BACKGROUND_FAIL;
 	public static Image BACKGROUND_MENU;
 	public static Image BACKGROUND_SUCCESS;
+	public static Image BACKGROUND_CREDITS;
 	public static Image DEATH_1;
 	public static Image EXIT_LIGHTED;
 	public static Image EXIT_UNLIGHTED;
@@ -69,6 +70,7 @@ public class Ressources
 		BACKGROUND_FAIL		= new Image("res/Background_Fail.jpg");
 		BACKGROUND_MENU		= new Image("res/Background_Menu.jpg");
 		BACKGROUND_SUCCESS	= new Image("res/Background_Success.jpg");
+		BACKGROUND_CREDITS  = new Image("res/Background_Credits.jpg");
 		DEATH_1				= new Image("res/Death_1.png");
 		EXIT_LIGHTED		= new Image("res/Exit_Lighted.png");
 		EXIT_UNLIGHTED		= new Image("res/Exit_Unlighted.png");
