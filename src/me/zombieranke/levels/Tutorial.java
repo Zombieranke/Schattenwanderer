@@ -128,7 +128,7 @@ public class Tutorial extends LevelHandler
 		
 		if(mission)
 		{
-			g.drawString("Now leave the level through the exit at the left", 600,600);
+			g.drawString("Now leave the level through the exit at the right", 600,600);
 		}
 		
 		if(alarm)

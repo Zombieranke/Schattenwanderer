@@ -109,11 +109,11 @@ public class Ressources
 		CREDITS_IMAGE2		= new Image("res/Credits_Bild2.jpg");
 		PAUSE_IMAGE			= new Image("res/Pause_Image.png");
 		
-		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
-		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
-		PLAYER_SPRITESHEET	= new SpriteSheet("res/Player_SpriteSheet.png", 20, 20);
-		TARGET_SPRITESHEET	= new SpriteSheet("res/Target_SpriteSheet.png", 20, 20);
-		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_SpriteSheet.png", 60, 50);
+		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_Spritesheet.png", 20, 20);
+		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_Spritesheet.png", 96, 32);
+		PLAYER_SPRITESHEET	= new SpriteSheet("res/Player_Spritesheet.png", 20, 20);
+		TARGET_SPRITESHEET	= new SpriteSheet("res/Target_Spritesheet.png", 20, 20);
+		TARGET_DEATH_SPRITESHEET = new SpriteSheet("res/Death_Spritesheet.png", 60, 50);
 		GAME_WON_SPRITESHEET = new SpriteSheet("res/Dripping_Blood.png", 29, 248);
 		
 		ALARM_MUSIC			= new Music("res/Alarm.ogg",false);
