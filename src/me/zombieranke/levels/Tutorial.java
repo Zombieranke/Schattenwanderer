@@ -41,7 +41,6 @@ public class Tutorial extends LevelHandler
 	/**The animation of the exit*/
 	private Animation exitAnimation;
 	
-
 	
 	/**X-Coordinate of the level start*/
 	private final float ORIGIN_X = 100;
@@ -112,11 +111,24 @@ public class Tutorial extends LevelHandler
 	{
 		
 		g.setColor(Color.red);
-		g.drawString("Use arrowkeys to move", 300,300);
+		if(player.getX()<300)
+		{
+			g.drawString("Use arrowkeys to move", 300,300);
+		}
 		
-		if (player.getX()>200)
+		if(player.getX()>350)
+		{
+			g.drawString("You may pause the game any time by pressing P", 400,300);
+		}
+		
+		if (player.getX()>200 && !mission)
 		{
 			g.drawString("Run over the target to kill him", 600,600);
+		}
+		
+		if(mission)
+		{
+			g.drawString("Now leave the level through the exit at the left", 600,600);
 		}
 		
 		if(alarm)
@@ -126,7 +138,7 @@ public class Tutorial extends LevelHandler
 		    if (player.getX()>=920 && player.getX()<=940 && player.getY()<400)
 		    {
 	        alarmhint=true;
-			g.drawString("Press B to deactivate the laser\n", 890, 320);
+			g.drawString("Press C to deactivate the laser\n", 890, 320);
 		    }
 	     }
 	}

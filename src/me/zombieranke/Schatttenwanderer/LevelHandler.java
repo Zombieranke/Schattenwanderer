@@ -507,7 +507,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.switchSprint();
 		}
 		
-		if(input.isKeyPressed(Input.KEY_Y) && input.isKeyPressed(Input.KEY_Z) && stealthCooldown<=0)
+		if((input.isKeyPressed(Input.KEY_Y) || input.isKeyPressed(Input.KEY_Z)) && stealthCooldown<=0)
 		{
 			if(player.isStealth())
 			{
