@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
@@ -16,6 +17,7 @@ public class Success extends BasicGameState
 	private Image background;
 	private MenuFunc next;
 	private MenuFunc exit;
+	private Music endMusic = Ressources.END_MUSIC;
 	private static final int ID = 4;
 	
 	/**The ID this state was entered from*/
@@ -27,6 +29,12 @@ public class Success extends BasicGameState
 	 */
 	public void setLast(int last){
 		lastID = last;
+	}
+	
+	@Override
+	public void enter(GameContainer container,StateBasedGame game)
+	{
+		endMusic.loop(1,Ressources.Volume * 2.333f);
 	}
 	
 	@Override
