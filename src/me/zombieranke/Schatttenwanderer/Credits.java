@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -26,6 +27,7 @@ public class Credits extends BasicGameState
 	private int fadeIn = 0;
 	private int fadeIn2 = 0;
 	private int fadeIn3 = 0;
+	private Music music = Ressources.CREDITS_MUSIC;
 	
 	
 	@Override
@@ -36,6 +38,12 @@ public class Credits extends BasicGameState
 		image1 = Ressources.CREDITS_IMAGE1;
 		image2 = Ressources.CREDITS_IMAGE2;
 		image3 = Ressources.BACKGROUND_SUCCESS;
+	}
+	
+	@Override
+	public void enter(GameContainer container,StateBasedGame game)
+	{
+		music.play(1,Ressources.Volume * 2.333f);
 	}
 	
 	@Override
@@ -62,8 +70,14 @@ public class Credits extends BasicGameState
 			shiftUpwards -= 1;
 		}
 		
+		if(shiftUpwards<-200)
+		{
+			music.fade(3000,0,true);
+		}
+		
 		if(shiftUpwards<-400)
 		{
+			shiftUpwards = 1300;
 			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		}
 		
