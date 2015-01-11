@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -15,8 +16,14 @@ public class Victory extends BasicGameState
 {
 	private Image background;
 	private Animation blood;
+	private Music endMusic = Ressources.END_MUSIC; 
 	private static final int ID = 6;
 
+	@Override
+	public void enter(GameContainer container,StateBasedGame game)
+	{
+		endMusic.loop(1,Ressources.Volume * 2.333f);
+	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException

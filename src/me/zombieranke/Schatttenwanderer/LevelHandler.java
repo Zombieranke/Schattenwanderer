@@ -311,7 +311,6 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			endMusic.loop(1,Ressources.Volume * 2.333f);
 			resetOnLeave(container, game);
 			if(levelNumber==levelCount)
 			{
@@ -653,7 +652,6 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			endMusic.loop(1f,Ressources.Volume * 2.333f);
 			resetOnLeave(container, game);
 			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
