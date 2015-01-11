@@ -102,7 +102,7 @@ public class Tutorial3 extends LevelHandler
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 		
-		super.resetOnLeave(container, game);	
+		super.reset(container, game);	
 	}
 	
 	@Override
@@ -154,7 +154,7 @@ public class Tutorial3 extends LevelHandler
 	}
 	
 	@Override
-	public void onLeave(GameContainer container) throws SlickException 
+	public void onLoad(GameContainer container) throws SlickException 
 	{
 		
 		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 7.25f, ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH,1);

@@ -112,6 +112,8 @@ public abstract class LevelHandler extends BasicGameState
 	
 	protected LevelMap levelMap;
 	
+	private boolean toReset;
+	
 	protected AStarPathFinder aPath;
 	
 	protected void renderSpecificBefore(GameContainer container, StateBasedGame game, Graphics g){}
@@ -134,11 +136,21 @@ public abstract class LevelHandler extends BasicGameState
 		exit.animation.setCurrentFrame(0);
 	}
 	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException
+	{
+		if(toReset)
+		{
+			reset(container, game);
+		}
+		toReset=false;
+	}
+	
 	/**Function to reload stuff on level leave
 	 * 
 	 * @param container The container holding the game
 	 */ 
-	public abstract void onLeave(GameContainer container) throws SlickException;
+	public abstract void onLoad(GameContainer container) throws SlickException;
 	
 	/**Initialize all game objects to be able to use them later
 	 * 
@@ -180,14 +192,14 @@ public abstract class LevelHandler extends BasicGameState
 	 * @param game The game holding this state
 	 * @throws SlickException
 	 */
-	public void resetOnLeave(GameContainer container, StateBasedGame game) throws SlickException
+	public void reset(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		if(levelCount<levelNumber)
 		{
 			levelCount = levelNumber;
 		}
 		reset();
-		onLeave(container);
+		onLoad(container);
 	}
 
 	@Override
@@ -311,7 +323,7 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			resetOnLeave(container, game);
+			toReset = true;
 			if(levelNumber==levelCount)
 			{
 				game.enterState(6, new FadeOutTransition(), new FadeInTransition());
@@ -362,7 +374,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			gameMusic.stop();
 			alarmMusic.stop();
-			resetOnLeave(container, game);
+			toReset = true;
 			game.enterState(1);
 		}
 		
@@ -624,7 +636,7 @@ public abstract class LevelHandler extends BasicGameState
 			fail.setLast(this.getID());
 			gameMusic.stop();
 			alarmMusic.stop();
-			resetOnLeave(container, game);
+			toReset = true;
 			game.enterState(5, new FadeOutTransition(), new FadeInTransition());
 		}
 		
@@ -658,7 +670,7 @@ public abstract class LevelHandler extends BasicGameState
 			
 			gameMusic.stop();
 			alarmMusic.stop();
-			resetOnLeave(container, game);
+			toReset = true;
 			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
 		

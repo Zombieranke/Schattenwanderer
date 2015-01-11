@@ -62,12 +62,6 @@ public class Tutorial2 extends LevelHandler
 		levelNumber = levelID;
 	}
 	
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException
-	{
-		hasRemoved = false;
-		hasMoved = false;
-	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
@@ -114,7 +108,7 @@ public class Tutorial2 extends LevelHandler
 		hasMoved = false;
 		hasRemoved = false;
 		
-		super.resetOnLeave(container, game);	
+		super.reset(container, game);	
 	}
 	
 	@Override
@@ -180,7 +174,7 @@ public class Tutorial2 extends LevelHandler
 	}
 	
 	@Override
-	public void onLeave(GameContainer container) throws SlickException 
+	public void onLoad(GameContainer container) throws SlickException 
 	{
 		/*Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 8,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
 
@@ -192,6 +186,8 @@ public class Tutorial2 extends LevelHandler
 		
 		lever.add(lever1);*/
 
+		hasRemoved = false;
+		hasMoved = false;
 		
 		Vector2f[] watchpoints = {new Vector2f(21,55)};
 		
