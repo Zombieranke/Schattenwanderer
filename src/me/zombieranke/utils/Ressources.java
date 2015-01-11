@@ -60,6 +60,7 @@ public class Ressources
 	public static Music MENU_MUSIC;
 	public static Music END_MUSIC;
 	public static Music DEATH_MUSIC;
+	public static Music CREDITS_MUSIC;
 	
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
@@ -120,6 +121,7 @@ public class Ressources
 		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
 		END_MUSIC           = new Music("res/End_Music3.ogg",false);
 		DEATH_MUSIC         = new Music("res/Death.ogg",false);
+		CREDITS_MUSIC		= new Music("res/Credits_Music.ogg",false);
 		
 		EXIT_SOUND			= new Sound("res/Exit_Sound.ogg");
 		LEVER_SOUND			= new Sound("res/Lever_Sound.ogg");
