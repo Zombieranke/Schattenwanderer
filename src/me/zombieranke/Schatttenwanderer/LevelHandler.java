@@ -344,7 +344,7 @@ public abstract class LevelHandler extends BasicGameState
     		debug = !debug;
     	}   	
     	
-    	if(input.isKeyPressed(Input.KEY_H))
+    	if(input.isKeyPressed(Input.KEY_H) && input.isKeyPressed(Input.KEY_P))
     	{
     		deactivateAlarm();
     		player.setHealth();
