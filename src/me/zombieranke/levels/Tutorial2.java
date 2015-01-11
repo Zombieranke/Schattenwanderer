@@ -131,7 +131,7 @@ public class Tutorial2 extends LevelHandler
 		if(player.getX() > 400)
 		{
 			g.setColor(Color.red);
-			g.drawString("Beware of the guards!\nPress C to enter Stealth", 300, 300);
+			g.drawString("Beware of the guards!\nPress Y or Z to enter Stealth", 300, 300);
 		}
 		
 		if(hasMoved)

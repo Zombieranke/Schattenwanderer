@@ -322,7 +322,7 @@ public abstract class LevelHandler extends BasicGameState
 			}
 		}
 		
-		if(input.isKeyPressed(Input.KEY_SPACE))
+		if(input.isKeyPressed(Input.KEY_P))
 		{
 			Pause success = (Pause) game.getState(8);
 			success.setLast(this.getID());
@@ -351,7 +351,7 @@ public abstract class LevelHandler extends BasicGameState
     		debug = !debug;
     	}   	
     	
-    	if(input.isKeyPressed(Input.KEY_H) && input.isKeyPressed(Input.KEY_P))
+    	if(input.isKeyPressed(Input.KEY_H) && input.isKeyPressed(Input.KEY_O))
     	{
     		deactivateAlarm();
     		player.setHealth();
@@ -366,7 +366,7 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(1);
 		}
 		
-		if(input.isKeyPressed(Input.KEY_B))
+		if(input.isKeyPressed(Input.KEY_C))
 		{
 			player.setStealth(false);
 			for(Lever l : lever){
@@ -381,7 +381,7 @@ public abstract class LevelHandler extends BasicGameState
 		player.setMoving(false);
 		sneaking = false;
 		
-		if((input.isKeyDown(Input.KEY_LSHIFT) || input.isKeyDown(Input.KEY_RSHIFT)) && !player.isSprint())
+		if((input.isKeyDown(Input.KEY_SPACE) && !player.isSprint()))
 		{
 			sneaking = true;
 		}
@@ -502,12 +502,12 @@ public abstract class LevelHandler extends BasicGameState
 		//Player Movement Ende
 		
 		//Stealth und Sprint skill
-		if(input.isKeyPressed(Input.KEY_V))
+		if(input.isKeyPressed(Input.KEY_X))
 		{
 			player.switchSprint();
 		}
 		
-		if(input.isKeyPressed(Input.KEY_C) && stealthCooldown<=0)
+		if(input.isKeyPressed(Input.KEY_Y) && input.isKeyPressed(Input.KEY_Z) && stealthCooldown<=0)
 		{
 			if(player.isStealth())
 			{

@@ -60,7 +60,7 @@ public class Pause extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		Input input = container.getInput();
-		if(input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_P) || input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if(input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_P))
 		{
 			game.enterState(lastID);
 		}

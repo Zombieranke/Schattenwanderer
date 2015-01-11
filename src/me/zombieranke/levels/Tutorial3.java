@@ -117,7 +117,7 @@ public class Tutorial3 extends LevelHandler
 	{
 		
 			g.setColor(Color.black);
-			g.drawString("Now you have to Sprint\nPress V to avtivate Sprinting", 250, 300);
+			g.drawString("Now you have to Sprint\nPress X to avtivate Sprinting", 250, 300);
 		
 		if(player.getX()>440)
 		{
@@ -125,7 +125,7 @@ public class Tutorial3 extends LevelHandler
 		}
 		if(player.getX()>650)
 		{
-			g.drawString("Try to sneak past the guards by\npressing Shift additionally to the arrow keys", 630, 300);
+			g.drawString("Try to sneak past the guards by\npressing Space additionally to the arrow keys", 630, 300);
 		}
 	}
 	
