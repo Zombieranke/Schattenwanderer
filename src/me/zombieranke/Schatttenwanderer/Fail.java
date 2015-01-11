@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -21,12 +22,20 @@ public class Fail extends BasicGameState
 	/**The ID this state was entered from*/
 	private int lastID = 1;
 	
+	private Music deathMusic = Ressources.DEATH_MUSIC;
+	
 	/**Set from which state this state was entered
 	 * 
 	 * @param last The ID of the state which entered this state
 	 */
 	public void setLast(int last){
 		lastID = last;
+	}
+	
+	@Override
+	public void enter(GameContainer container,StateBasedGame game)
+	{
+		deathMusic.loop(1,Ressources.Volume * 2.333f);
 	}
 	
 	@Override

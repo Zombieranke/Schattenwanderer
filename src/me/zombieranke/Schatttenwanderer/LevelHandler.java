@@ -26,7 +26,7 @@ import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 public abstract class LevelHandler extends BasicGameState
 {
 	/**The index where the levels start(allows virtual IDs of level)*/
-	protected static final int levelOffset = 7;
+	protected static final int levelOffset = 8;
 	
 	/**Indicates the number of the level (levelOffset + levelCount = levelID)*/
 	protected int levelNumber;
@@ -320,6 +320,13 @@ public abstract class LevelHandler extends BasicGameState
 			{
 				game.enterState(4, new FadeOutTransition(), new FadeInTransition());
 			}
+		}
+		
+		if(input.isKeyPressed(Input.KEY_SPACE))
+		{
+			Pause success = (Pause) game.getState(8);
+			success.setLast(this.getID());
+			game.enterState(8);
 		}
 		
 		state = 0;
@@ -617,7 +624,6 @@ public abstract class LevelHandler extends BasicGameState
 			fail.setLast(this.getID());
 			gameMusic.stop();
 			alarmMusic.stop();
-			deathMusic.loop(1,Ressources.Volume * 2.333f);
 			resetOnLeave(container, game);
 			game.enterState(5, new FadeOutTransition(), new FadeInTransition());
 		}
