@@ -19,6 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Pause extends BasicGameState
 {
 	private Image background;
+	private Image pause_Image;
 	
 	private static final int ID = 8;
 
@@ -34,26 +35,17 @@ public class Pause extends BasicGameState
 	}
 	
 	@Override
-	public void init(GameContainer container, StateBasedGame game)
-			throws SlickException {
+	public void init(GameContainer container, StateBasedGame game) throws SlickException
+	{
 		background = Ressources.UI_BACKGROUND;
+		pause_Image = Ressources.PAUSE_IMAGE;
 	}
 	
 	@Override
 	public void render(GameContainer container,StateBasedGame game, Graphics g) throws SlickException
 	{
 		background.draw();
-		g.setColor(Color.green);
-		TrueTypeFont usedFont = new TrueTypeFont(new Font("Times New Roman", 0, 30), true);
-		g.setFont(usedFont);
-		g.drawString("Arrow keys to move", container.getWidth()/2-usedFont.getWidth("Arrow keys to move")/2, 230);
-		g.drawString("C to stealth", container.getWidth()/2-usedFont.getWidth("C to stealth")/2, 260);
-		g.drawString("V to sprint", container.getWidth()/2-usedFont.getWidth("V to sprint")/2, 290);
-		g.drawString("B to toggle levers", container.getWidth()/2-usedFont.getWidth("B to toggle levers")/2, 320);
-		g.drawString("Shift to sneak", container.getWidth()/2-usedFont.getWidth("Shift to sneak")/2, 350);
-		usedFont = new TrueTypeFont(new Font("Times New Roman", 0, 60), true);
-		g.setFont(usedFont);
-		g.drawString("PAUSE", container.getWidth()/2-usedFont.getWidth("PAUSE")/2, 900);
+		pause_Image.draw(container.getWidth()/2-250, container.getHeight()/2-250);
 	}
 	
 	@Override

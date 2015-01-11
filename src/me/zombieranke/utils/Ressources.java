@@ -46,6 +46,7 @@ public class Ressources
 	public static Image CREDITS_TEXT;
 	public static Image CREDITS_IMAGE1;
 	public static Image CREDITS_IMAGE2;
+	public static Image PAUSE_IMAGE;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -105,6 +106,7 @@ public class Ressources
 		CREDITS_TEXT		= new Image ("res/Credits_Text.png");
 		CREDITS_IMAGE1		= new Image("res/Credits_Bild1.jpg");
 		CREDITS_IMAGE2		= new Image("res/Credits_Bild2.jpg");
+		PAUSE_IMAGE			= new Image("res/Pause_Image.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_SpriteSheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_SpriteSheet.png", 96, 32);
