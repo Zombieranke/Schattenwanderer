@@ -3,6 +3,7 @@ package me.zombieranke.levels;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -116,6 +117,7 @@ public class Level1 extends LevelHandler
 		leverSound = Ressources.LEVER_SOUND;
 		game_Background = Ressources.GAME_BACKGROUND;
 		UI_Background = Ressources.UI_BACKGROUND;
+		deathMusic = Ressources.DEATH_MUSIC;
 		
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));

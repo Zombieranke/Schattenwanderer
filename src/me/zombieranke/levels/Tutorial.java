@@ -87,6 +87,7 @@ public class Tutorial extends LevelHandler
 		alarmMusic = Ressources.ALARM_MUSIC;
 		gameMusic = Ressources.GAME_MUSIC;
 		endMusic = Ressources.END_MUSIC;
+		deathMusic = Ressources.DEATH_MUSIC;
 		exitSound = Ressources.EXIT_SOUND;
 		leverSound = Ressources.LEVER_SOUND;
 		game_Background = Ressources.GAME_BACKGROUND;

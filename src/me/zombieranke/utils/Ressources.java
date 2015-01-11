@@ -13,7 +13,6 @@ public class Ressources
 	public static Image BACKGROUND_FAIL;
 	public static Image BACKGROUND_MENU;
 	public static Image BACKGROUND_SUCCESS;
-	public static Image BACKGROUND_CREDITS;
 	public static Image DEATH_1;
 	public static Image EXIT_LIGHTED;
 	public static Image EXIT_UNLIGHTED;
@@ -55,12 +54,13 @@ public class Ressources
 	public static Music GAME_MUSIC;
 	public static Music MENU_MUSIC;
 	public static Music END_MUSIC;
+	public static Music DEATH_MUSIC;
 	
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
 	
 	/** Initializiere den Volume als Variable f�r alle Sounds im Spiel */
-	public static float Volume;
+	public static float Volume = 0.3f;
 	
 	public static void init() throws SlickException
 	{
@@ -69,7 +69,6 @@ public class Ressources
 		BACKGROUND_FAIL		= new Image("res/Background_Fail.jpg");
 		BACKGROUND_MENU		= new Image("res/Background_Menu.jpg");
 		BACKGROUND_SUCCESS	= new Image("res/Background_Success.jpg");
-		BACKGROUND_CREDITS  = new Image("res/Background_Credits.jpg");
 		DEATH_1				= new Image("res/Death_1.png");
 		EXIT_LIGHTED		= new Image("res/Exit_Lighted.png");
 		EXIT_UNLIGHTED		= new Image("res/Exit_Unlighted.png");
@@ -110,6 +109,7 @@ public class Ressources
 		GAME_MUSIC			= new Music("res/Game_Music2.ogg",false);
 		MENU_MUSIC          = new Music("res/Main Theme.ogg",false);
 		END_MUSIC           = new Music("res/End_Music3.ogg",false);
+		DEATH_MUSIC         = new Music("res/Death.ogg",false);
 		
 		EXIT_SOUND			= new Sound("res/Exit_Sound.ogg");
 		LEVER_SOUND			= new Sound("res/Lever_Sound.ogg");
