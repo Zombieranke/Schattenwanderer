@@ -66,6 +66,23 @@ public class Success extends BasicGameState
 			blood.setCurrentFrame(25);
 		}*/
 		Input input = container.getInput();
+		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_ENTER))
+		{
+			if(lastID - LevelHandler.levelOffset < LevelHandler.levelCount)
+			{
+				game.enterState(lastID + 1);
+			}
+			else
+			{
+				game.enterState(1);
+			}
+		}
+		
+		if(input.isKeyPressed(Input.KEY_ESCAPE))
+		{
+			game.enterState(1);
+		}
+		
 		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
 		{
 			/*blood.setCurrentFrame(0);

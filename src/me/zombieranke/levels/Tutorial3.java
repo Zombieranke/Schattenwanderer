@@ -117,7 +117,7 @@ public class Tutorial3 extends LevelHandler
 	{
 		
 			g.setColor(Color.black);
-			g.drawString("Not all Lasers can be deactivated\nso you have to Sprint now\nPress X to avtivate Sprinting", 250, 280);
+			g.drawString("Not all Lasers can be deactivated\nso you have to Sprint now\nPress X to activate Sprinting", 250, 280);
 		
 		if(player.getX()>440)
 		{
