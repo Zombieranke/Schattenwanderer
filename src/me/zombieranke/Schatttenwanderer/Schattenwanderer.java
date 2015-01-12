@@ -23,7 +23,7 @@ public class Schattenwanderer extends StateBasedGame
 		try
 		{
 		AppGameContainer container = new AppGameContainer(new Schattenwanderer());
-		container.setDisplayMode(1280, 1024, false);
+		container.setDisplayMode(1280, 960, false);
 		container.setVSync(true);
 		container.setShowFPS(false);
 		container.start();

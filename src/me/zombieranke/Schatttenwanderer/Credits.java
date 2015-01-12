@@ -54,7 +54,7 @@ public class Credits extends BasicGameState
 		image1.draw(80, 150, new Color(1f,1f,1f,0.01f*fadeIn));
 		image2.draw(970, 400, new Color(1f,1f,1f,0.01f*fadeIn2));
 		image3.draw(container.getWidth()/2-320,400,640,512, new Color(1f,1f,1f,0.01f*fadeIn3));
-		if(shiftUpwards<150)
+		if(shiftUpwards<100)
 		{
 			g.setColor(Color.red);
 			g.drawString("Like this music? It's from CarboHydroM. http://www.carbohydrom.net/", 330, 380);
@@ -75,40 +75,40 @@ public class Credits extends BasicGameState
 			shiftUpwards -= 1;
 		}
 		
-		if(shiftUpwards<-200)
+		if(shiftUpwards<-300)
 		{
 			music.fade(3000,0,true);
 		}
 		
-		if(shiftUpwards<-400)
+		if(shiftUpwards<-500)
 		{
 			shiftUpwards = 1300;
 			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		}
 		
-		if((500 < shiftUpwards) && (shiftUpwards < 900) && (fadeIn<100))
+		if((450 < shiftUpwards) && (shiftUpwards < 800) && (fadeIn<100))
 		{
 			fadeIn++;
 		}
-		if((shiftUpwards < 500) && (fadeIn > 0))
+		if((shiftUpwards < 450) && (fadeIn > 0))
 		{
 			fadeIn--;
 		}
 		
-		if((300 < shiftUpwards) && (shiftUpwards < 700) && (fadeIn2<100))
+		if((250 < shiftUpwards) && (shiftUpwards < 600) && (fadeIn2<100))
 		{
 			fadeIn2++;
 		}
-		if((shiftUpwards < 300) && (fadeIn2 > 0))
+		if((shiftUpwards < 250) && (fadeIn2 > 0))
 		{
 			fadeIn2--;
 		}
 		
-		if((-300 < shiftUpwards) && (shiftUpwards < 150) && (fadeIn3<100))
+		if((-400 < shiftUpwards) && (shiftUpwards < 100) && (fadeIn3<100))
 		{
 			fadeIn3++;
 		}
-		if((shiftUpwards < -300) && (fadeIn3 > 0))
+		if((shiftUpwards < -400) && (fadeIn3 > 0))
 		{
 			fadeIn3--;
 		}

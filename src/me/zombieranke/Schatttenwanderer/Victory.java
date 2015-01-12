@@ -35,8 +35,8 @@ public class Victory extends BasicGameState
 	@Override
 	public void render(GameContainer container,StateBasedGame game, Graphics g) throws SlickException
 	{
-		background.draw();
-		blood.draw(478, 780);
+		background.draw(0,-50);
+		blood.draw(477, 730);
 	}
 	
 	@Override
