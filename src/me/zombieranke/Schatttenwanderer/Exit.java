@@ -62,14 +62,14 @@ public class Exit extends SolidObject
 			
 		case SOUTH:
 			animation.getCurrentFrame().setRotation(180);
-			renderOffsetX = 0;
+			renderOffsetX = -32;
 			renderOffsetY = 0;
 			break;
 		
 		case WEST:
-			animation.getCurrentFrame().setRotation(0);
+			animation.getCurrentFrame().setRotation(270);
 			renderOffsetX = -32;
-			renderOffsetY = 32;
+			renderOffsetY = 0;
 			break;
 		default:
 			break;

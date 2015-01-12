@@ -104,7 +104,7 @@ public class Level2 extends LevelHandler
 		exitAnimation.setPingPong(true);
 		exitAnimation.setAutoUpdate(false);
 		
-		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*30, ORIGIN_Y, exitAnimation, 96, 32, Direction.NORTH);
+		exit = new Exit(ORIGIN_X + DEFAULT_TILE_SIZE*30, ORIGIN_Y, exitAnimation, 64, 32, Direction.NORTH);
 		
 		playerAnimation = new Animation(Ressources.PLAYER_SPRITESHEET, 100);
 		playerAnimation.setPingPong(true);
