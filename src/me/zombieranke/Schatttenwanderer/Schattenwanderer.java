@@ -1,5 +1,7 @@
 package me.zombieranke.Schatttenwanderer;
 
+import java.io.File;
+
 import me.zombieranke.levels.*;
 import me.zombieranke.utils.Ressources;
 
@@ -20,6 +22,7 @@ public class Schattenwanderer extends StateBasedGame
 
 	public static void main(String[] args)
 	{
+		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		try
 		{
 		AppGameContainer container = new AppGameContainer(new Schattenwanderer());
