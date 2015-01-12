@@ -53,11 +53,11 @@ public class Credits extends BasicGameState
 		text.draw(container.getWidth()/2 - 250, shiftUpwards);
 		image1.draw(80, 150, new Color(1f,1f,1f,0.01f*fadeIn));
 		image2.draw(970, 400, new Color(1f,1f,1f,0.01f*fadeIn2));
-		image3.draw(container.getWidth()/2-320,400,640,512, new Color(1f,1f,1f,0.01f*fadeIn3));
-		if(shiftUpwards<100)
+		image3.draw(container.getWidth()/2-320,330,640,512, new Color(1f,1f,1f,0.01f*fadeIn3));
+		if(shiftUpwards<0)
 		{
 			g.setColor(Color.red);
-			g.drawString("Like this music? It's from CarboHydroM. http://www.carbohydrom.net/", 330, 380);
+			g.drawString("Like this music? It's from CarboHydroM. http://www.carbohydrom.net/", 330, 300);
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class Credits extends BasicGameState
 			fadeIn2--;
 		}
 		
-		if((-400 < shiftUpwards) && (shiftUpwards < 100) && (fadeIn3<100))
+		if((-400 < shiftUpwards) && (shiftUpwards < 0) && (fadeIn3<100))
 		{
 			fadeIn3++;
 		}
