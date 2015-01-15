@@ -80,9 +80,6 @@ public abstract class LevelHandler extends BasicGameState
 	/**Indicates if we are in debug view(shows all hitboxes)*/
 	private boolean debug;
 	
-	/**Indicates which direction the player looks(use with caution)*/
-	private int state;
-	
 	private boolean inLaser = false;
 	
 	/**Indicates whether the player has succeeded in his mission(killed the target)*/
@@ -130,7 +127,6 @@ public abstract class LevelHandler extends BasicGameState
 		lever = new ArrayList<Lever>();
 		watches = new ArrayList<Watch>();
 		debug = false;
-		state = 1;
 		mission = false;
 		exit.setOpen(false);
 		exit.animation.setCurrentFrame(0);
@@ -341,8 +337,6 @@ public abstract class LevelHandler extends BasicGameState
 			game.enterState(8);
 		}
 		
-		state = 0;
-		
 		player.animation.update(delta);
 		for(Watch w : watches)
 		{
@@ -398,118 +392,46 @@ public abstract class LevelHandler extends BasicGameState
 			sneaking = true;
 		}
 		
+		Vector2f dir = new Vector2f(0,0);
+		
 		if(input.isKeyDown(Input.KEY_LEFT))
 		{
-			player.setStealth(false);
-			player.setMoving(true);
-			state += 8;
-			if(player.isSprint())
-			{
-				if(player.canMove(-player.getSpeedSprint(), 0, solids, exit))
-				{
-					player.move(-player.getSpeedSprint(), 0);
-				}
-			}
-			else if(sneaking)
-			{
-
-				if(player.canMove(-player.getSpeedSneak(), 0, solids, exit))
-				{
-					player.move(-player.getSpeedSneak(), 0);
-				}
-			}
-			else
-			{
-
-				if(player.canMove(-player.getSpeedWalk(), 0, solids, exit))
-				{
-					player.move(-player.getSpeedWalk(), 0);
-				}
-			}
+			dir.x -= 1;
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT))
 		{
-			player.setStealth(false);
-			player.setMoving(true);
-			state += 2;
-			if(player.isSprint())
-			{
-				if(player.canMove(player.getSpeedSprint(), 0, solids, exit))
-				{
-					player.move(player.getSpeedSprint(), 0);
-				}
-			}
-			else if(sneaking)
-			{
-				if(player.canMove(player.getSpeedSneak(), 0, solids, exit))
-				{
-					player.move(player.getSpeedSneak(), 0);
-				}
-			}
-			else
-			{
-				if(player.canMove(player.getSpeedWalk(), 0, solids, exit))
-				{
-					player.move(player.getSpeedWalk(), 0);
-				}
-			}
+			dir.x += 1;
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP))
 		{
-			player.setStealth(false);
-			player.setMoving(true);
-			state += 1;
-			if(player.isSprint())
-			{
-				if(player.canMove(0, -player.getSpeedSprint(), solids, exit))
-				{
-					player.move(0, -player.getSpeedSprint());
-				}
-			}
-			else if(sneaking)
-			{
-				if(player.canMove(0, -player.getSpeedSneak(), solids, exit))
-				{
-					player.move(0, -player.getSpeedSneak());
-				}
-			}
-			else
-			{
-				if(player.canMove(0, -player.getSpeedWalk(), solids, exit))
-				{
-					player.move(0, -player.getSpeedWalk());
-				} 
-			}
+			dir.y -=1;
 		}
 		
 		if(input.isKeyDown(Input.KEY_DOWN))
 		{
+			dir.y += 1;
+		}
+		
+		if(dir.length()>0){
 			player.setStealth(false);
 			player.setMoving(true);
-			state += 4;
-			if(player.isSprint())
+			int speed = player.isSprint() ? player.getSpeedSprint() : (sneaking ? player.getSpeedSneak() : player.getSpeedWalk());
+			dir.normalise().scale(speed);
+			if(player.canMove(dir.x, dir.y, solids, exit))
 			{
-				if(player.canMove(0, player.getSpeedSprint(), solids, exit))
-				{
-					player.move(0, player.getSpeedSprint());
-				}
+				player.move(dir.x, dir.y);
 			}
-			else if(sneaking)
+			else if(player.canMove(dir.x, 0, solids, exit))
 			{
-				if(player.canMove(0, player.getSpeedSneak(), solids, exit))
-				{
-					player.move(0, player.getSpeedSneak());
-				}
+				player.move(dir.x, 0);
 			}
-			else
+			else if(player.canMove(0, dir.y, solids, exit))
 			{
-				if(player.canMove(0, player.getSpeedWalk(), solids, exit))
-				{
-					player.move(0, player.getSpeedWalk());
-				}
+				player.move(0, dir.y);
 			}
+			player.setRotation(Math.round(dir.getTheta()));
 		}
 		//Player Movement Ende
 		
@@ -557,19 +479,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.setStealth(false);
 			player.setSprint(false);
 		}
-		//Skills Ende
-		
-		switch(state)
-		{
-			case 1: player.setRotation(90); break;
-			case 2: player.setRotation(180); break;
-			case 3: player.setRotation(135); break;
-			case 4: player.setRotation(270); break;
-			case 6: player.setRotation(225); break;
-			case 12: player.setRotation(315); break;
-			case 8: player.setRotation(360); break;
-			case 9: player.setRotation(45); break;
-		}
+		//Skills Ende		
 		
 		if(!player.isMoving())
 		{
@@ -671,7 +581,14 @@ public abstract class LevelHandler extends BasicGameState
 			gameMusic.stop();
 			alarmMusic.stop();
 			toReset = true;
-			game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+			if(levelNumber==levelCount)
+			{
+				game.enterState(6, new FadeOutTransition(), new FadeInTransition());
+			}
+			else
+			{
+				game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+			}
 		}
 		
 		

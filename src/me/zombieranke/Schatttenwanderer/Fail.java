@@ -54,7 +54,7 @@ public class Fail extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		Input input = container.getInput();
-		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) || input.isKeyPressed(Input.KEY_ESCAPE))
+		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) || input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_ENTER))
 		{
 			game.enterState(lastID);
 		}

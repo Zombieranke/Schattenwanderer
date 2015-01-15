@@ -49,7 +49,7 @@ public class Victory extends BasicGameState
 			blood.setCurrentFrame(25);
 		}
 		Input input = container.getInput();
-		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) || input.isKeyPressed(Input.KEY_ESCAPE))
+		if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) || input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_ENTER))
 		{
 			blood.setCurrentFrame(0);
 			blood.stop();
