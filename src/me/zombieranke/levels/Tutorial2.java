@@ -4,6 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -31,6 +32,14 @@ public class Tutorial2 extends LevelHandler
 	
 	/** Whether the Watch has already been removed or not.*/
 	private boolean hasRemoved = false;
+	
+	/** Whether the player already used the stealth skill. */
+	private boolean hasStealthed = false;
+	
+	private Image guardsText;
+	private Image stealthText;
+	private Image dontMoveText;
+	private Image bodyText;
 	
 	/**The player animation*/
 	private Animation playerAnimation;
@@ -105,8 +114,14 @@ public class Tutorial2 extends LevelHandler
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 		
+		hasStealthed = false;
 		hasMoved = false;
 		hasRemoved = false;
+		
+		guardsText = Ressources.TUTORIAL_GUARDS;
+		stealthText = Ressources.TUTORIAL_STEALTH;
+		dontMoveText = Ressources.TUTORIAL_DONT_MOVE;
+		bodyText = Ressources.TUTORIAL_BODY;
 		
 		super.reset(container, game);	
 	}
@@ -121,40 +136,53 @@ public class Tutorial2 extends LevelHandler
 	@Override
 	public void renderSpecificAfter(GameContainer container,StateBasedGame game,Graphics g)
 	{
-		if(player.getX()<405)
+		guardsText.draw(350,100);
+		
+		if(player.getX()<250 || !hasStealthed)
+		{
+			stealthText.draw(180,220);
+		}
+		
+		if(player.getX()<405 && hasStealthed)
 		{
 			g.setColor(Color.green);
 			g.drawString("Move here\n", 380, 390);
 			g.drawOval(405, 430, 30, 30);
 		}
 		
-		if(player.getX() > 400)
+		if((player.getX() > 400) && !hasMoved)
 		{
+			player.setEnergy(300);
 			g.setColor(Color.red);
-			g.drawString("Beware of the guards!\nPress Y or Z to enter Stealth", 300, 300);
+			g.drawString("Press Y or Z to enter Stealth", 300, 300);
 		}
 		
-		if(hasMoved)
+		if(hasMoved && !hasRemoved)
 		{
-			g.drawString("Stealth will make you invisible preventing the activation of the alarm.\nAs soon as you move or if you run out of energy stealth will end.", 350, 600);
+			dontMoveText.draw(300, 600);
 		}
 		
 		if(mission)
 		{
-			g.drawString("If guards discover the body\nthe alarm will be triggered", 700, 300);
+			bodyText.draw(700, 300);
 		}
 	}
 	
 	@Override
 	public void updateSpecific(GameContainer container, StateBasedGame game, int delta)
 	{
+		if(player.isStealth())
+		{
+			hasStealthed = true;
+		}
+		
 		if(!hasMoved)
 		{
 			watches.get(0).setDirection(180);
 			watches.get(0).setStopped(true);
 		}
 		
-		if(player.getX() > 350 && !hasMoved && player.isStealth())
+		if(player.getX() > 395 && !hasMoved && player.isStealth())
 		{
 			
 			watches.get(0).setStopped(false);

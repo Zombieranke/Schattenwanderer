@@ -53,6 +53,10 @@ public class Ressources
 	public static Image TUTORIAL_EXIT;
 	public static Image TUTORIAL_LEVER;
 	public static Image TUTORIAL_ARROW_KEYS;
+	public static Image TUTORIAL_DONT_MOVE;
+	public static Image TUTORIAL_STEALTH;
+	public static Image TUTORIAL_GUARDS;
+	public static Image TUTORIAL_BODY;
 	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
@@ -121,6 +125,10 @@ public class Ressources
 		TUTORIAL_EXIT		= new Image("res/Tutorial_Exit.png");
 		TUTORIAL_LEVER		= new Image("res/Tutorial_Lever.png");
 		TUTORIAL_ARROW_KEYS = new Image("res/Tutorial_Arrow_Keys.png");
+		TUTORIAL_GUARDS		= new Image("res/Tutorial_Guards.png");
+		TUTORIAL_STEALTH	= new Image("res/Tutorial_Stealth.png");
+		TUTORIAL_DONT_MOVE	= new Image("res/Tutorial_Dont_Move.png");
+		TUTORIAL_BODY		= new Image("res/Tutorial_Body.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_Spritesheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_Spritesheet.png", 96, 32);

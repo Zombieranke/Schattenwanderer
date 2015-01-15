@@ -693,8 +693,6 @@ public abstract class LevelHandler extends BasicGameState
 	    		}
 		    }
 			
-
-			
 			if(target.checkCollision(w.getSightCone()) && !target.isDiscovered())
 			{
 				activateAlarm();
@@ -706,6 +704,7 @@ public abstract class LevelHandler extends BasicGameState
 		{
 			player.setHealth(player.getHealth() - 3);
 		}
+		
 		if(!inSight)
 		{
 			gracePeriod = 0;
