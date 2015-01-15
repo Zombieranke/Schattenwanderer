@@ -81,7 +81,9 @@ public class GameMenu extends BasicGameState
 		{
 			game.enterState(0);
 		}
-		
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	

@@ -52,6 +52,9 @@ public class Pause extends BasicGameState
 		{
 			game.enterState(lastID);
 		}
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	@Override

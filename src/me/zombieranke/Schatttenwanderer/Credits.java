@@ -112,6 +112,9 @@ public class Credits extends BasicGameState
 		{
 			fadeIn3--;
 		}
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	@Override

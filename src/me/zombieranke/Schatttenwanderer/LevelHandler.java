@@ -175,6 +175,8 @@ public abstract class LevelHandler extends BasicGameState
 		player.setHealth();
 		player.setEnergy();
 		player.setRotation(0);
+		player.setSprint(false);
+		player.setStealth(false);
 		target.animation.setCurrentFrame(2);
 		target.animation.stop();
 		exit.animation.setCurrentFrame(0);
@@ -645,7 +647,9 @@ public abstract class LevelHandler extends BasicGameState
 		
 		//Death Animation
 			target.animation2.update(delta);
-		
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	/**Checks if the alarm should be activated, ticks it down if it is, deactivates it if alarmTime has reached 0 and 

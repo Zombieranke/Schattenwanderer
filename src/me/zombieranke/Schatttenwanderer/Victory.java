@@ -56,6 +56,9 @@ public class Victory extends BasicGameState
 			endMusic.stop();
 			game.enterState(7);
 		}
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	@Override

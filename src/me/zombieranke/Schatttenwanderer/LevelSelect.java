@@ -129,6 +129,9 @@ public class LevelSelect extends BasicGameState {
 			game.enterState(1);
 		}
 		
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 
 	}
 

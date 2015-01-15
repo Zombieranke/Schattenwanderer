@@ -44,7 +44,7 @@ public class OptionsScreen extends BasicGameState {
 		background = Ressources.BACKGROUND_MENU;
 		menuMusic = Ressources.MENU_MUSIC;
 		back = new MenuFunc(new MouseOverArea(container, Ressources.BACK_UNLIGHTED, 100, 500), Ressources.BACK_LIGHTED, 1);
-		soundBar = new MouseOverArea(container, Ressources.SOUND_BAR, 400, 230);
+		soundBar = new MouseOverArea(container, Ressources.SOUND_BAR, 400, 218);
 		soundSlider = new MenuFunc(new MouseOverArea(container, Ressources.SOUND_SLIDER_UNLIGHTED, Math.round(400 + 500 * Ressources.Volume), 220), Ressources.SOUND_SLIDER_LIGHTED, 3);
 		for (int i = 0; i <= 3; i++)
 		{
@@ -126,7 +126,9 @@ public class OptionsScreen extends BasicGameState {
 		{
 			game.enterState(1);
 		}
-
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	 @Override

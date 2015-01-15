@@ -41,7 +41,6 @@ public class EndScreen extends BasicGameState {
 		{
 			container.exit();
 		}
-
 	}
 
 	@Override

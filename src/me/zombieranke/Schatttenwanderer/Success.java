@@ -104,6 +104,9 @@ public class Success extends BasicGameState
 				game.enterState(1);
 			}
 		}
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 	
 	@Override
