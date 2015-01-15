@@ -4,6 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
@@ -40,6 +41,16 @@ public class Tutorial extends LevelHandler
 	
 	/**The animation of the exit*/
 	private Animation exitAnimation;
+	
+	private Image goalText;
+	
+	private Image arrowKeysText;
+	
+	private Image leverText;
+	
+	private Image exitText;
+	
+	private Image alarmText;
 	
 	
 	/**X-Coordinate of the level start*/
@@ -95,6 +106,13 @@ public class Tutorial extends LevelHandler
 		levelMap = new LevelMap(solids,exit);
 		aPath = new AStarPathFinder(levelMap, 1000, true, new ManhattanHeuristic(1));
 		
+		
+		alarmText = Ressources.TUTORIAL_ALARM;
+		leverText = Ressources.TUTORIAL_LEVER;
+		exitText = Ressources.TUTORIAL_EXIT;
+		goalText = Ressources.TUTORIAL_GOAL;
+		arrowKeysText = Ressources.TUTORIAL_ARROW_KEYS;
+		
 		super.reset(container, game);	
 	}
 	
@@ -110,43 +128,37 @@ public class Tutorial extends LevelHandler
 	public void renderSpecificAfter(GameContainer container,StateBasedGame game,Graphics g)
 	{
 		
-		g.setColor(Color.red);
+		if(!mission)
+		{
+			goalText.draw(400,100);
+		}
+		
+		
 		if(player.getX()<300)
 		{
-			g.drawString("Use arrowkeys to move", 300,300);
+			arrowKeysText.draw(300,300);
 		}
 		
-		if(player.getX()>350)
-		{
-			g.drawString("You may pause the game any time by pressing P", 400,300);
-		}
 		
-		if (player.getX()>200 && !mission)
+		if(mission && !alarm)
 		{
-			g.drawString("Run over the target to kill him", 600,600);
-		}
-		
-		if(mission)
-		{
-			g.drawString("Now leave the level through the exit at the right", 600,600);
+			exitText.draw(370,100);
 		}
 		
 		if(alarm)
 		{
-			if (alarmhint==false) g.drawString("Move here", 890, 320);
-		
-		    if (player.getX()>=920 && player.getX()<=940 && player.getY()<400)
-		    {
-	        alarmhint=true;
-			g.drawString("Press C to deactivate the laser\n", 890, 320);
-		    }
+			alarmText.draw(430,60);
+			
+			leverText.draw(780,270);
 	     }
 	}
 	
 	@Override
 	public void onLoad(GameContainer container) throws SlickException 
 	{
-		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 27.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
+		alarmhint = false;
+		
+		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 20.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
 		laser.add(laser1);
 		
 		

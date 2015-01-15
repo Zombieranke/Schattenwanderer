@@ -48,6 +48,12 @@ public class Ressources
 	public static Image CREDITS_IMAGE2;
 	public static Image PAUSE_IMAGE;
 	
+	public static Image TUTORIAL_GOAL;
+	public static Image TUTORIAL_ALARM;
+	public static Image TUTORIAL_EXIT;
+	public static Image TUTORIAL_LEVER;
+	public static Image TUTORIAL_ARROW_KEYS;
+	
 	public static SpriteSheet ENEMY_SPRITESHEET;
 	public static SpriteSheet EXIT_SPRITESHEET;
 	public static SpriteSheet PLAYER_SPRITESHEET;
@@ -64,6 +70,7 @@ public class Ressources
 	
 	public static Sound EXIT_SOUND;
 	public static Sound LEVER_SOUND;
+	
 	
 	/** Initializiere den Volume als Variable f�r alle Sounds im Spiel */
 	public static float Volume = 0.3f;
@@ -108,6 +115,12 @@ public class Ressources
 		CREDITS_IMAGE1		= new Image("res/Credits_Bild1.jpg");
 		CREDITS_IMAGE2		= new Image("res/Credits_Bild2.jpg");
 		PAUSE_IMAGE			= new Image("res/Pause_Image.png");
+		
+		TUTORIAL_GOAL		= new Image("res/Tutorial_Goal.png");
+		TUTORIAL_ALARM		= new Image("res/Tutorial_Alarm.png");
+		TUTORIAL_EXIT		= new Image("res/Tutorial_Exit.png");
+		TUTORIAL_LEVER		= new Image("res/Tutorial_Lever.png");
+		TUTORIAL_ARROW_KEYS = new Image("res/Tutorial_Arrow_Keys.png");
 		
 		ENEMY_SPRITESHEET	= new SpriteSheet("res/Enemy_Spritesheet.png", 20, 20);
 		EXIT_SPRITESHEET	= new SpriteSheet("res/Exit_Spritesheet.png", 96, 32);
