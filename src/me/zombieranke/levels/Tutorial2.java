@@ -216,6 +216,7 @@ public class Tutorial2 extends LevelHandler
 
 		hasRemoved = false;
 		hasMoved = false;
+		hasStealthed = false;
 		
 		Vector2f[] watchpoints = {new Vector2f(21,55)};
 		

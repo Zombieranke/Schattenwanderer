@@ -267,9 +267,6 @@ public abstract class LevelHandler extends BasicGameState
 		g.setColor(Color.green);
 		g.fillRect(760, 794, player.getHealth(), 20); //300px Healthbar
 		
-		if (mission){
-			g.drawString("Target successfully killed",40, 850);
-		}
 		
 		//Energiebalken
 		g.setColor(new Color(0.2f,0.2f,0.2f));
