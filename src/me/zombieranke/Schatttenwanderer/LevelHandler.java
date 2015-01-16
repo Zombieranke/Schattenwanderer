@@ -58,10 +58,6 @@ public abstract class LevelHandler extends BasicGameState
 	/**A variable to track how long the player stood in the WatchSightArea*/
 	protected int gracePeriod;
 	
-	/**Keeps track when the player last get out of stealth*/
-	protected int stealthCooldown;
-	
-	
 	protected ArrayList<Watch> watches;
 	
 	/**Everything that cannot be trespassed*/
@@ -443,19 +439,11 @@ public abstract class LevelHandler extends BasicGameState
 			player.switchSprint();
 		}
 		
-		if((input.isKeyPressed(Input.KEY_Y) || input.isKeyPressed(Input.KEY_Z)) && stealthCooldown<=0)
+		if((input.isKeyPressed(Input.KEY_Y) || input.isKeyPressed(Input.KEY_Z)))
 		{
-			if(player.isStealth())
-			{
-				stealthCooldown = 50;
-			}
 			player.switchStealth();
 		}
 		
-		if(!player.isStealth())
-		{
-			stealthCooldown--;
-		}
 		
 		if(player.isStealth())
 		{
