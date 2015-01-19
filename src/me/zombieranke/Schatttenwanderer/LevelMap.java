@@ -2,6 +2,7 @@ package me.zombieranke.Schatttenwanderer;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
@@ -28,6 +29,17 @@ public class LevelMap implements TileBasedMap  {
 	@Override
 	public int getHeightInTiles() {
 		return height;
+	}
+	
+	public void renderTiles(Graphics g)
+	{
+		for(int i= 0; i<width;i++)
+		{
+			for(int j = 0; j<height; j++)
+			{
+				g.drawRect(i*8, j*8, 0, 0);
+			}
+		}
 	}
 
 	@Override

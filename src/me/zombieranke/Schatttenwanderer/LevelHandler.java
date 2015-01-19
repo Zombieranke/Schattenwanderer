@@ -249,6 +249,7 @@ public abstract class LevelHandler extends BasicGameState
 			g.setColor(Color.red);
 			g.fillRect(10,14,63,11);
 			container.setShowFPS(true);
+			//levelMap.renderTiles(g);
 		}
 		else
 		{

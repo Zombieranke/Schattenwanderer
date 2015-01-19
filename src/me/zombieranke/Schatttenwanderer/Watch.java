@@ -436,25 +436,29 @@ public class Watch extends MovableObject implements Mover
 		if(!canMoveAbsolute(v.x*8,v.y*8, solids, exit))
 		{	
 			v = findValidPos(v, solids, exit);
-			if(v ==null)
+			if(v == null)
 			{
 				System.out.println("V is null");
 			}
 		}
 		
-		p=aPath.findPath(this, Math.round(curPos.x), Math.round(curPos.y), Math.round(v.x), Math.round(v.y));
+		p = aPath.findPath(this, Math.round(curPos.x), Math.round(curPos.y), Math.round(v.x), Math.round(v.y));
 		pCur = 0;
 	}
 	
 	public Vector2f findValidPos(Vector2f v, ArrayList<SolidObject> solids, Exit exit)
 	{
 		Vector2f toAdd = new Vector2f(1f,0f);
-		for(int i = 0; i<4;i++)
+		for(int j = 1; j<10;j++)
 		{
-			toAdd.setTheta(i*90);
-			if(canMoveAbsolute((v.x+ toAdd.x)*8 ,(v.y + toAdd.y)*8, solids, exit))
+			toAdd.normalise().scale(j);
+			for(int i = 0; i<4;i++)
 			{
+				toAdd.setTheta(i*90);
+				if(canMoveAbsolute((v.x+ toAdd.x)*8 ,(v.y + toAdd.y)*8, solids, exit))
+				{
 				return v.add(toAdd);
+				}
 			}
 		}
 		return null;
