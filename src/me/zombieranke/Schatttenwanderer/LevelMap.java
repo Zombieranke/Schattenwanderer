@@ -10,7 +10,7 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
 public class LevelMap implements TileBasedMap  {
 
 	private int width = 160;
-	private int height = 128;
+	private int height = 112;
 	private boolean blocked[][];
 	private final float SQRT_2 = (float) Math.sqrt(2);
 	
