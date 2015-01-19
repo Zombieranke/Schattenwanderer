@@ -383,7 +383,7 @@ public abstract class LevelHandler extends BasicGameState
 		player.setMoving(false);
 		sneaking = false;
 		
-		if((input.isKeyDown(Input.KEY_SPACE) && !player.isSprint()))
+		if(input.isKeyDown(Input.KEY_SPACE))
 		{
 			if(player.isSprint())
 			{
