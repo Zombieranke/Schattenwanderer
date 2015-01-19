@@ -385,6 +385,10 @@ public abstract class LevelHandler extends BasicGameState
 		
 		if((input.isKeyDown(Input.KEY_SPACE) && !player.isSprint()))
 		{
+			if(player.isSprint())
+			{
+				player.switchSprint();
+			}
 			sneaking = true;
 		}
 		
@@ -479,39 +483,6 @@ public abstract class LevelHandler extends BasicGameState
 			player.animation.start();
 		}
 		
-		//Funktion des Ausgangs Anfang(old)
-		/*if(mission && !alarm)
-		{
-			exit.animation.start();
-			exit.animation.stopAt(7); //Falls die Bedingung erfüllt ist, öffnet sich die Tür und bleibt offen
-		}
-		
-		if(exit.animation.getFrame()==7 && !alarm)
-		{
-			exit.setOpen(true);
-			if(!exitSoundWasPlayed)
-			{
-				exitSound.play(1,0.5f);
-				exitSoundWasPlayed = true;
-			}
-		}
-		else
-		{
-			exit.setOpen(false);
-		}
-		
-		if(exit.animation.getFrame()>0 && alarm && mission)
-		{
-			exit.animation.stop();
-			exit.animation.start();	//Stoppt, falls der Spieler den Alarm ausl�st und rennt dann bis die T�r wieder ganz zu ist
-			exit.animation.stopAt(0);	//Leider muss sie einmal ganz aufgehen (=pingpong) bevor sie dann ganz zugeht
-		}
-		
-		if(alarm)
-    	{
-    		exitSoundWasPlayed = false;
-    	}*/
-		//Funktion des Ausgangs Ende
 		
 		//Miracle of Sound Anfang
     	if(alarm && !alarmMusic.playing())
