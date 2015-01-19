@@ -665,12 +665,15 @@ public abstract class LevelHandler extends BasicGameState
 		inLaser = inLaserNow;
 		
 		boolean inSight = false;
+		boolean graceBoolean = true;
 		
 		for(Watch w : watches)
 		{
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
 				gracePeriod++;
+				graceBoolean = false;
+				
 				if((player.checkCollision(w.getSightCone()))&& !player.isStealth())
 				{
 					inSight = true;
@@ -695,7 +698,7 @@ public abstract class LevelHandler extends BasicGameState
 			player.setHealth(player.getHealth() - 3);
 		}
 		
-		if(!inSight)
+		if(graceBoolean)
 		{
 			gracePeriod = 0;
 		}
