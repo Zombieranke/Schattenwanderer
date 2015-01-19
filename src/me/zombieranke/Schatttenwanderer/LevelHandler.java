@@ -671,7 +671,11 @@ public abstract class LevelHandler extends BasicGameState
 			if((player.checkCollision(w.getSightCone()) || player.checkCollision(w.getHearCircle()))  && !player.isStealth())
 		    {
 				gracePeriod++;
-				inSight = true;
+				if((player.checkCollision(w.getSightCone()))&& !player.isStealth())
+				{
+					inSight = true;
+				}
+				
 				if(gracePeriod>=10 || alarm)
 	    		{
 					activateAlarm();
