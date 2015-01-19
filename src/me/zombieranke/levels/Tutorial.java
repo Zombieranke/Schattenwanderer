@@ -1,7 +1,6 @@
 package me.zombieranke.levels;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -27,8 +26,6 @@ public class Tutorial extends LevelHandler
 {	
 	/** The ID of the level*/
 	private int levelID = 1;
-	
-	private boolean alarmhint = false;
 	
 	/**The player animation*/
 	private Animation playerAnimation;
@@ -156,7 +153,6 @@ public class Tutorial extends LevelHandler
 	@Override
 	public void onLoad(GameContainer container) throws SlickException 
 	{
-		alarmhint = false;
 		
 		Laser laser1 = new Laser(ORIGIN_X + DEFAULT_TILE_SIZE * 20.5f,ORIGIN_Y + DEFAULT_TILE_SIZE * 9, Ressources.LASER.copy(),16,16,Direction.SOUTH);
 		laser.add(laser1);
