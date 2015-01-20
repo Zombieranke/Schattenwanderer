@@ -208,6 +208,8 @@ public class Tutorial3 extends LevelHandler
 		
 		target = new Target(ORIGIN_X + DEFAULT_TILE_SIZE * 27, ORIGIN_Y + DEFAULT_TILE_SIZE * 10.5f,targetAnimation, deathAnimation, 20, 20);
 		
+		laserTimer = 0;
+		
 		super.initObjects(container);
 	}
 }
