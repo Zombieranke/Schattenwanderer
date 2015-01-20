@@ -43,7 +43,12 @@ public class Credits extends BasicGameState
 	@Override
 	public void enter(GameContainer container,StateBasedGame game)
 	{
-		music.play(1,Ressources.Volume * 2.333f);
+		shiftUpwards = 1300;
+		fadeIn = 0;
+		fadeIn2 = 0;
+		fadeIn3 = 0;
+		music.loop(1,Ressources.Volume * 2.333f);
+		music.fade(0, Ressources.Volume * 2.333f, false);
 	}
 	
 	@Override
